@@ -110,17 +110,24 @@ async function start() {
   if (current === landing) requestAnimationFrame(land);
 }
 
-// Introducing HereCaster: the Demo button swaps in the test-data demo; Web Bluetooth stays allowed in the frame.
+// Introducing HereCaster: the test-data demo loads behind the capture and shows once its graph draws; Web Bluetooth stays allowed in the frame.
 for (const box of document.querySelectorAll('[data-demo]')) {
-  box.querySelector('.demo-btn')?.addEventListener('click', () => {
-    const frame = document.createElement('iframe');
-    frame.className = 'demo-frame';
-    frame.src = box.dataset.demo;
-    frame.title = 'HereCaster demo with test data';
-    frame.allow = 'bluetooth; fullscreen';
-    box.replaceChildren(frame);
-    frame.focus();
-  });
+  const frame = document.createElement('iframe');
+  frame.className = 'demo-frame';
+  frame.title = 'HereCaster demo with test data';
+  frame.allow = 'bluetooth; fullscreen';
+  const show = () => { box.classList.add('live'); box.removeAttribute('aria-busy'); };
+  frame.addEventListener('load', () => {
+    let tries = 0;
+    const poll = () => {
+      let drawn = false;
+      try { drawn = !!frame.contentDocument?.querySelector('svg circle, canvas'); } catch { drawn = true; }
+      if (drawn || ++tries > 75) show(); else setTimeout(poll, 200);
+    };
+    poll();
+  }, { once: true });
+  frame.src = box.dataset.demo;
+  box.append(frame);
 }
 
 start();

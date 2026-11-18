@@ -82,6 +82,10 @@ body {
   }
 }
 
+/* Headlines: kicker and title centered across the slide */
+.slide-head { grid-column: 1 / -1; min-width: 0; text-align: center; }
+.slide-head > * { margin-inline: auto; }
+
 .text { min-width: 0; }
 .text > * { max-width: 62ch; }
 .text > .table-wrap { max-width: none; }
@@ -213,15 +217,16 @@ tbody th { font-weight: 600; }
 /* Long text above a dish runs in two columns */
 @media (min-width: 980px) {
   .slide.cols .text { column-count: 2; column-gap: 56px; }
-  .slide.cols .text > .kicker, .slide.cols .text > h2 { column-span: all; }
   .slide.cols .text > * { break-inside: avoid; }
 }
 
-/* Introducing HereCaster: capture and Demo button, then the test-data demo in a frame */
-#here .text, #appendix .text { text-align: center; }
-#here .text > *, #appendix .text > * { margin-inline: auto; }
+/* Introducing HereCaster: the capture holds the place until the test-data demo renders over it */
 #here h2 { margin-bottom: 0; }
-.demo-box { justify-self: stretch; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.demo-box { justify-self: stretch; display: grid; place-items: center; }
+.demo-box > * { grid-area: 1 / 1; }
+.demo-box .demo-frame { visibility: hidden; }
+.demo-box.live .demo-frame { visibility: visible; }
+.demo-box.live .zfold { visibility: hidden; }
 .zfold {
   display: block;
   width: auto;
@@ -231,18 +236,6 @@ tbody th { font-weight: 600; }
   border-radius: 20px;
   border: 1px solid var(--line);
 }
-.demo-btn {
-  font: 700 clamp(28px, 3.4vw, 46px)/1 var(--font);
-  padding: .55em 1.4em;
-  border: 0;
-  border-radius: 999px;
-  background: #f5c518;
-  color: #1d1d1f;
-  cursor: pointer;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, .18);
-}
-.demo-btn:hover { background: #ffd43b; }
-.demo-btn:focus-visible { outline: 3px solid var(--c-studio); outline-offset: 4px; }
 .demo-frame { width: 100%; height: min(74vh, 720px); border: 1px solid var(--line); border-radius: 20px; background: #0e0f14; }
 
 ul.plain { padding-left: 1.1em; }
@@ -258,12 +251,8 @@ ol.steps ul li { margin-bottom: .2em; }
 #applies .stages-col h3 { margin-top: 1.6em; font-size: clamp(20px, 2vw, 26px); }
 @media (min-width: 980px) {
   #applies .text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
-  #applies .stages-col h3 { margin-top: 2.4em; }
+  #applies .stages-col h3 { margin-top: 0; }
 }
-
-/* Title slide: centered */
-#origin .text { text-align: center; }
-#origin .text > * { margin-inline: auto; }
 
 /* Contact QR: dark on white in both themes so phones can scan it */
 #contact .slide-inner { justify-items: center; }
@@ -271,6 +260,8 @@ ol.steps ul li { margin-bottom: .2em; }
 .qr svg { width: 100%; height: auto; }
 .qr-bg { fill: #ffffff; }
 .qr-fg { fill: #000000; }
+.contact-mail { margin: 0; font-size: 14px; }
+.contact-mail a { color: var(--ink-2); text-decoration: none; }
 
 /* Live demo: centered link */
 #demo .text { text-align: center; }
@@ -415,10 +406,12 @@ ol.steps ul li { margin-bottom: .2em; }
   /* the table takes the wider column */
   #questions .slide-inner, #premise .slide-inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
   #applies .text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
-  #applies .stages-col h3 { margin-top: 1.9em; }
+  #applies .stages-col h3 { margin-top: 0; }
+  /* print keeps the capture, not the live frame */
+  .demo-frame { display: none; }
+  .demo-box.live .zfold { visibility: visible; }
   figure.diagram svg { max-height: 60vh; }
   .slide.cols .text { column-count: 2; column-gap: 32px; }
-  .slide.cols .text > .kicker, .slide.cols .text > h2 { column-span: all; }
   .slide.cols .text > * { break-inside: avoid; }
   /* a dish stays whole; one that does not fit under its text starts a page */
   [data-petri] { break-inside: avoid; }

@@ -17,17 +17,19 @@
 
 <section class="slide solo" id="origin" aria-labelledby="h-origin">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <h2 id="h-origin">Anonymous Collaboration<br>→ Network States</h2>
-    </div>
+    </header>
   </div>
 </section>
 
 <section class="slide" id="premise" aria-labelledby="h-premise">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">Coincidence</p>
       <h1 id="h-premise">A New Social Currency</h1>
+    </header>
+    <div class="text">
       <p class="premise-sub">Based on:</p>
       <ul class="premise-list">
         <li>who you've met,</li>
@@ -90,9 +92,11 @@
 
 <section class="slide" id="today" aria-labelledby="h-today">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">HereCaster</p>
       <h2 id="h-today">Scan or Opt-in?</h2>
+    </header>
+    <div class="text">
       <p>Today, for each event, someone puts up a QR code, you take out your phone, take a picture, and claim an NFT. Over and over and over again. Or maybe, you were offline,  or the presenter moved to the next screen. Oh well.</p>
       <p>Instead, you opt-in to a community you trust, and over the course of the next few days, or weeks, you simply show up. You can be online or offline, it doesn't matter. Your phone does the rest. Frictionless.</p>
     </div>
@@ -159,9 +163,11 @@
 
 <section class="slide" id="questions" aria-labelledby="h-questions">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">The record</p>
       <h2 id="h-questions">The six interrogatives</h2>
+    </header>
+    <div class="text">
       <div class="table-wrap">
         <table>
           <thead><tr><th scope="col">Interrogative</th><th scope="col">Decomposition</th></tr></thead>
@@ -202,11 +208,78 @@
   </div>
 </section>
 
+<section class="slide" id="connection" aria-labelledby="h-connection">
+  <div class="slide-inner">
+    <header class="slide-head">
+      <p class="kicker">HereCaster</p>
+      <h2 id="h-connection">One connection between two phones</h2>
+    </header>
+    <div class="text">
+      <p>Each phone advertises a short handle. When two meet, they exchange a fresh, signed record that names both handles and the time window.</p>
+      <p>The signed exchange runs on iOS and on Android. A signature shows which key signed. It does not show who held the phone or how far away it was.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 340" role="img" aria-labelledby="t-connection">
+        <title id="t-connection">Phone B advertises a short handle over Bluetooth, phone A answers with a fresh challenge, B returns a signed response, and each phone stores a matching signed record that names both handles, the epoch and a nonce.</title>
+        <defs>
+          <marker id="arr-connection-msg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="svg-fill-studio" d="M0 0L10 5L0 10Z"/>
+          </marker>
+        </defs>
+        <g class="svg-spoke">
+          <line x1="120" y1="50" x2="120" y2="222"/>
+          <line x1="520" y1="50" x2="520" y2="222"/>
+        </g>
+        <rect class="svg-connection-phone" x="65" y="12" width="110" height="38" rx="10"/>
+        <rect class="svg-connection-phone" x="465" y="12" width="110" height="38" rx="10"/>
+        <g class="svg-connection-glyph">
+          <rect x="81" y="21" width="12" height="20" rx="3"/>
+          <line x1="85" y1="37" x2="89" y2="37"/>
+          <rect x="481" y="21" width="12" height="20" rx="3"/>
+          <line x1="485" y1="37" x2="489" y2="37"/>
+        </g>
+        <g class="svg-text">
+          <text x="101" y="36">Phone A</text>
+          <text x="501" y="36">Phone B</text>
+        </g>
+        <g class="svg-arrow">
+          <line x1="518" y1="94" x2="124" y2="94" marker-end="url(#arr-connection-msg)"/>
+          <line x1="122" y1="144" x2="516" y2="144" marker-end="url(#arr-connection-msg)"/>
+          <line x1="518" y1="194" x2="124" y2="194" marker-end="url(#arr-connection-msg)"/>
+        </g>
+        <g class="svg-text" text-anchor="middle">
+          <text x="320" y="82">B advertises a short handle over Bluetooth</text>
+          <text x="320" y="132">A answers with a fresh challenge</text>
+          <text x="320" y="182">B returns a signed response</text>
+        </g>
+        <rect class="svg-connection-record" x="20" y="222" width="200" height="108" rx="12"/>
+        <rect class="svg-connection-record" x="420" y="222" width="200" height="108" rx="12"/>
+        <g class="svg-text">
+          <text class="svg-connection-title" x="36" y="248">Signed record</text>
+          <text x="36" y="272">handle A + handle B</text>
+          <text x="36" y="294">epoch (time window)</text>
+          <text x="36" y="316">nonce (used once)</text>
+          <text class="svg-connection-title" x="436" y="248">Signed record</text>
+          <text x="436" y="272">handle A + handle B</text>
+          <text x="436" y="294">epoch (time window)</text>
+          <text x="436" y="316">nonce (used once)</text>
+        </g>
+        <g class="svg-text-2" text-anchor="middle">
+          <text x="320" y="270">each phone keeps</text>
+          <text x="320" y="292">a matching copy</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
 <section class="slide wide cols" id="ride" aria-labelledby="h-ride">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">An example</p>
-      <h2 id="h-ride">One ride, six interrogatives</h2>
+      <h2 id="h-ride">One ride, six silent questions</h2>
+    </header>
+    <div class="text">
       <p>Consider a shuttle ride: Ayan arrives at 14:00, and Mira rides with him from pickup A to an apartment at address B. We label this trip T14 and its shuttle S1. A current member credential, yesterday's driver record and today's timestamp could all be authentic while describing different rides.</p>
       <p>The question joins who, what, when, where, how, and optional why. HereCaster connects records to one event and discloses enough for a verifier to check that connection. Why can be implicit: the apartment address suggests that Mira intends to go to the apartment.</p>
       <p class="small">A proposed trial. The trip labels and the eligibility rule are illustrative.</p>
@@ -274,87 +347,25 @@
   </div>
 </section>
 
-<section class="slide" id="connection" aria-labelledby="h-connection">
-  <div class="slide-inner">
-    <div class="text">
-      <p class="kicker">HereCaster</p>
-      <h2 id="h-connection">One connection between two phones</h2>
-      <p>Each phone advertises a short handle. When two meet, they exchange a fresh, signed record that names both handles and the time window.</p>
-      <p>The signed exchange runs on iOS and on Android. A signature shows which key signed. It does not show who held the phone or how far away it was.</p>
-    </div>
-    <figure class="diagram">
-      <svg viewBox="0 0 640 340" role="img" aria-labelledby="t-connection">
-        <title id="t-connection">Phone B advertises a short handle over Bluetooth, phone A answers with a fresh challenge, B returns a signed response, and each phone stores a matching signed record that names both handles, the epoch and a nonce.</title>
-        <defs>
-          <marker id="arr-connection-msg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path class="svg-fill-studio" d="M0 0L10 5L0 10Z"/>
-          </marker>
-        </defs>
-        <g class="svg-spoke">
-          <line x1="120" y1="50" x2="120" y2="222"/>
-          <line x1="520" y1="50" x2="520" y2="222"/>
-        </g>
-        <rect class="svg-connection-phone" x="65" y="12" width="110" height="38" rx="10"/>
-        <rect class="svg-connection-phone" x="465" y="12" width="110" height="38" rx="10"/>
-        <g class="svg-connection-glyph">
-          <rect x="81" y="21" width="12" height="20" rx="3"/>
-          <line x1="85" y1="37" x2="89" y2="37"/>
-          <rect x="481" y="21" width="12" height="20" rx="3"/>
-          <line x1="485" y1="37" x2="489" y2="37"/>
-        </g>
-        <g class="svg-text">
-          <text x="101" y="36">Phone A</text>
-          <text x="501" y="36">Phone B</text>
-        </g>
-        <g class="svg-arrow">
-          <line x1="518" y1="94" x2="124" y2="94" marker-end="url(#arr-connection-msg)"/>
-          <line x1="122" y1="144" x2="516" y2="144" marker-end="url(#arr-connection-msg)"/>
-          <line x1="518" y1="194" x2="124" y2="194" marker-end="url(#arr-connection-msg)"/>
-        </g>
-        <g class="svg-text" text-anchor="middle">
-          <text x="320" y="82">B advertises a short handle over Bluetooth</text>
-          <text x="320" y="132">A answers with a fresh challenge</text>
-          <text x="320" y="182">B returns a signed response</text>
-        </g>
-        <rect class="svg-connection-record" x="20" y="222" width="200" height="108" rx="12"/>
-        <rect class="svg-connection-record" x="420" y="222" width="200" height="108" rx="12"/>
-        <g class="svg-text">
-          <text class="svg-connection-title" x="36" y="248">Signed record</text>
-          <text x="36" y="272">handle A + handle B</text>
-          <text x="36" y="294">epoch (time window)</text>
-          <text x="36" y="316">nonce (used once)</text>
-          <text class="svg-connection-title" x="436" y="248">Signed record</text>
-          <text x="436" y="272">handle A + handle B</text>
-          <text x="436" y="294">epoch (time window)</text>
-          <text x="436" y="316">nonce (used once)</text>
-        </g>
-        <g class="svg-text-2" text-anchor="middle">
-          <text x="320" y="270">each phone keeps</text>
-          <text x="320" y="292">a matching copy</text>
-        </g>
-      </svg>
-    </figure>
-  </div>
-</section>
-
 <section class="slide solo" id="here" aria-labelledby="h-here">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <h2 id="h-here">Introducing HereCaster</h2>
-    </div>
-    <div class="demo-box" data-demo="demo/">
-      <img class="zfold" src="img/herecaster-zfold.png" width="1128" height="1252" loading="lazy" alt="HereCaster on a Z Fold8 with test data: the All view with community hulls around you and the Network State card open, the When slider at the bottom left set to year, the tabs Graph, Near, Tokens and Cast in the middle, and the Where slider at the bottom right set to building">
-      <button type="button" class="demo-btn">Demo</button>
+    </header>
+    <div class="demo-box" data-demo="demo/" aria-busy="true">
+      <img class="zfold" src="img/herecaster-zfold.png" width="1128" height="1252" alt="HereCaster on a Z Fold8 with test data: the All view with community hulls around you and the Network State card open, the When slider at the bottom left set to year, the tabs Graph, Near, Tokens and Cast in the middle, and the Where slider at the bottom right set to building">
     </div>
   </div>
 </section>
 
 <section class="slide solo" id="applies" aria-labelledby="h-applies">
   <div class="slide-inner">
+    <header class="slide-head">
+      <p class="kicker">Applications</p>
+      <h2 id="h-applies">Deployments</h2>
+    </header>
     <div class="text">
       <div class="deploy-col">
-        <p class="kicker">Applications</p>
-        <h2 id="h-applies">Deployments</h2>
         <ul class="plain">
           <li><strong>Communities:</strong> Personal Social graphs for Network States</li>
           <li><strong>Commerce:</strong> Logistics, Credit, Provenance</li>
@@ -401,17 +412,19 @@
 
 <section class="slide solo" id="appendix" aria-labelledby="h-appendix">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <h2 id="h-appendix">Appendix</h2>
-    </div>
+    </header>
   </div>
 </section>
 
 <section class="slide" id="time" aria-labelledby="h-time">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">HereCaster</p>
       <h2 id="h-time">Time, in epochs</h2>
+    </header>
+    <div class="text">
       <p>Handles rotate every 600 seconds, so a listener cannot follow one device for long. A meeting is a set of epochs in which two phones found each other.</p>
       <p>Proposed: a daily hash of the records in a public log, so a record can later show it existed that day.</p>
     </div>
@@ -497,9 +510,11 @@
 
 <section class="slide wide" id="petri" aria-labelledby="h-petri">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">The Petri dish</p>
       <h2 id="h-petri">A gathering, seen from your phone</h2>
+    </header>
+    <div class="text">
       <p>You are at the centre. Rings mark true distance, each ten times farther out, which the phone cannot read. What it has are boundaries of different kinds. Pick one.</p>
     </div>
     <div class="figure">
@@ -510,9 +525,11 @@
 
 <section class="slide wide cols" id="johnson" aria-labelledby="h-johnson">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">The Johnson limit</p>
       <h2 id="h-johnson">How different can two logs be and still be one room?</h2>
+    </header>
+    <div class="text">
       <p>Each phone logs the handles it heard in an epoch. Two phones in one room hold nearly the same log. Treat your log of s handles as a room record with t repair symbols.</p>
       <p>With up to t/2 wrong sightings, rounded down, a log repairs to exactly one room. Up to the Johnson limit, <span class="math"><i>s</i> − √<span class="radicand"><i>s</i> (<i>s</i> − <i>t</i> − 1)</span></span>, it repairs to a short list, and an earlier commitment picks the right one. Past the limit there is no repair.</p>
       <p>For 15 handles and 10 repair symbols that is 5 wrong sightings, then 7.</p>
@@ -529,9 +546,11 @@
 
 <section class="slide wide" id="threat" aria-labelledby="h-threat">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">Threat mode</p>
       <h2 id="h-threat">What an attacker brings</h2>
+    </header>
+    <div class="text">
       <p>An attack is a mix of keys, radios, accounts, relays, people and time. Each route is shown by what it needs and what limits it. Pick a route.</p>
     </div>
     <div class="figure">
@@ -542,9 +561,11 @@
 
 <section class="slide" id="web" aria-labelledby="h-web">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">The premise</p>
       <h2 id="h-web">Trust as a web of prior interactions</h2>
+    </header>
+    <div class="text">
       <p>Keep the order of meetings, not only the map. The same three people, met in a different order, support different conclusions.</p>
       <p>Trust should grow from histories that were corroborated separately. More devices in one hand add nothing. Friends who travel together remain separate people.</p>
       <p>Each question gets one of three answers: supported, contradicted or unknown. There is no single trust score.</p>
@@ -587,19 +608,25 @@
   </div>
 </section>
 
-<section class="slide solo" id="contact" aria-label="Contact">
+<section class="slide solo" id="contact" aria-labelledby="h-contact">
   <div class="slide-inner">
+    <header class="slide-head">
+      <h2 id="h-contact">Thank you</h2>
+    </header>
     <a class="qr" href="mailto:warren@deepmuse.com?subject=Coincidence.org" aria-label="Email warren@deepmuse.com, subject Coincidence.org">
       <svg viewBox="-4 -4 41 41" aria-hidden="true"><rect x="-4" y="-4" width="41" height="41" class="qr-bg"/><path d="M0 0h7v1h-7zM8 0h7v1h-7zM17 0h2v1h-2zM21 0h3v1h-3zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h2v1h-2zM13 1h2v1h-2zM16 1h1v1h-1zM18 1h2v1h-2zM21 1h1v1h-1zM24 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM12 2h4v1h-4zM21 2h1v1h-1zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM10 3h3v1h-3zM14 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM20 3h2v1h-2zM23 3h2v1h-2zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h4v1h-4zM15 4h3v1h-3zM21 4h1v1h-1zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h3v1h-3zM13 5h1v1h-1zM15 5h3v1h-3zM19 5h1v1h-1zM22 5h3v1h-3zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM9 7h1v1h-1zM12 7h5v1h-5zM23 7h1v1h-1zM0 8h1v1h-1zM3 8h7v1h-7zM12 8h1v1h-1zM14 8h1v1h-1zM17 8h2v1h-2zM20 8h1v1h-1zM23 8h3v1h-3zM28 8h1v1h-1zM30 8h3v1h-3zM0 9h2v1h-2zM3 9h1v1h-1zM8 9h1v1h-1zM13 9h3v1h-3zM17 9h3v1h-3zM22 9h2v1h-2zM25 9h1v1h-1zM27 9h2v1h-2zM30 9h2v1h-2zM3 10h2v1h-2zM6 10h1v1h-1zM8 10h2v1h-2zM11 10h1v1h-1zM13 10h1v1h-1zM15 10h2v1h-2zM21 10h3v1h-3zM25 10h1v1h-1zM27 10h2v1h-2zM30 10h3v1h-3zM0 11h1v1h-1zM2 11h2v1h-2zM5 11h1v1h-1zM7 11h2v1h-2zM11 11h3v1h-3zM15 11h2v1h-2zM18 11h1v1h-1zM20 11h1v1h-1zM23 11h1v1h-1zM26 11h1v1h-1zM30 11h3v1h-3zM0 12h1v1h-1zM3 12h6v1h-6zM10 12h1v1h-1zM12 12h2v1h-2zM15 12h1v1h-1zM17 12h1v1h-1zM19 12h2v1h-2zM22 12h3v1h-3zM26 12h2v1h-2zM29 12h1v1h-1zM31 12h2v1h-2zM1 13h1v1h-1zM4 13h2v1h-2zM7 13h3v1h-3zM11 13h1v1h-1zM14 13h1v1h-1zM17 13h4v1h-4zM23 13h1v1h-1zM25 13h1v1h-1zM27 13h1v1h-1zM29 13h3v1h-3zM6 14h3v1h-3zM10 14h1v1h-1zM15 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM21 14h1v1h-1zM28 14h1v1h-1zM30 14h1v1h-1zM3 15h1v1h-1zM5 15h1v1h-1zM9 15h3v1h-3zM13 15h2v1h-2zM16 15h1v1h-1zM18 15h1v1h-1zM20 15h1v1h-1zM22 15h1v1h-1zM25 15h1v1h-1zM30 15h3v1h-3zM1 16h3v1h-3zM5 16h5v1h-5zM13 16h4v1h-4zM22 16h5v1h-5zM28 16h1v1h-1zM31 16h1v1h-1zM0 17h1v1h-1zM2 17h2v1h-2zM5 17h1v1h-1zM7 17h1v1h-1zM10 17h2v1h-2zM13 17h1v1h-1zM15 17h1v1h-1zM17 17h6v1h-6zM26 17h1v1h-1zM28 17h2v1h-2zM32 17h1v1h-1zM0 18h2v1h-2zM3 18h2v1h-2zM6 18h1v1h-1zM8 18h4v1h-4zM15 18h1v1h-1zM17 18h3v1h-3zM23 18h4v1h-4zM30 18h1v1h-1zM32 18h1v1h-1zM0 19h2v1h-2zM3 19h3v1h-3zM8 19h5v1h-5zM14 19h3v1h-3zM19 19h1v1h-1zM23 19h2v1h-2zM27 19h4v1h-4zM32 19h1v1h-1zM1 20h1v1h-1zM6 20h1v1h-1zM9 20h2v1h-2zM12 20h3v1h-3zM16 20h1v1h-1zM18 20h1v1h-1zM24 20h1v1h-1zM27 20h1v1h-1zM0 21h2v1h-2zM3 21h3v1h-3zM8 21h1v1h-1zM11 21h4v1h-4zM20 21h1v1h-1zM22 21h2v1h-2zM27 21h3v1h-3zM0 22h1v1h-1zM5 22h6v1h-6zM12 22h1v1h-1zM14 22h1v1h-1zM18 22h1v1h-1zM21 22h4v1h-4zM26 22h1v1h-1zM28 22h1v1h-1zM30 22h3v1h-3zM0 23h1v1h-1zM2 23h2v1h-2zM7 23h1v1h-1zM11 23h3v1h-3zM15 23h1v1h-1zM17 23h1v1h-1zM19 23h2v1h-2zM23 23h1v1h-1zM25 23h1v1h-1zM27 23h1v1h-1zM30 23h1v1h-1zM32 23h1v1h-1zM0 24h3v1h-3zM5 24h2v1h-2zM9 24h1v1h-1zM11 24h1v1h-1zM14 24h1v1h-1zM19 24h2v1h-2zM23 24h10v1h-10zM8 25h3v1h-3zM12 25h4v1h-4zM17 25h2v1h-2zM21 25h1v1h-1zM23 25h2v1h-2zM28 25h2v1h-2zM31 25h1v1h-1zM0 26h7v1h-7zM8 26h1v1h-1zM11 26h2v1h-2zM15 26h1v1h-1zM17 26h1v1h-1zM19 26h1v1h-1zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h2v1h-2zM14 27h1v1h-1zM17 27h2v1h-2zM20 27h1v1h-1zM23 27h2v1h-2zM28 27h3v1h-3zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h2v1h-2zM13 28h1v1h-1zM16 28h2v1h-2zM20 28h1v1h-1zM22 28h7v1h-7zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h2v1h-2zM11 29h1v1h-1zM16 29h1v1h-1zM18 29h3v1h-3zM23 29h1v1h-1zM25 29h1v1h-1zM29 29h4v1h-4zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM9 30h1v1h-1zM13 30h3v1h-3zM19 30h3v1h-3zM23 30h2v1h-2zM28 30h1v1h-1zM31 30h2v1h-2zM0 31h1v1h-1zM6 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM14 31h1v1h-1zM20 31h1v1h-1zM22 31h1v1h-1zM25 31h1v1h-1zM29 31h4v1h-4zM0 32h7v1h-7zM8 32h3v1h-3zM13 32h5v1h-5zM19 32h2v1h-2zM23 32h2v1h-2zM28 32h1v1h-1z" class="qr-fg"/></svg>
     </a>
+    <p class="contact-mail"><a href="mailto:warren@deepmuse.com?subject=Coincidence.org">warren@deepmuse.com</a></p>
   </div>
 </section>
 
 <section class="slide solo" id="sources" aria-labelledby="h-sources">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <p class="kicker">Sources</p>
       <h2 id="h-sources">Bibliography</h2>
+    </header>
+    <div class="text">
       <ol class="refs">
         <li>Warren Stringer. <i>Anonymous Collaboration: how to share interests without a trusted 3rd party</i>. RSA Data Security Conference, 1998.</li>
         <li>S. M. Johnson. A new upper bound for error-correcting codes. <i>IRE Transactions on Information Theory</i> 8(3): 203–207, 1962.</li>
@@ -621,8 +648,10 @@
 
 <section class="slide solo" id="demo" aria-labelledby="h-demo">
   <div class="slide-inner">
-    <div class="text">
+    <header class="slide-head">
       <h2 id="h-demo">Live demo</h2>
+    </header>
+    <div class="text">
       <p class="demo-link"><a href="demo/?fid=900000026&amp;here=mock" target="_blank" rel="noopener">coincidence.org/demo</a></p>
     </div>
   </div>
