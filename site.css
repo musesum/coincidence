@@ -239,6 +239,24 @@ ol.steps { padding-left: 1.4em; }
 ol.steps > li { margin-bottom: .8em; font-weight: 600; }
 ol.steps ul { padding-left: 1.1em; margin: .3em 0 0; font-weight: 400; }
 ol.steps ul li { margin-bottom: .2em; }
+/* Deployments + Stages: side by side when wide */
+#applies .text > * { max-width: none; }
+#applies .stages-col h3 { margin-top: 1.6em; font-size: clamp(20px, 2vw, 26px); }
+@media (min-width: 980px) {
+  #applies .text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+  #applies .stages-col h3 { margin-top: 2.4em; }
+}
+
+/* Title slide: centered */
+#origin .text { text-align: center; }
+#origin .text > * { margin-inline: auto; }
+
+/* Contact QR: dark on white in both themes so phones can scan it */
+#contact .slide-inner { justify-items: center; }
+.qr { display: block; width: min(320px, 70vw); line-height: 0; }
+.qr svg { width: 100%; height: auto; }
+.qr-bg { fill: #ffffff; }
+.qr-fg { fill: #000000; }
 
 /* Deck controls */
 .deck-nav {
@@ -376,6 +394,8 @@ ol.steps ul li { margin-bottom: .2em; }
   .slide:not(.wide):not(.solo) .slide-inner { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; }
   /* the table takes the wider column */
   #questions .slide-inner, #premise .slide-inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  #applies .text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+  #applies .stages-col h3 { margin-top: 1.9em; }
   figure.diagram svg { max-height: 60vh; }
   figure.device img { max-height: 60vh; }
   .slide.cols .text { column-count: 2; column-gap: 32px; }
