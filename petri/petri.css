@@ -1,0 +1,189 @@
+/* Petri dish component, scoped under .petri. */
+.petri {
+  --pc-ink: var(--ink, #1d1d1f);
+  --pc-ink-2: var(--ink-2, #6e6e73);
+  --pc-paper: var(--paper, #ffffff);
+  --pc-paper-2: var(--paper-2, #f5f5f7);
+  --pc-line: var(--line, #d2d2d7);
+  --pc-dish: var(--dish, #f2f2f7);
+  --pc-ring: var(--ring, rgba(110, 110, 115, .5));
+  --pc-cohort: var(--c-cohort, #d06afa);
+  --pc-studio: var(--c-studio, #2d6fbe);
+  --pc-seed: var(--c-seed, #d27830);
+  --pc-ok: var(--c-ok, #62c37a);
+  --pc-threat: var(--c-threat, #a43a41);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+  color: var(--pc-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+}
+@media (prefers-color-scheme: dark) {
+  .petri {
+    --pc-ink: var(--ink, #f5f5f7);
+    --pc-ink-2: var(--ink-2, #a1a1a6);
+    --pc-paper: var(--paper, #0f1115);
+    --pc-paper-2: var(--paper-2, #171a21);
+    --pc-line: var(--line, #2c2f38);
+    --pc-dish: var(--dish, #171a21);
+    --pc-ring: var(--ring, rgba(161, 161, 166, .45));
+    --pc-cohort: var(--c-cohort, #aa32a4);
+    --pc-studio: var(--c-studio, #497cfd);
+    --pc-seed: var(--c-seed, #b07a20);
+    --pc-ok: var(--c-ok, #249c74);
+    --pc-threat: var(--c-threat, #b93d46);
+  }
+}
+.petri [hidden] { display: none !important; }
+.petri *, .petri *::before, .petri *::after { box-sizing: border-box; }
+
+/* stage */
+.petri-stage { position: relative; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.petri-stage canvas { display: block; max-width: 100%; border-radius: 50%; touch-action: manipulation; cursor: crosshair; }
+.petri-stage canvas:focus-visible { outline: 2px solid var(--pc-ink); outline-offset: 4px; }
+.petri-card {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--pc-paper-2);
+  border: 1px solid var(--pc-line);
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+/* definition lists in the card and the threat panel */
+.petri-dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 2px 10px; margin: 0; }
+.petri-dl dt { color: var(--pc-ink-2); }
+.petri-dl dd { margin: 0; overflow-wrap: anywhere; }
+
+/* controls */
+.petri-controls { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.petri-field { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-width: 0; }
+.petri-field-label { font-size: 13px; color: var(--pc-ink-2); }
+.petri-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 2px;
+  max-width: 100%;
+  border: 1px solid var(--pc-line);
+  border-radius: 20px;
+  background: var(--pc-paper-2);
+}
+.petri-btn, .petri-switch {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  color: var(--pc-ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.petri-btn:hover { background: var(--pc-line); }
+.petri-btn[aria-pressed="true"] { background: var(--pc-ink); color: var(--pc-paper); }
+.petri-btn:focus-visible, .petri-switch:focus-visible { outline: 2px solid var(--pc-ink); outline-offset: 2px; }
+.petri-switch { display: inline-flex; align-items: center; gap: 10px; padding: 0 12px 0 4px; border: 1px solid var(--pc-line); background: var(--pc-paper-2); }
+.petri-track { position: relative; width: 36px; height: 22px; border-radius: 11px; background: var(--pc-line); flex: none; }
+.petri-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--pc-paper);
+  transition: transform .15s ease;
+}
+.petri-switch[aria-checked="true"] .petri-track { background: var(--pc-ink); }
+.petri-switch[aria-checked="true"] .petri-track::after { transform: translateX(14px); }
+.petri-range { display: flex; align-items: center; gap: 10px; width: 100%; font-size: 13px; color: var(--pc-ink-2); }
+.petri-range input { flex: 1; min-width: 0; min-height: 36px; accent-color: var(--pc-ink); }
+.petri-range output { min-width: 2.5em; text-align: right; color: var(--pc-ink); }
+.petri-num { font-variant-numeric: tabular-nums; }
+
+/* panel */
+.petri-panel { display: flex; flex-direction: column; gap: 14px; min-width: 0; font-size: 14px; }
+.petri-panel p { margin: 0 0 6px; }
+.petri-sec { padding-top: 12px; border-top: 1px solid var(--pc-line); }
+.petri-h { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+.petri-stack { display: grid; }
+.petri-variant { grid-area: 1 / 1; visibility: hidden; }
+.petri-variant.is-on { visibility: visible; }
+.petri-tech { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--pc-ink-2); }
+.petri-tag { padding: 1px 8px; border: 1px solid var(--pc-line); border-radius: 10px; font-size: 12px; color: var(--pc-ink); }
+.petri-not { color: var(--pc-ink-2); }
+.petri-live { color: var(--pc-ink); }
+.petri-note { margin: 0; font-size: 13px; color: var(--pc-ink-2); }
+
+/* legend */
+.petri-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: 13px; color: var(--pc-ink-2); min-width: 0; }
+.petri-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.petri-sw { flex: none; overflow: visible; }
+.petri-f-ink2 { fill: var(--pc-ink-2); }
+.petri-f-cohort { fill: var(--pc-cohort); }
+.petri-f-studio { fill: var(--pc-studio); }
+.petri-f-threat { fill: var(--pc-threat); }
+.petri-s-dish { stroke: var(--pc-dish); stroke-width: 1.5; }
+.petri-faded { opacity: .45; }
+.petri-faint { opacity: .25; }
+.petri-l-ink2, .petri-l-ok, .petri-l-seed, .petri-l-threat { fill: none; stroke-width: 1.5; stroke-linecap: round; }
+.petri-l-ink2 { stroke: var(--pc-ink-2); }
+.petri-l-ok { stroke: var(--pc-ok); }
+.petri-l-seed { stroke: var(--pc-seed); stroke-width: 2; }
+.petri-l-threat { stroke: var(--pc-threat); }
+.petri-dashed { stroke-dasharray: 3 2.5; }
+
+/* desktop: stage left, controls and panel right */
+@media (min-width: 900px) {
+  .petri {
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+    grid-template-areas: "stage controls" "stage panel" "stage legend";
+    grid-template-rows: auto auto 1fr;
+    column-gap: 32px;
+    align-items: start;
+  }
+  .petri-stage { grid-area: stage; }
+  .petri-controls { grid-area: controls; }
+  .petri-panel { grid-area: panel; }
+  .petri-legend { grid-area: legend; }
+  .petri-card {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: min(280px, 46%);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petri-track::after { transition: none; }
+}
+
+/* print: dish left, controls and panel right, compact, at any page width */
+@media print {
+  .petri {
+    grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
+    grid-template-areas: "stage controls" "stage panel" "stage legend";
+    grid-template-rows: auto auto 1fr;
+    gap: 10px 28px;
+    align-items: start;
+    font-size: 13px;
+  }
+  .petri-stage { grid-area: stage; }
+  .petri-controls { grid-area: controls; gap: 8px; }
+  .petri-field { gap: 4px; }
+  .petri-panel { grid-area: panel; gap: 8px; font-size: 13px; }
+  .petri-sec { padding-top: 8px; }
+  .petri-legend { grid-area: legend; }
+  /* the canvas keeps its screen bitmap and scales to the column */
+  .petri-stage canvas { width: 100% !important; height: auto !important; }
+  .petri-card { position: absolute; left: 0; bottom: 0; width: min(280px, 46%); }
+  .petri-btn, .petri-switch { min-height: 26px; padding: 0 10px; font-size: 13px; }
+  .petri-switch { padding: 0 10px 0 3px; }
+  .petri-range input { min-height: 26px; }
+}

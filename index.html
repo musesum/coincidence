@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coincidence: a post-fiat based social currency</title>
+<meta name="description" content="A post-fiat based social currency based on: who you've been around, what you were doing, when and where you've been, how it was verified, and why it matters.">
+<meta name="color-scheme" content="light dark">
+<meta name="darkreader-lock">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%236e6e73' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23d27830'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="petri/petri.css">
+<script type="module" src="deck.js"></script>
+</head>
+<body>
+<main id="deck">
+
+<section class="slide solo" id="origin" aria-labelledby="h-origin">
+  <div class="slide-inner">
+    <div class="text">
+      <h2 id="h-origin">Anonymous Collaboration<br>→ Network States</h2>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="premise" aria-labelledby="h-premise">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">Coincidence</p>
+      <h1 id="h-premise">A New Social Currency</h1>
+      <p class="premise-sub">Based on:</p>
+      <ul class="premise-list">
+        <li>who you've met,</li>
+        <li>what you were doing,</li>
+        <li>when and where you've been,</li>
+        <li>how it was verified and</li>
+        <li>why it matters.</li>
+      </ul>
+      <p class="premise-lead">Each member is sovereign:</p>
+      <ul class="premise-list">
+        <li>they own their own data</li>
+        <li>they opt-in to any community</li>
+        <li>they can remain private to new communities</li>
+        <li>while building reputation through presence</li>
+      </ul>
+      <p class="premise-lead">We propose a research project that combines:</p>
+      <ul class="premise-list">
+        <li>Farcaster as the social graph</li>
+        <li>BitChat as the transport layer of BLE, NFC, UWB</li>
+        <li>Personal beacons broadcasting tokens</li>
+        <li>Community certificates to bind trust</li>
+        <li>Crypto binding of tokens and certificates</li>
+      </ul>
+      <p class="small">Working draft, November 2026. HereCaster is the first application. Nothing here is a product guarantee or an offer of any token.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 400 400" role="img" aria-labelledby="t-motif">
+        <title id="t-motif">A dish of about thirty beacons with two community membranes, one beacon at the centre and six curved lines of prior interactions reaching out from it.</title>
+        <circle class="svg-dish" cx="200" cy="200" r="185"/>
+        <ellipse class="svg-mem-cohort" cx="140" cy="140" rx="82" ry="66" transform="rotate(-20 140 140)"/>
+        <ellipse class="svg-mem-studio" cx="268" cy="272" rx="88" ry="62" transform="rotate(25 268 272)"/>
+        <g class="svg-web">
+          <path d="M200 200 Q200 156 163 129"/>
+          <path d="M200 200 Q257 209 305 177"/>
+          <path d="M200 200 Q236 136 231 62"/>
+          <path d="M200 200 Q131 223 86 279"/>
+          <path d="M200 200 Q217 274 272 326"/>
+          <path d="M200 200 Q137 157 59 155"/>
+        </g>
+        <g class="svg-dot">
+          <circle cx="223" cy="200" r="5"/><circle cx="173" cy="225" r="5"/><circle cx="204" cy="153" r="5"/>
+          <circle cx="258" cy="163" r="5"/><circle cx="181" cy="272" r="5"/><circle cx="116" cy="235" r="5"/>
+          <circle cx="240" cy="114" r="5"/><circle cx="305" cy="177" r="5"/><circle cx="136" cy="291" r="5"/>
+          <circle cx="78" cy="205" r="5"/><circle cx="289" cy="111" r="5"/><circle cx="194" cy="329" r="5"/>
+          <circle cx="335" cy="218" r="5"/><circle cx="86" cy="279" r="5"/><circle cx="231" cy="62" r="5"/>
+          <circle cx="59" cy="155" r="5"/><circle cx="337" cy="137" r="5"/><circle cx="141" cy="342" r="5"/>
+          <circle cx="147" cy="53" r="5"/><circle cx="341" cy="274" r="5"/><circle cx="185" cy="86" r="5"/>
+        </g>
+        <g class="svg-fill-cohort">
+          <circle cx="163" cy="129" r="5"/><circle cx="110" cy="148" r="5"/><circle cx="138" cy="189" r="5"/><circle cx="115" cy="98" r="5"/>
+        </g>
+        <g class="svg-fill-studio">
+          <circle cx="234" cy="244" r="5"/><circle cx="280" cy="229" r="5"/><circle cx="291" cy="277" r="5"/><circle cx="230" cy="295" r="5"/><circle cx="272" cy="326" r="5"/>
+        </g>
+        <circle class="svg-fill-seed" cx="200" cy="200" r="9"/>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<section class="slide" id="today" aria-labelledby="h-today">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">HereCaster</p>
+      <h2 id="h-today">Scan or Opt-in?</h2>
+      <p>Today, for each event, someone puts up a QR code, you take out your phone, take a picture, and claim an NFT. Over and over and over again. Or maybe, you were offline,  or the presenter moved to the next screen. Oh well.</p>
+      <p>Instead, you opt-in to a community you trust, and over the course of the next few days, or weeks, you simply show up. You can be online or offline, it doesn't matter. Your phone does the rest. Frictionless.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 340" role="img" aria-labelledby="t-today">
+        <title id="t-today">On the left a person scans a code on a stand and a photo of that code works from anywhere; on the right, after one opt-in, the phones in a room are linked to each other and each phone is a beacon.</title>
+        <defs>
+          <marker id="arr-today-copy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="svg-fill-ink2" d="M0 0L10 5L0 10Z"/>
+          </marker>
+        </defs>
+        <rect class="svg-today-panel" x="6" y="6" width="304" height="328" rx="12"/>
+        <rect class="svg-today-panel svg-today-proposed" x="330" y="6" width="304" height="328" rx="12"/>
+        <g transform="translate(0 18)">
+          <line class="svg-today-ground" x1="20" y1="216" x2="296" y2="216"/>
+          <path class="svg-today-beam" d="M146 107L146 117L112 132L112 72Z"/>
+          <path class="svg-today-ink" d="M70 142V216M50 216H90"/>
+          <rect class="svg-today-box" x="30" y="62" width="80" height="80" rx="6"/>
+          <path class="svg-today-qr" transform="translate(36 68)" d="M0 0h28v28h-28z M4 4h20v20h-20z M8 8h12v12h-12z M40 0h28v28h-28z M44 4h20v20h-20z M48 8h12v12h-12z M0 40h28v28h-28z M4 44h20v20h-20z M8 48h12v12h-12z M32 4h4v4h-4z M36 12h4v4h-4z M32 20h4v4h-4z M0 32h4v4h-4z M8 36h4v4h-4z M16 32h4v4h-4z M24 36h4v4h-4z M32 32h4v4h-4z M36 36h4v4h-4z M44 32h4v4h-4z M52 36h4v4h-4z M60 32h4v4h-4z M64 36h4v4h-4z M32 44h4v4h-4z M40 40h4v4h-4z M48 44h4v4h-4z M56 40h4v4h-4z M64 48h4v4h-4z M36 52h4v4h-4z M44 56h4v4h-4z M52 52h4v4h-4z M60 60h4v4h-4z M40 64h4v4h-4z M48 64h4v4h-4z M64 64h4v4h-4z M56 56h4v4h-4z M32 60h4v4h-4z"/>
+          <g class="svg-today-ink">
+            <circle cx="180" cy="100" r="11"/>
+            <path d="M180 111V166M180 166L167 214M180 166L193 214M180 124L158 113M180 126L196 152"/>
+          </g>
+          <rect class="svg-today-box" x="146" y="100" width="13" height="23" rx="3"/>
+          <path class="svg-today-copy" d="M90 56Q170 8 246 100" marker-end="url(#arr-today-copy)"/>
+          <g transform="translate(228 108) rotate(-6 28 33)">
+            <rect class="svg-today-photo" x="0" y="0" width="56" height="66" rx="3"/>
+            <path class="svg-today-qr" transform="translate(5 5) scale(.676)" d="M0 0h28v28h-28z M4 4h20v20h-20z M8 8h12v12h-12z M40 0h28v28h-28z M44 4h20v20h-20z M48 8h12v12h-12z M0 40h28v28h-28z M4 44h20v20h-20z M8 48h12v12h-12z M32 4h4v4h-4z M36 12h4v4h-4z M32 20h4v4h-4z M0 32h4v4h-4z M8 36h4v4h-4z M16 32h4v4h-4z M24 36h4v4h-4z M32 32h4v4h-4z M36 36h4v4h-4z M44 32h4v4h-4z M52 36h4v4h-4z M60 32h4v4h-4z M64 36h4v4h-4z M32 44h4v4h-4z M40 40h4v4h-4z M48 44h4v4h-4z M56 40h4v4h-4z M64 48h4v4h-4z M36 52h4v4h-4z M44 56h4v4h-4z M52 52h4v4h-4z M60 60h4v4h-4z M40 64h4v4h-4z M48 64h4v4h-4z M64 64h4v4h-4z M56 56h4v4h-4z M32 60h4v4h-4z"/>
+          </g>
+        </g>
+        <rect class="svg-today-on" x="344" y="17" width="34" height="20" rx="10"/>
+        <circle class="svg-today-knob" cx="368" cy="27" r="7"/>
+        <rect class="svg-today-chip" x="538" y="15" width="82" height="24" rx="12"/>
+        <rect class="svg-dish" x="340" y="52" width="280" height="196" rx="10"/>
+        <g class="svg-edge">
+          <path d="M394 116L480 94L566 126L564 206L478 186L390 204Z M480 94L478 186 M394 116L478 186"/>
+        </g>
+        <g class="svg-today-halo">
+          <circle cx="394" cy="116" r="24"/><circle cx="480" cy="94" r="24"/><circle cx="566" cy="126" r="24"/>
+          <circle cx="390" cy="204" r="24"/><circle cx="478" cy="186" r="24"/><circle cx="564" cy="206" r="24"/>
+        </g>
+        <g class="svg-today-box">
+          <rect x="387" y="104" width="14" height="24" rx="3"/><rect x="473" y="82" width="14" height="24" rx="3"/><rect x="559" y="114" width="14" height="24" rx="3"/>
+          <rect x="383" y="192" width="14" height="24" rx="3"/><rect x="471" y="174" width="14" height="24" rx="3"/><rect x="557" y="194" width="14" height="24" rx="3"/>
+        </g>
+        <g class="svg-text">
+          <text x="20" y="32" font-weight="600">today</text>
+          <text x="388" y="32" font-weight="600">opt in to School</text>
+          <text x="20" y="274">scan a code at a stand</text>
+          <text x="344" y="274">every phone is a beacon</text>
+        </g>
+        <g class="svg-text-2">
+          <text x="579" y="32" text-anchor="middle">proposed</text>
+          <text x="352" y="74">room</text>
+          <text x="20" y="298">a photo of the code</text>
+          <text x="20" y="322">works from anywhere</text>
+          <text x="344" y="298">phones vouch for each other</text>
+          <text x="344" y="322">built: each phone counts encounters</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<section class="slide" id="questions" aria-labelledby="h-questions">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">The record</p>
+      <h2 id="h-questions">The six interrogatives</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Interrogative</th><th scope="col">Decomposition</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Who</th><td>singleton id of person place or thing</td></tr>
+            <tr><th scope="row">What</th><td>type of transaction, range, probability</td></tr>
+            <tr><th scope="row">When</th><td>time, duration, range, precision</td></tr>
+            <tr><th scope="row">Where</th><td>GPS, velocity, range, title</td></tr>
+            <tr><th scope="row">How</th><td>Smart contract</td></tr>
+            <tr><th scope="row">Why</th><td>Optional Intent</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 420 450" role="img" aria-labelledby="t-six">
+        <title id="t-six">Six nodes on a ring, labelled who, what, when, where, how and why, each joined to one centre dot labelled one event. Below: one token in provenance chain.</title>
+        <circle class="svg-ring" cx="210" cy="210" r="150"/>
+        <g class="svg-spoke">
+          <line x1="210" y1="210" x2="210" y2="60"/><line x1="210" y1="210" x2="340" y2="135"/>
+          <line x1="210" y1="210" x2="340" y2="285"/><line x1="210" y1="210" x2="210" y2="360"/>
+          <line x1="210" y1="210" x2="80" y2="285"/><line x1="210" y1="210" x2="80" y2="135"/>
+        </g>
+        <g class="svg-node">
+          <circle cx="210" cy="60" r="32"/><circle cx="340" cy="135" r="32"/><circle cx="340" cy="285" r="32"/>
+          <circle cx="210" cy="360" r="32"/><circle cx="80" cy="285" r="32"/><circle cx="80" cy="135" r="32"/>
+        </g>
+        <g class="svg-text" text-anchor="middle">
+          <text x="210" y="65">Who</text><text x="340" y="140">What</text><text x="340" y="290">When</text>
+          <text x="210" y="365">Where</text><text x="80" y="290">How</text><text x="80" y="140">Why</text>
+        </g>
+        <circle class="svg-fill-seed" cx="210" cy="210" r="9"/>
+        <rect class="svg-chip" x="166" y="226" width="88" height="24" rx="12"/>
+        <text class="svg-text" x="210" y="243" text-anchor="middle">one event</text>
+        <text class="svg-text" x="210" y="436" text-anchor="middle">one token in provenance chain</text>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<section class="slide wide cols" id="ride" aria-labelledby="h-ride">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">An example</p>
+      <h2 id="h-ride">One ride, six interrogatives</h2>
+      <p>Consider a shuttle ride: Ayan arrives at 14:00, and Mira rides with him from pickup A to an apartment at address B. We label this trip T14 and its shuttle S1. A current member credential, yesterday's driver record and today's timestamp could all be authentic while describing different rides.</p>
+      <p>The question joins who, what, when, where, how, and optional why. HereCaster connects records to one event and discloses enough for a verifier to check that connection. Why can be implicit: the apartment address suggests that Mira intends to go to the apartment.</p>
+      <p class="small">A proposed trial. The trip labels and the eligibility rule are illustrative.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 1357 348" role="img" aria-labelledby="t-ride">
+        <title id="t-ride">One query about a shuttle ride on a single line: Mira with Ayan, trip T14 and shuttle S1, 14:00, pickup A to apartment B, eligible member, and an optional intent in brackets. Cards for who, when and how sit above their parts of the line; cards for what, where and the optional why sit below theirs. Each arrow points at its own part.</title>
+        <defs>
+          <marker id="arr-ride-studio" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path class="svg-fill-studio" d="M0 0L10 5L0 10Z"/>
+          </marker>
+          <marker id="arr-ride-seed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path class="svg-fill-seed" d="M0 0L10 5L0 10Z"/>
+          </marker>
+        </defs>
+        <rect class="svg-ride-card" x="73" y="6" width="310" height="76" rx="10"/>
+        <text class="svg-ride-t svg-ride-b" x="228" y="36" text-anchor="middle">Who</text>
+        <text class="svg-ride-t" x="228" y="62" text-anchor="middle">Passenger and driver</text>
+        <rect class="svg-ride-card" x="430" y="6" width="310" height="76" rx="10"/>
+        <text class="svg-ride-t svg-ride-b" x="585" y="36" text-anchor="middle">When</text>
+        <text class="svg-ride-t" x="585" y="62" text-anchor="middle">This half-hour service slot</text>
+        <rect class="svg-ride-card" x="846" y="6" width="310" height="76" rx="10"/>
+        <text class="svg-ride-t svg-ride-b" x="1001" y="36" text-anchor="middle">How</text>
+        <text class="svg-ride-t" x="1001" y="62" text-anchor="middle">Eligibility constraint</text>
+        <rect class="svg-mem-studio" x="10" y="136" width="1337" height="70" rx="14"/>
+        <text class="svg-ride-head" x="34" y="178">One query:</text>
+        <text class="svg-ride-t svg-ride-b" x="228" y="178" text-anchor="middle">Mira with Ayan</text>
+        <text class="svg-ride-t svg-ride-b" x="427" y="178" text-anchor="middle">trip T14, shuttle S1</text>
+        <text class="svg-ride-t svg-ride-b" x="585" y="178" text-anchor="middle">14:00</text>
+        <text class="svg-ride-t svg-ride-b" x="768" y="178" text-anchor="middle">pickup A to apartment B</text>
+        <text class="svg-ride-t svg-ride-b" x="1001" y="178" text-anchor="middle">eligible member</text>
+        <text class="svg-ride-why svg-ride-b" x="1220" y="178" text-anchor="middle">[go to the apartment]</text>
+        <g class="svg-ride-sep">
+          <text x="318" y="178" text-anchor="middle">/</text>
+          <text x="537" y="178" text-anchor="middle">/</text>
+          <text x="633" y="178" text-anchor="middle">/</text>
+          <text x="904" y="178" text-anchor="middle">/</text>
+          <text x="1098" y="178" text-anchor="middle">/</text>
+        </g>
+        <rect class="svg-ride-card" x="272" y="266" width="310" height="76" rx="10"/>
+        <text class="svg-ride-t svg-ride-b" x="427" y="296" text-anchor="middle">What</text>
+        <text class="svg-ride-t" x="427" y="322" text-anchor="middle">The ride and shuttle</text>
+        <rect class="svg-ride-card" x="613" y="266" width="310" height="76" rx="10"/>
+        <text class="svg-ride-t svg-ride-b" x="768" y="296" text-anchor="middle">Where</text>
+        <text class="svg-ride-t" x="768" y="322" text-anchor="middle">Pickup and apartment address</text>
+        <rect class="svg-ride-card-why" x="1037" y="266" width="310" height="76" rx="10"/>
+        <text class="svg-ride-t" x="1192" y="296" text-anchor="middle"><tspan class="svg-ride-b">Why</tspan> (optional)</text>
+        <text class="svg-ride-t" x="1192" y="322" text-anchor="middle">Intent inferred from address</text>
+        <g class="svg-ride-arrow">
+          <line x1="158" y1="152" x2="298" y2="152"/>
+          <line x1="557" y1="152" x2="613" y2="152"/>
+          <line x1="924" y1="152" x2="1078" y2="152"/>
+          <line x1="338" y1="192" x2="517" y2="192"/>
+          <line x1="653" y1="192" x2="884" y2="192"/>
+          <line x1="228" y1="85" x2="228" y2="147" marker-end="url(#arr-ride-studio)"/>
+          <line x1="585" y1="85" x2="585" y2="147" marker-end="url(#arr-ride-studio)"/>
+          <line x1="1001" y1="85" x2="1001" y2="147" marker-end="url(#arr-ride-studio)"/>
+          <line x1="427" y1="263" x2="427" y2="197" marker-end="url(#arr-ride-studio)"/>
+          <line x1="768" y1="263" x2="768" y2="197" marker-end="url(#arr-ride-studio)"/>
+        </g>
+        <line class="svg-ride-arrow-why" x1="1118" y1="192" x2="1323" y2="192"/>
+        <line class="svg-ride-arrow-why" x1="1220" y1="263" x2="1220" y2="197" marker-end="url(#arr-ride-seed)"/>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<section class="slide" id="connection" aria-labelledby="h-connection">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">HereCaster</p>
+      <h2 id="h-connection">One connection between two phones</h2>
+      <p>Each phone advertises a short handle. When two meet, they exchange a fresh, signed record that names both handles and the time window.</p>
+      <p>The signed exchange runs on iOS and on Android. A signature shows which key signed. It does not show who held the phone or how far away it was.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 340" role="img" aria-labelledby="t-connection">
+        <title id="t-connection">Phone B advertises a short handle over Bluetooth, phone A answers with a fresh challenge, B returns a signed response, and each phone stores a matching signed record that names both handles, the epoch and a nonce.</title>
+        <defs>
+          <marker id="arr-connection-msg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="svg-fill-studio" d="M0 0L10 5L0 10Z"/>
+          </marker>
+        </defs>
+        <g class="svg-spoke">
+          <line x1="120" y1="50" x2="120" y2="222"/>
+          <line x1="520" y1="50" x2="520" y2="222"/>
+        </g>
+        <rect class="svg-connection-phone" x="65" y="12" width="110" height="38" rx="10"/>
+        <rect class="svg-connection-phone" x="465" y="12" width="110" height="38" rx="10"/>
+        <g class="svg-connection-glyph">
+          <rect x="81" y="21" width="12" height="20" rx="3"/>
+          <line x1="85" y1="37" x2="89" y2="37"/>
+          <rect x="481" y="21" width="12" height="20" rx="3"/>
+          <line x1="485" y1="37" x2="489" y2="37"/>
+        </g>
+        <g class="svg-text">
+          <text x="101" y="36">Phone A</text>
+          <text x="501" y="36">Phone B</text>
+        </g>
+        <g class="svg-arrow">
+          <line x1="518" y1="94" x2="124" y2="94" marker-end="url(#arr-connection-msg)"/>
+          <line x1="122" y1="144" x2="516" y2="144" marker-end="url(#arr-connection-msg)"/>
+          <line x1="518" y1="194" x2="124" y2="194" marker-end="url(#arr-connection-msg)"/>
+        </g>
+        <g class="svg-text" text-anchor="middle">
+          <text x="320" y="82">B advertises a short handle over Bluetooth</text>
+          <text x="320" y="132">A answers with a fresh challenge</text>
+          <text x="320" y="182">B returns a signed response</text>
+        </g>
+        <rect class="svg-connection-record" x="20" y="222" width="200" height="108" rx="12"/>
+        <rect class="svg-connection-record" x="420" y="222" width="200" height="108" rx="12"/>
+        <g class="svg-text">
+          <text class="svg-connection-title" x="36" y="248">Signed record</text>
+          <text x="36" y="272">handle A + handle B</text>
+          <text x="36" y="294">epoch (time window)</text>
+          <text x="36" y="316">nonce (used once)</text>
+          <text class="svg-connection-title" x="436" y="248">Signed record</text>
+          <text x="436" y="272">handle A + handle B</text>
+          <text x="436" y="294">epoch (time window)</text>
+          <text x="436" y="316">nonce (used once)</text>
+        </g>
+        <g class="svg-text-2" text-anchor="middle">
+          <text x="320" y="270">each phone keeps</text>
+          <text x="320" y="292">a matching copy</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<section class="slide" id="time" aria-labelledby="h-time">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">HereCaster</p>
+      <h2 id="h-time">Time, in epochs</h2>
+      <p>Handles rotate every 600 seconds, so a listener cannot follow one device for long. A meeting is a set of epochs in which two phones found each other.</p>
+      <p>Proposed: a daily hash of the records in a public log, so a record can later show it existed that day.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 296" role="img" aria-labelledby="t-time">
+        <title id="t-time">A timeline of 600 second epochs in which phones A and B show a new handle every epoch and meet in epochs 1, 3 and 5, with a proposed daily hash of the day's records going to a public log, drawn dashed.</title>
+        <defs>
+          <marker id="arr-time-met" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path class="svg-fill-studio" d="M0 0L10 5L0 10Z"/>
+          </marker>
+          <marker id="arr-time-hash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="svg-fill-ink2" d="M0 0L10 5L0 10Z"/>
+          </marker>
+        </defs>
+        <g class="svg-text-2">
+          <text x="20" y="38">epoch</text>
+        </g>
+        <g class="svg-text-2" text-anchor="middle">
+          <text x="128" y="38">1</text><text x="192" y="38">2</text><text x="256" y="38">3</text><text x="320" y="38">4</text>
+          <text x="384" y="38">5</text><text x="448" y="38">6</text><text x="512" y="38">…</text><text x="576" y="38">144</text>
+        </g>
+        <g class="svg-spoke">
+          <line x1="96" y1="50" x2="608" y2="50"/>
+          <line x1="96" y1="44" x2="96" y2="56"/><line x1="160" y1="44" x2="160" y2="56"/><line x1="224" y1="44" x2="224" y2="56"/>
+          <line x1="288" y1="44" x2="288" y2="56"/><line x1="352" y1="44" x2="352" y2="56"/><line x1="416" y1="44" x2="416" y2="56"/>
+          <line x1="480" y1="44" x2="480" y2="56"/><line x1="544" y1="44" x2="544" y2="56"/><line x1="608" y1="44" x2="608" y2="56"/>
+        </g>
+        <rect class="svg-time-lane" x="12" y="66" width="600" height="36" rx="6"/>
+        <rect class="svg-time-lane" x="12" y="152" width="600" height="36" rx="6"/>
+        <g class="svg-time-met">
+          <rect x="98" y="62" width="60" height="130" rx="6"/>
+          <rect x="226" y="62" width="60" height="130" rx="6"/>
+          <rect x="354" y="62" width="60" height="130" rx="6"/>
+        </g>
+        <g class="svg-chip">
+          <rect x="102" y="70" width="52" height="28" rx="6"/><rect x="166" y="70" width="52" height="28" rx="6"/>
+          <rect x="230" y="70" width="52" height="28" rx="6"/><rect x="294" y="70" width="52" height="28" rx="6"/>
+          <rect x="358" y="70" width="52" height="28" rx="6"/><rect x="422" y="70" width="52" height="28" rx="6"/>
+          <rect x="550" y="70" width="52" height="28" rx="6"/>
+          <rect x="102" y="156" width="52" height="28" rx="6"/><rect x="166" y="156" width="52" height="28" rx="6"/>
+          <rect x="230" y="156" width="52" height="28" rx="6"/><rect x="294" y="156" width="52" height="28" rx="6"/>
+          <rect x="358" y="156" width="52" height="28" rx="6"/><rect x="422" y="156" width="52" height="28" rx="6"/>
+          <rect x="550" y="156" width="52" height="28" rx="6"/>
+        </g>
+        <g class="svg-arrow">
+          <line x1="128" y1="108" x2="128" y2="146" marker-start="url(#arr-time-met)" marker-end="url(#arr-time-met)"/>
+          <line x1="256" y1="108" x2="256" y2="146" marker-start="url(#arr-time-met)" marker-end="url(#arr-time-met)"/>
+          <line x1="384" y1="108" x2="384" y2="146" marker-start="url(#arr-time-met)" marker-end="url(#arr-time-met)"/>
+        </g>
+        <g class="svg-text">
+          <text x="20" y="89">phone A</text>
+          <text x="20" y="132">met</text>
+          <text x="20" y="175">phone B</text>
+        </g>
+        <g class="svg-text" text-anchor="middle">
+          <text x="128" y="89">7f3a</text><text x="192" y="89">c41e</text><text x="256" y="89">09bd</text><text x="320" y="89">e26f</text>
+          <text x="384" y="89">5a80</text><text x="448" y="89">b3d7</text><text x="512" y="89">…</text><text x="576" y="89">d91c</text>
+          <text x="128" y="175">2c9e</text><text x="192" y="175">f05b</text><text x="256" y="175">81a4</text><text x="320" y="175">6de2</text>
+          <text x="384" y="175">3b17</text><text x="448" y="175">a9c0</text><text x="512" y="175">…</text><text x="576" y="175">47fe</text>
+        </g>
+        <g class="svg-spoke">
+          <line x1="96" y1="206" x2="608" y2="206"/>
+          <line x1="96" y1="198" x2="96" y2="206"/><line x1="608" y1="198" x2="608" y2="206"/>
+        </g>
+        <g class="svg-text-2">
+          <text x="96" y="228">one day = 144 epochs of 600 s</text>
+        </g>
+        <line class="svg-time-proposed" x1="352" y1="206" x2="352" y2="247" marker-end="url(#arr-time-hash)"/>
+        <rect class="svg-time-proposed" x="294" y="250" width="116" height="30" rx="6"/>
+        <line class="svg-time-proposed" x1="410" y1="265" x2="465" y2="265" marker-end="url(#arr-time-hash)"/>
+        <rect class="svg-time-proposed" x="468" y="250" width="116" height="30" rx="6"/>
+        <g class="svg-text" text-anchor="middle">
+          <text x="352" y="270">daily hash</text>
+          <text x="526" y="270">public log</text>
+        </g>
+        <g class="svg-text-2">
+          <text x="284" y="270" text-anchor="end">proposed</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<section class="slide wide" id="petri" aria-labelledby="h-petri">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">The Petri dish</p>
+      <h2 id="h-petri">A gathering, seen from your phone</h2>
+      <p>You are at the centre. Rings mark true distance, each ten times farther out, which the phone cannot read. What it has are boundaries of different kinds. Pick one.</p>
+    </div>
+    <div class="figure">
+      <div data-petri data-initial='{"where":"building","when":"days"}' data-controls="where,when"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide wide cols" id="johnson" aria-labelledby="h-johnson">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">The Johnson limit</p>
+      <h2 id="h-johnson">How different can two logs be and still be one room?</h2>
+      <p>Each phone logs the handles it heard in an epoch. Two phones in one room hold nearly the same log. Treat your log of s handles as a room record with t repair symbols.</p>
+      <p>With up to t/2 wrong sightings, rounded down, a log repairs to exactly one room. Up to the Johnson limit, <span class="math"><i>s</i> − √<span class="radicand"><i>s</i> (<i>s</i> − <i>t</i> − 1)</span></span>, it repairs to a short list, and an earlier commitment picks the right one. Past the limit there is no repair.</p>
+      <p>For 15 handles and 10 repair symbols that is 5 wrong sightings, then 7.</p>
+      <aside class="since">
+        <h3>What it is not</h3>
+        <p>A distance. It measures agreement between logs. It is not part of the working design: missed sightings only lower a count, and the limit gives honest and dishonest logs the same allowance.</p>
+      </aside>
+    </div>
+    <div class="figure">
+      <div data-petri data-initial='{"where":"building","johnson":true}' data-controls="johnson"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide wide" id="threat" aria-labelledby="h-threat">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">Threat mode</p>
+      <h2 id="h-threat">What an attacker brings</h2>
+      <p>An attack is a mix of keys, radios, accounts, relays, people and time. Each route is shown by what it needs and what limits it. Pick a route.</p>
+    </div>
+    <div class="figure">
+      <div data-petri data-initial='{"where":"room","threat":"relay"}' data-controls="threat,where"></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="slide" id="web" aria-labelledby="h-web">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">The premise</p>
+      <h2 id="h-web">Trust as a web of prior interactions</h2>
+      <p>Keep the order of meetings, not only the map. The same three people, met in a different order, support different conclusions.</p>
+      <p>Trust should grow from histories that were corroborated separately. More devices in one hand add nothing. Friends who travel together remain separate people.</p>
+      <p>Each question gets one of three answers: supported, contradicted or unknown. There is no single trust score.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 300" role="img" aria-labelledby="t-web">
+        <title id="t-web">Two rows of A, B and C. When A meets B and then B meets C, what A passed on reaches C. When B meets C and then A meets B, it stops at B.</title>
+        <defs>
+          <marker id="arr-web" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="svg-fill-studio" d="M0 0L10 5L0 10Z"/>
+          </marker>
+        </defs>
+        <g class="svg-text-2">
+          <text x="40" y="34">A meets B, then B meets C</text>
+          <text x="40" y="184">B meets C, then A meets B</text>
+        </g>
+        <g class="svg-spoke">
+          <line x1="100" y1="80" x2="500" y2="80"/>
+          <line x1="100" y1="226" x2="500" y2="226"/>
+        </g>
+        <g class="svg-arrow">
+          <line x1="100" y1="124" x2="490" y2="124" marker-end="url(#arr-web)"/>
+          <line x1="100" y1="270" x2="292" y2="270" marker-end="url(#arr-web)"/>
+        </g>
+        <g class="svg-node">
+          <circle cx="100" cy="80" r="20"/><circle cx="300" cy="80" r="20"/><circle cx="500" cy="80" r="20"/>
+          <circle cx="100" cy="226" r="20"/><circle cx="300" cy="226" r="20"/><circle cx="500" cy="226" r="20"/>
+        </g>
+        <g class="svg-text" text-anchor="middle">
+          <text x="100" y="85">A</text><text x="300" y="85">B</text><text x="500" y="85">C</text>
+          <text x="100" y="231">A</text><text x="300" y="231">B</text><text x="500" y="231">C</text>
+        </g>
+        <g class="svg-text">
+          <text x="512" y="129">reaches C</text>
+          <text x="314" y="275">does not reach C</text>
+        </g>
+      </svg>
+      <figcaption>Same map, different order.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="slide" id="here" aria-labelledby="h-here">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">HereCaster</p>
+      <h2 id="h-here">The Here filter</h2>
+      <p>Where and When pick who the graph lights. Where has four steps: room, building, city and Earth. When has seven: now, 1 h, today, week, month, year and all.</p>
+      <p>Room is a direct signal of −80 dBm or more. Building adds weaker direct signals and relays of up to seven hops. City adds longer relays and records made up to 25 km from where the phone is now. Earth sets no limit on place.</p>
+      <p>With Here on, each record also stores the phone's GPS position, so a record made more than 150 m away counts only at city or Earth. A position is a claim: the token list shows DePIN, FOAM and Witness checks, all unchecked in this build.</p>
+      <p>In the All view, a When step lights the accounts it adds to the step on its left and, if any, dims the rest. Now, and all short of Earth, light all who pass.</p>
+      <p class="small">Room and building are signal-strength categories, not measured distances.</p>
+    </div>
+    <figure class="device">
+      <img src="img/herecaster-zfold.png" width="1128" height="1252" loading="lazy" alt="HereCaster on a Z Fold8 with test data: the All view with community hulls around you and the Network State card open, the When slider at the bottom left set to year, the tabs Graph, Near, Tokens and Cast in the middle, and the Where slider at the bottom right set to building">
+      <figcaption>HereCaster on a Z Fold8, with test data</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="slide solo" id="applies" aria-labelledby="h-applies">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">Applications</p>
+      <h2 id="h-applies">Deployments</h2>
+      <ul class="plain">
+        <li><strong>Communities:</strong> Personal Social graphs for Network States</li>
+        <li><strong>Commerce:</strong> Logistics, Credit, Provenance</li>
+        <li><strong>AI Inference:</strong> Aligned Intent</li>
+        <li><strong>Social Networks:</strong> Ground Truth</li>
+      </ul>
+      <p class="small">All four are hypotheses. There is no partner, pilot result or revenue.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide solo" id="stages" aria-labelledby="h-stages">
+  <div class="slide-inner">
+    <div class="text">
+      <h2 id="h-stages">Deployment stages</h2>
+      <ol class="steps">
+        <li>In-house at NS School/State
+          <ul>
+            <li>NS + Farcaster + bitcaster + token exchange</li>
+            <li>opt-in with HereCaster on iPhone or Android</li>
+            <li>compare metrics with QR Code</li>
+            <li>detect false Positives and Negatives for QR and Near</li>
+          </ul>
+        </li>
+        <li>Deploy Generic Apps to Events and Sister State Events
+          <ul>
+            <li>Network Conference 2027?</li>
+            <li>Frontier, Zuzalu, The Mu, Edge, etc</li>
+          </ul>
+        </li>
+        <li>B2B for logistics
+          <ul>
+            <li>KZ?</li>
+            <li>Personal contact in Bay Area</li>
+          </ul>
+        </li>
+        <li>B2C for private chain
+          <ul>
+            <li>exfiltrate and ingest test</li>
+            <li>ingest contacts</li>
+            <li>ingest YC, FB, WhatsApp, Telegram, Signal, X</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide solo" id="sources" aria-labelledby="h-sources">
+  <div class="slide-inner">
+    <div class="text">
+      <p class="kicker">Sources</p>
+      <h2 id="h-sources">Bibliography</h2>
+      <ol class="refs">
+        <li>Warren Stringer. <i>Anonymous Collaboration: how to share interests without a trusted 3rd party</i>. RSA Data Security Conference, 1998.</li>
+        <li>S. M. Johnson. A new upper bound for error-correcting codes. <i>IRE Transactions on Information Theory</i> 8(3): 203–207, 1962.</li>
+        <li>V. Guruswami and M. Sudan. Improved decoding of Reed–Solomon and algebraic-geometry codes. <i>IEEE Transactions on Information Theory</i> 45(6): 1757–1767, 1999.</li>
+        <li>J. Heer and d. boyd. Vizster: visualizing online social networks. <i>IEEE Symposium on Information Visualization</i>: 32–39, 2005. idl.uw.edu/papers/vizster.</li>
+        <li>H. Yu, P. B. Gibbons, M. Kaminsky and F. Xiao. SybilLimit: a near-optimal social network defense against Sybil attacks. <i>IEEE Symposium on Security and Privacy</i>, 2008.</li>
+        <li>T. Lovett et al. Inferring proximity from Bluetooth Low Energy RSSI with unscented Kalman smoothers. arXiv:2007.05057, 2020.</li>
+        <li>P. Staat et al. Analog physical-layer relay attacks with application to Bluetooth and phase-based ranging. arXiv:2202.06554, 2022.</li>
+        <li>P. Sheng et al. BFT-PoLoc: a Byzantine fortified trigonometric proof of location protocol using Internet delays. arXiv:2403.13230, 2024.</li>
+        <li>Witness Chain. Proof of Location mainnet: introduction. docs.witnesschain.com.</li>
+        <li>EigenLayer overview. docs.eigencloud.xyz.</li>
+        <li><i>HereCaster: Private Evidence for Shared Events</i>, V2. Working paper written with Astra 6.0 and Fable 5.1, 11 November 2026. Unpublished.</li>
+        <li>NearCaster. github.com/musesum/NearCaster. MIT licence.</li>
+        <li>BitChat for iOS. github.com/permissionlesstech/bitchat. The Unlicense.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</main>
+<nav class="deck-nav" aria-label="Slides">
+  <span class="deck-count" aria-live="polite"><span data-deck-current>1</span> / <span data-deck-total>15</span></span>
+  <button type="button" class="deck-btn" data-deck="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 12.5L10 7.5L15 12.5"/></svg>
+  </button>
+  <button type="button" class="deck-btn" data-deck="next" aria-label="Next slide">
+    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5"/></svg>
+  </button>
+</nav>
+</body>
+</html>
