@@ -110,4 +110,17 @@ async function start() {
   if (current === landing) requestAnimationFrame(land);
 }
 
+// Page 12: the Demo button swaps in the test-data demo; Web Bluetooth stays allowed in the frame.
+for (const box of document.querySelectorAll('[data-demo]')) {
+  box.querySelector('.demo-btn')?.addEventListener('click', () => {
+    const frame = document.createElement('iframe');
+    frame.className = 'demo-frame';
+    frame.src = box.dataset.demo;
+    frame.title = 'HereCaster demo with test data';
+    frame.allow = 'bluetooth; fullscreen';
+    box.replaceChildren(frame);
+    frame.focus();
+  });
+}
+
 start();

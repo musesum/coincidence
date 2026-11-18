@@ -7,6 +7,13 @@
     <title>HereCaster</title>
     <link rel="icon" href="./icon.png" />
     <!--miniapp-embed-->
+    <script>
+      // Demo copy: test data (FakeZed and the fake accounts, mock Here peers) unless the address names an account.
+      (function () {
+        var q = new URLSearchParams(location.search);
+        if (!q.has('fid')) { q.set('fid', '900000026'); q.set('here', 'mock'); history.replaceState(null, '', location.pathname + '?' + q + location.hash); }
+      })();
+    </script>
     <script type="module" crossorigin src="./assets/index-CEFZ0CI2.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DqR6mZrb.css">
   </head>

@@ -217,19 +217,21 @@ tbody th { font-weight: 600; }
   .slide.cols .text > * { break-inside: avoid; }
 }
 
-/* Device capture */
-figure.device { justify-self: center; }
-
-figure.device img {
-  display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 78vh;
-  margin: 0 auto;
-  border-radius: 20px;
-  border: 1px solid var(--line);
+/* Page 12: Demo button, then the test-data demo in a frame */
+.demo-box { justify-self: stretch; display: grid; place-items: center; min-height: min(78vh, 720px); }
+.demo-btn {
+  font: 700 clamp(32px, 4.4vw, 60px)/1 var(--font);
+  padding: .55em 1.4em;
+  border: 0;
+  border-radius: 999px;
+  background: #f5c518;
+  color: #1d1d1f;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .18);
 }
+.demo-btn:hover { background: #ffd43b; }
+.demo-btn:focus-visible { outline: 3px solid var(--c-studio); outline-offset: 4px; }
+.demo-frame { width: 100%; height: min(78vh, 720px); border: 1px solid var(--line); border-radius: 20px; background: #0e0f14; }
 
 ul.plain { padding-left: 1.1em; }
 ul.plain li { margin-bottom: .6em; }
@@ -403,7 +405,6 @@ ol.steps ul li { margin-bottom: .2em; }
   #applies .text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
   #applies .stages-col h3 { margin-top: 1.9em; }
   figure.diagram svg { max-height: 60vh; }
-  figure.device img { max-height: 60vh; }
   .slide.cols .text { column-count: 2; column-gap: 32px; }
   .slide.cols .text > .kicker, .slide.cols .text > h2 { column-span: all; }
   .slide.cols .text > * { break-inside: avoid; }
