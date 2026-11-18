@@ -258,6 +258,12 @@ ol.steps ul li { margin-bottom: .2em; }
 .qr-bg { fill: #ffffff; }
 .qr-fg { fill: #000000; }
 
+/* Live demo: centered link */
+#demo .text { text-align: center; }
+#demo .text > * { margin-inline: auto; }
+.demo-link { font-size: clamp(20px, 2.4vw, 30px); }
+.demo-link a { color: var(--c-studio); text-underline-offset: .15em; }
+
 /* Deck controls */
 .deck-nav {
   position: fixed;

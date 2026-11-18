@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#0e0f14" />
+    <title>HereCaster</title>
+    <link rel="icon" href="./icon.png" />
+    <!--miniapp-embed-->
+    <script type="module" crossorigin src="./assets/index-CEFZ0CI2.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DqR6mZrb.css">
+  </head>
+  <body>
+    <div id="app">
+      <nav id="settings" aria-label="Graph settings">
+        <label id="find">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
+          <input id="search" type="search" placeholder="Search names (regex)" aria-label="Search names (regex)" autocomplete="off" spellcheck="false" />
+          <span id="count"></span>
+        </label>
+        <div class="seg" id="mode" role="group" aria-label="View">
+          <button data-mode="focus">Focus</button>
+          <button data-mode="all" class="on">All</button>
+        </div>
+        <div class="seg" id="hullBy" role="group" aria-label="Community hulls">
+          <button data-hull="freeform" class="on">Free</button>
+          <button data-hull="society">States</button>
+          <button data-hull="interest">Into</button>
+        </div>
+      </nav>
+      <main id="stage">
+        <svg id="graph" role="img" aria-label="Friends-of-friends graph"></svg>
+        <div id="status" class="status"></div>
+        <div id="toast" hidden></div>
+        <div id="legend"></div>
+        <button id="meBtn" hidden>My network</button>
+        <button id="addBtn" hidden>+ Add NearCaster</button>
+        <aside id="panel" hidden></aside>
+        <div id="peek" hidden></div>
+      </main>
+    </div>
+  </body>
+</html>
