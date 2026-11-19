@@ -82,19 +82,13 @@ body {
   }
 }
 
-/* Headlines: kicker and title centered across the slide */
+/* Headlines: centered across the slide */
 .slide-head { grid-column: 1 / -1; min-width: 0; text-align: center; }
 .slide-head > * { margin-inline: auto; }
 
 .text { min-width: 0; }
 .text > * { max-width: 62ch; }
 .text > .table-wrap { max-width: none; }
-
-.kicker {
-  margin: 0;
-  font-size: 14px;
-  color: var(--ink-2);
-}
 
 h1, h2 {
   margin: .25em 0 .5em;
@@ -254,14 +248,14 @@ ol.steps ul li { margin-bottom: .2em; }
   #applies .stages-col h3 { margin-top: 0; }
 }
 
-/* Contact QR: dark on white in both themes so phones can scan it */
+/* Thank you: QR to coincidence.org, dark on white in both themes so phones can scan it */
 #contact .slide-inner { justify-items: center; }
 .qr { display: block; width: min(320px, 70vw); line-height: 0; }
 .qr svg { width: 100%; height: auto; }
 .qr-bg { fill: #ffffff; }
 .qr-fg { fill: #000000; }
 .contact-mail { margin: 0; font-size: 14px; }
-.contact-mail a { color: var(--ink-2); text-decoration: none; }
+.contact-mail a { color: #f5c518; text-decoration: none; }
 
 
 /* Deck controls */
