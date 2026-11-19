@@ -421,3 +421,13 @@ ol.steps ul li { margin-bottom: .2em; }
 
 /* Staging and Deployment: list block centered, text left aligned */
 #applies .text, #staging .text { justify-self: center; width: fit-content; max-width: 100%; text-align: left; }
+
+/* Pages 2-5: wider side margins on wide screens */
+@media (min-width: 980px) {
+  #premise .slide-inner, #today .slide-inner, #ride .slide-inner, #questions .slide-inner { padding-inline: clamp(0px, 10vw - 48px, 120px); }
+  /* page 4 text wraps longer in the narrower columns; its pictures give up the height */
+  #ride .pair-col figure.diagram svg { max-height: 34vh; }
+}
+/* Page 5: the table ends at its longest row */
+#questions .table-wrap table { width: auto; }
+#questions .table-wrap td { padding-right: 24px; }
