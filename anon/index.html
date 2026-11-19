@@ -26,26 +26,52 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
 .notes p { margin: 0 0 .8em; max-width: 62ch; }
 @media (min-width: 980px) { .anon-slide { grid-template-columns: minmax(0, 720px) minmax(0, 1fr); gap: 40px; align-items: start; } }
 @media print { .anon-slide { break-inside: avoid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .back { display: none; } }
-/* Player: one slide at a time, playbar under the picture */
-.anon-slide[hidden] { display: none; }
-.js .anon-slide { border-top: 0; padding: 0; }
-.js .notes { overflow-y: auto; overscroll-behavior: contain; max-height: calc((min(100vw, 752px) - 32px) * .75); padding-right: 8px; }
-@media (min-width: 980px) { .js .anon-slide { align-items: stretch; } .js .notes { max-height: none; height: 0; min-height: 100%; } }
-.playbar { display: flex; align-items: center; gap: 10px; max-width: 720px; margin-top: 10px; padding: 6px 12px 6px 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-2); }
-.pb-btn { flex: none; width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; }
-.pb-btn:hover:not(:disabled) { background: var(--line); }
-.pb-btn svg { width: 18px; height: 18px; }
-.pb-btn path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.pb-btn:disabled { opacity: .35; cursor: default; }
-.pb-range { --p: 0%; flex: 1; min-width: 0; height: 28px; margin: 0; background: transparent; cursor: pointer; -webkit-appearance: none; appearance: none; }
-.pb-range::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--gold) var(--p), var(--line) var(--p)); }
-.pb-range::-moz-range-track { height: 4px; border-radius: 2px; background: var(--line); }
-.pb-range::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--gold); }
-.pb-range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; margin-top: -5px; border: 0; border-radius: 50%; background: var(--gold); }
-.pb-range::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: var(--gold); }
-.pb-range:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
-.pb-count { flex: none; min-width: 4.6em; text-align: right; font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
-@media print { .anon-slide[hidden] { display: grid; } .js .anon-slide { border-top: 1px solid var(--line); padding: 32px 0; } .js .notes { max-height: none; height: auto; min-height: 0; overflow: visible; } .playbar { display: none; } }
+/* Player: one slide fills the window; thumbnail strip fixed to the bottom */
+.bar { display: none; }
+html.js, .js body { height: 100%; overflow: hidden; }
+.js main { height: 100dvh; display: flex; flex-direction: column; padding: 12px 16px calc(76px + env(safe-area-inset-bottom)); }
+.js header { margin: 4px 0 12px; }
+.js h1 { font-size: clamp(22px, 2.6vw, 32px); margin-bottom: .15em; }
+.js .sub { font-size: 14px; }
+.js .anon-slide { flex: 1; min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: stretch; padding: 0; border: 0; }
+.js.notes-off .anon-slide { grid-template-rows: minmax(0, 1fr); }
+.js .anon-slide[hidden] { display: none; }
+.js.notes-off .notes { display: none; }
+@media (min-width: 900px) and (min-aspect-ratio: 5/4) {
+  .js .anon-slide { grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+  .js.notes-off .anon-slide { grid-template-columns: minmax(0, 1fr); }
+}
+.js figure { display: flex; flex-direction: column; min-height: 0; }
+.js .pic { flex: 1; min-height: 0; container-type: size; display: grid; place-items: center; touch-action: none; user-select: none; -webkit-user-select: none; }
+.js .pic img { width: min(100cqw, 100cqh * 4 / 3); max-width: none; height: auto; -webkit-user-drag: none; }
+.js figcaption { margin-top: 0; text-align: center; }
+.disc { display: block; margin: 2px auto 0; width: 44px; height: 24px; padding: 0; border: 0; background: transparent; color: var(--ink-2); cursor: pointer; }
+.disc svg { width: 18px; height: 18px; transition: transform .2s; }
+.disc path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.notes-off .disc svg { transform: rotate(-90deg); }
+.js .notes { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-right: 8px; }
+.js .notes p { margin-inline: auto; }
+.js .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: flex; align-items: center; gap: 4px; padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--paper-2); }
+.bar-btn { flex: none; width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; }
+.bar-btn:hover:not(:disabled) { background: var(--line); }
+.bar-btn svg { width: 18px; height: 18px; }
+.bar-btn path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.bar-btn:disabled { opacity: .35; cursor: default; }
+.strip { position: relative; flex: 1; min-width: 0; display: flex; gap: 4px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 3px calc(50% - 32px); }
+.strip::-webkit-scrollbar { display: none; }
+.thumb { flex: none; width: 64px; height: 48px; padding: 0; border: 0; border-radius: 6px; background: #fff; cursor: pointer; scroll-snap-align: center; outline: 2px solid transparent; outline-offset: 1px; }
+.thumb img { display: block; width: 100%; height: 100%; border-radius: 6px; }
+.thumb[aria-current="true"] { outline-color: var(--ink); }
+@media print {
+  html.js, .js body { height: auto; overflow: visible; }
+  .js main { height: auto; display: block; padding: 0 16px; }
+  .js .anon-slide[hidden] { display: grid; }
+  .js .anon-slide { grid-template-rows: auto; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; padding: 32px 0; border-top: 1px solid var(--line); break-inside: avoid; }
+  .js .notes { display: block; overflow: visible; }
+  .js .pic { container-type: normal; }
+  .js .pic img { width: 100%; }
+  .js .bar, .disc { display: none; }
+}
 </style>
 </head>
 <body>
@@ -58,7 +84,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
   </header>
     <section class="anon-slide" id="s1" aria-label="Slide 1">
       <figure>
-        <img src="img/001.jpg" width="720" height="540" loading="eager" alt="Anonymous Collaboration — Warren Stringer">
+        <div class="pic"><img src="img/001.jpg" width="720" height="540" loading="eager" alt="Anonymous Collaboration — Warren Stringer"></div>
         <figcaption><span class="num">1</span> Anonymous Collaboration</figcaption>
       </figure>
       <div class="notes">
@@ -69,7 +95,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s2" aria-label="Slide 2">
       <figure>
-        <img src="img/002.jpg" width="720" height="540" loading="eager" alt="Dodge Ball">
+        <div class="pic"><img src="img/002.jpg" width="720" height="540" loading="eager" alt="Dodge Ball"></div>
         <figcaption><span class="num">2</span> Dodge Ball</figcaption>
       </figure>
       <div class="notes">
@@ -78,7 +104,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s3" aria-label="Slide 3">
       <figure>
-        <img src="img/003.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball">
+        <div class="pic"><img src="img/003.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball"></div>
         <figcaption><span class="num">3</span> Dodge Ball</figcaption>
       </figure>
       <div class="notes">
@@ -87,7 +113,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s4" aria-label="Slide 4">
       <figure>
-        <img src="img/004.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball">
+        <div class="pic"><img src="img/004.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball"></div>
         <figcaption><span class="num">4</span> Dodge Ball</figcaption>
       </figure>
       <div class="notes">
@@ -96,7 +122,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s5" aria-label="Slide 5">
       <figure>
-        <img src="img/005.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball">
+        <div class="pic"><img src="img/005.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball"></div>
         <figcaption><span class="num">5</span> Dodge Ball</figcaption>
       </figure>
       <div class="notes">
@@ -105,7 +131,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s6" aria-label="Slide 6">
       <figure>
-        <img src="img/006.jpg" width="720" height="540" loading="lazy" alt="Catch Ball">
+        <div class="pic"><img src="img/006.jpg" width="720" height="540" loading="lazy" alt="Catch Ball"></div>
         <figcaption><span class="num">6</span> Catch Ball</figcaption>
       </figure>
       <div class="notes">
@@ -114,7 +140,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s7" aria-label="Slide 7">
       <figure>
-        <img src="img/007.jpg" width="720" height="540" loading="lazy" alt="Catch Ball">
+        <div class="pic"><img src="img/007.jpg" width="720" height="540" loading="lazy" alt="Catch Ball"></div>
         <figcaption><span class="num">7</span> Catch Ball</figcaption>
       </figure>
       <div class="notes">
@@ -123,7 +149,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s8" aria-label="Slide 8">
       <figure>
-        <img src="img/008.jpg" width="720" height="540" loading="lazy" alt="Our Ball">
+        <div class="pic"><img src="img/008.jpg" width="720" height="540" loading="lazy" alt="Our Ball"></div>
         <figcaption><span class="num">8</span> Our Ball</figcaption>
       </figure>
       <div class="notes">
@@ -132,7 +158,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s9" aria-label="Slide 9">
       <figure>
-        <img src="img/009.jpg" width="720" height="540" loading="lazy" alt="n-th Generation Motion">
+        <div class="pic"><img src="img/009.jpg" width="720" height="540" loading="lazy" alt="n-th Generation Motion"></div>
         <figcaption><span class="num">9</span> n-th Generation Motion</figcaption>
       </figure>
       <div class="notes">
@@ -141,7 +167,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s10" aria-label="Slide 10">
       <figure>
-        <img src="img/010.jpg" width="720" height="540" loading="lazy" alt="Game End Order">
+        <div class="pic"><img src="img/010.jpg" width="720" height="540" loading="lazy" alt="Game End Order"></div>
         <figcaption><span class="num">10</span> Game End Order</figcaption>
       </figure>
       <div class="notes">
@@ -153,7 +179,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s11" aria-label="Slide 11">
       <figure>
-        <img src="img/011.jpg" width="720" height="540" loading="lazy" alt="Petri Dish">
+        <div class="pic"><img src="img/011.jpg" width="720" height="540" loading="lazy" alt="Petri Dish"></div>
         <figcaption><span class="num">11</span> Petri Dish</figcaption>
       </figure>
       <div class="notes">
@@ -162,7 +188,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s12" aria-label="Slide 12">
       <figure>
-        <img src="img/012.jpg" width="720" height="540" loading="lazy" alt="Indirect Attraction">
+        <div class="pic"><img src="img/012.jpg" width="720" height="540" loading="lazy" alt="Indirect Attraction"></div>
         <figcaption><span class="num">12</span> Indirect Attraction</figcaption>
       </figure>
       <div class="notes">
@@ -171,7 +197,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s13" aria-label="Slide 13">
       <figure>
-        <img src="img/013.jpg" width="720" height="540" loading="lazy" alt="Indirect Reposition">
+        <div class="pic"><img src="img/013.jpg" width="720" height="540" loading="lazy" alt="Indirect Reposition"></div>
         <figcaption><span class="num">13</span> Indirect Reposition</figcaption>
       </figure>
       <div class="notes">
@@ -180,7 +206,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s14" aria-label="Slide 14">
       <figure>
-        <img src="img/014.jpg" width="720" height="540" loading="lazy" alt="n-th move sum vectors">
+        <div class="pic"><img src="img/014.jpg" width="720" height="540" loading="lazy" alt="n-th move sum vectors"></div>
         <figcaption><span class="num">14</span> n-th move sum vectors</figcaption>
       </figure>
       <div class="notes">
@@ -189,7 +215,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s15" aria-label="Slide 15">
       <figure>
-        <img src="img/015.jpg" width="720" height="540" loading="lazy" alt="Game End">
+        <div class="pic"><img src="img/015.jpg" width="720" height="540" loading="lazy" alt="Game End"></div>
         <figcaption><span class="num">15</span> Game End</figcaption>
       </figure>
       <div class="notes">
@@ -200,7 +226,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s16" aria-label="Slide 16">
       <figure>
-        <img src="img/016.jpg" width="720" height="540" loading="lazy" alt="Public Petri">
+        <div class="pic"><img src="img/016.jpg" width="720" height="540" loading="lazy" alt="Public Petri"></div>
         <figcaption><span class="num">16</span> Public Petri</figcaption>
       </figure>
       <div class="notes">
@@ -209,7 +235,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s17" aria-label="Slide 17">
       <figure>
-        <img src="img/017.jpg" width="720" height="540" loading="lazy" alt="Private Petri">
+        <div class="pic"><img src="img/017.jpg" width="720" height="540" loading="lazy" alt="Private Petri"></div>
         <figcaption><span class="num">17</span> Private Petri</figcaption>
       </figure>
       <div class="notes">
@@ -218,7 +244,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s18" aria-label="Slide 18">
       <figure>
-        <img src="img/018.jpg" width="720" height="540" loading="lazy" alt="Blinded Message">
+        <div class="pic"><img src="img/018.jpg" width="720" height="540" loading="lazy" alt="Blinded Message"></div>
         <figcaption><span class="num">18</span> Blinded Message</figcaption>
       </figure>
       <div class="notes">
@@ -227,7 +253,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s19" aria-label="Slide 19">
       <figure>
-        <img src="img/019.jpg" width="720" height="540" loading="lazy" alt="Unblinded Match">
+        <div class="pic"><img src="img/019.jpg" width="720" height="540" loading="lazy" alt="Unblinded Match"></div>
         <figcaption><span class="num">19</span> Unblinded Match</figcaption>
       </figure>
       <div class="notes">
@@ -236,7 +262,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s20" aria-label="Slide 20">
       <figure>
-        <img src="img/020.jpg" width="720" height="540" loading="lazy" alt="n-th step unblinded matches">
+        <div class="pic"><img src="img/020.jpg" width="720" height="540" loading="lazy" alt="n-th step unblinded matches"></div>
         <figcaption><span class="num">20</span> n-th step unblinded matches</figcaption>
       </figure>
       <div class="notes">
@@ -245,7 +271,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s21" aria-label="Slide 21">
       <figure>
-        <img src="img/021.jpg" width="720" height="540" loading="lazy" alt="Game End — Attacks include: Small number of interests Not red is considered bad Can interest from cluster size">
+        <div class="pic"><img src="img/021.jpg" width="720" height="540" loading="lazy" alt="Game End — Attacks include: Small number of interests Not red is considered bad Can interest from cluster size"></div>
         <figcaption><span class="num">21</span> Game End</figcaption>
       </figure>
       <div class="notes">
@@ -257,7 +283,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s22" aria-label="Slide 22">
       <figure>
-        <img src="img/022.jpg" width="720" height="540" loading="lazy" alt="Petri Net Propagation">
+        <div class="pic"><img src="img/022.jpg" width="720" height="540" loading="lazy" alt="Petri Net Propagation"></div>
         <figcaption><span class="num">22</span> Petri Net Propagation</figcaption>
       </figure>
       <div class="notes">
@@ -267,7 +293,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s23" aria-label="Slide 23">
       <figure>
-        <img src="img/023.jpg" width="720" height="540" loading="lazy" alt="MinMax Result — Coloring convention lighter color is previous generation">
+        <div class="pic"><img src="img/023.jpg" width="720" height="540" loading="lazy" alt="MinMax Result — Coloring convention lighter color is previous generation"></div>
         <figcaption><span class="num">23</span> MinMax Result</figcaption>
       </figure>
       <div class="notes">
@@ -277,7 +303,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s24" aria-label="Slide 24">
       <figure>
-        <img src="img/024.jpg" width="720" height="540" loading="lazy" alt="Adding Green">
+        <div class="pic"><img src="img/024.jpg" width="720" height="540" loading="lazy" alt="Adding Green"></div>
         <figcaption><span class="num">24</span> Adding Green</figcaption>
       </figure>
       <div class="notes">
@@ -286,7 +312,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s25" aria-label="Slide 25">
       <figure>
-        <img src="img/025.jpg" width="720" height="540" loading="lazy" alt="Adding another MinMax">
+        <div class="pic"><img src="img/025.jpg" width="720" height="540" loading="lazy" alt="Adding another MinMax"></div>
         <figcaption><span class="num">25</span> Adding another MinMax</figcaption>
       </figure>
       <div class="notes">
@@ -296,7 +322,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s26" aria-label="Slide 26">
       <figure>
-        <img src="img/026.jpg" width="720" height="540" loading="lazy" alt="Final Result Looses Green">
+        <div class="pic"><img src="img/026.jpg" width="720" height="540" loading="lazy" alt="Final Result Looses Green"></div>
         <figcaption><span class="num">26</span> Final Result Looses Green</figcaption>
       </figure>
       <div class="notes">
@@ -305,7 +331,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s27" aria-label="Slide 27">
       <figure>
-        <img src="img/027.jpg" width="720" height="540" loading="lazy" alt="Center Node Ambiguity">
+        <div class="pic"><img src="img/027.jpg" width="720" height="540" loading="lazy" alt="Center Node Ambiguity"></div>
         <figcaption><span class="num">27</span> Center Node Ambiguity</figcaption>
       </figure>
       <div class="notes">
@@ -316,7 +342,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s28" aria-label="Slide 28">
       <figure>
-        <img src="img/028.jpg" width="720" height="540" loading="lazy" alt="Recalling Previous Generation">
+        <div class="pic"><img src="img/028.jpg" width="720" height="540" loading="lazy" alt="Recalling Previous Generation"></div>
         <figcaption><span class="num">28</span> Recalling Previous Generation</figcaption>
       </figure>
       <div class="notes">
@@ -325,7 +351,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s29" aria-label="Slide 29">
       <figure>
-        <img src="img/029.jpg" width="720" height="540" loading="lazy" alt="Encoded as Spin (preserving direction)">
+        <div class="pic"><img src="img/029.jpg" width="720" height="540" loading="lazy" alt="Encoded as Spin (preserving direction)"></div>
         <figcaption><span class="num">29</span> Encoded as Spin (preserving direction)</figcaption>
       </figure>
       <div class="notes">
@@ -335,7 +361,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s30" aria-label="Slide 30">
       <figure>
-        <img src="img/030.jpg" width="720" height="540" loading="lazy" alt="Spin Inhibited MinMax">
+        <div class="pic"><img src="img/030.jpg" width="720" height="540" loading="lazy" alt="Spin Inhibited MinMax"></div>
         <figcaption><span class="num">30</span> Spin Inhibited MinMax</figcaption>
       </figure>
       <div class="notes">
@@ -344,7 +370,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s31" aria-label="Slide 31">
       <figure>
-        <img src="img/031.jpg" width="720" height="540" loading="lazy" alt="Spin favors Green — min — max">
+        <div class="pic"><img src="img/031.jpg" width="720" height="540" loading="lazy" alt="Spin favors Green — min — max"></div>
         <figcaption><span class="num">31</span> Spin favors Green</figcaption>
       </figure>
       <div class="notes">
@@ -354,7 +380,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s32" aria-label="Slide 32">
       <figure>
-        <img src="img/032.jpg" width="720" height="540" loading="lazy" alt="Mapped to a Tetrahedron">
+        <div class="pic"><img src="img/032.jpg" width="720" height="540" loading="lazy" alt="Mapped to a Tetrahedron"></div>
         <figcaption><span class="num">32</span> Mapped to a Tetrahedron</figcaption>
       </figure>
       <div class="notes">
@@ -363,7 +389,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s33" aria-label="Slide 33">
       <figure>
-        <img src="img/033.jpg" width="720" height="540" loading="lazy" alt="Scaled to Many Nodes">
+        <div class="pic"><img src="img/033.jpg" width="720" height="540" loading="lazy" alt="Scaled to Many Nodes"></div>
         <figcaption><span class="num">33</span> Scaled to Many Nodes</figcaption>
       </figure>
       <div class="notes">
@@ -372,7 +398,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s34" aria-label="Slide 34">
       <figure>
-        <img src="img/034.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Lattice">
+        <div class="pic"><img src="img/034.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Lattice"></div>
         <figcaption><span class="num">34</span> Tetrahedral Lattice</figcaption>
       </figure>
       <div class="notes">
@@ -381,7 +407,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s35" aria-label="Slide 35">
       <figure>
-        <img src="img/035.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 1">
+        <div class="pic"><img src="img/035.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 1"></div>
         <figcaption><span class="num">35</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -390,7 +416,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s36" aria-label="Slide 36">
       <figure>
-        <img src="img/036.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 1 MinMax">
+        <div class="pic"><img src="img/036.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 1 MinMax"></div>
         <figcaption><span class="num">36</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -399,7 +425,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s37" aria-label="Slide 37">
       <figure>
-        <img src="img/037.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 2">
+        <div class="pic"><img src="img/037.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 2"></div>
         <figcaption><span class="num">37</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -408,7 +434,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s38" aria-label="Slide 38">
       <figure>
-        <img src="img/038.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 2 MinMax">
+        <div class="pic"><img src="img/038.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 2 MinMax"></div>
         <figcaption><span class="num">38</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -417,7 +443,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s39" aria-label="Slide 39">
       <figure>
-        <img src="img/039.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 3">
+        <div class="pic"><img src="img/039.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 3"></div>
         <figcaption><span class="num">39</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -426,7 +452,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s40" aria-label="Slide 40">
       <figure>
-        <img src="img/040.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 3 MinMax">
+        <div class="pic"><img src="img/040.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 3 MinMax"></div>
         <figcaption><span class="num">40</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -435,7 +461,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s41" aria-label="Slide 41">
       <figure>
-        <img src="img/041.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 4">
+        <div class="pic"><img src="img/041.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 4"></div>
         <figcaption><span class="num">41</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -444,7 +470,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s42" aria-label="Slide 42">
       <figure>
-        <img src="img/042.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 4 MinMax">
+        <div class="pic"><img src="img/042.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 4 MinMax"></div>
         <figcaption><span class="num">42</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -453,7 +479,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s43" aria-label="Slide 43">
       <figure>
-        <img src="img/043.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 5">
+        <div class="pic"><img src="img/043.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 5"></div>
         <figcaption><span class="num">43</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -462,7 +488,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s44" aria-label="Slide 44">
       <figure>
-        <img src="img/044.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 5 MinMax">
+        <div class="pic"><img src="img/044.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 5 MinMax"></div>
         <figcaption><span class="num">44</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -471,7 +497,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s45" aria-label="Slide 45">
       <figure>
-        <img src="img/045.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 6">
+        <div class="pic"><img src="img/045.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 6"></div>
         <figcaption><span class="num">45</span> Tetra-Sort</figcaption>
       </figure>
       <div class="notes">
@@ -482,7 +508,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s46" aria-label="Slide 46">
       <figure>
-        <img src="img/046.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Propagation">
+        <div class="pic"><img src="img/046.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Propagation"></div>
         <figcaption><span class="num">46</span> Tetrahedral Propagation</figcaption>
       </figure>
       <div class="notes">
@@ -494,7 +520,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s47" aria-label="Slide 47">
       <figure>
-        <img src="img/047.jpg" width="720" height="540" loading="lazy" alt="Fractal Subsets">
+        <div class="pic"><img src="img/047.jpg" width="720" height="540" loading="lazy" alt="Fractal Subsets"></div>
         <figcaption><span class="num">47</span> Fractal Subsets</figcaption>
       </figure>
       <div class="notes">
@@ -504,7 +530,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s48" aria-label="Slide 48">
       <figure>
-        <img src="img/048.jpg" width="720" height="540" loading="lazy" alt="Petri Pool">
+        <div class="pic"><img src="img/048.jpg" width="720" height="540" loading="lazy" alt="Petri Pool"></div>
         <figcaption><span class="num">48</span> Petri Pool</figcaption>
       </figure>
       <div class="notes">
@@ -514,7 +540,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s49" aria-label="Slide 49">
       <figure>
-        <img src="img/049.jpg" width="720" height="540" loading="lazy" alt="Petri Pool">
+        <div class="pic"><img src="img/049.jpg" width="720" height="540" loading="lazy" alt="Petri Pool"></div>
         <figcaption><span class="num">49</span> Petri Pool</figcaption>
       </figure>
       <div class="notes">
@@ -524,7 +550,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s50" aria-label="Slide 50">
       <figure>
-        <img src="img/050.jpg" width="720" height="540" loading="lazy" alt="Assigning Tetrahedral Positions from Pool — 1st Node — 2nd Node — 3rd Node — 4th Node">
+        <div class="pic"><img src="img/050.jpg" width="720" height="540" loading="lazy" alt="Assigning Tetrahedral Positions from Pool — 1st Node — 2nd Node — 3rd Node — 4th Node"></div>
         <figcaption><span class="num">50</span> Assigning Tetrahedral Positions from Pool</figcaption>
       </figure>
       <div class="notes">
@@ -535,7 +561,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s51" aria-label="Slide 51">
       <figure>
-        <img src="img/051.jpg" width="720" height="540" loading="lazy" alt="Output — Input — A Single Node’s Input and Output">
+        <div class="pic"><img src="img/051.jpg" width="720" height="540" loading="lazy" alt="Output — Input — A Single Node’s Input and Output"></div>
         <figcaption><span class="num">51</span> Output</figcaption>
       </figure>
       <div class="notes">
@@ -544,7 +570,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s52" aria-label="Slide 52">
       <figure>
-        <img src="img/052.jpg" width="720" height="540" loading="lazy" alt="Dining Cryptographers">
+        <div class="pic"><img src="img/052.jpg" width="720" height="540" loading="lazy" alt="Dining Cryptographers"></div>
         <figcaption><span class="num">52</span> Dining Cryptographers</figcaption>
       </figure>
       <div class="notes">
@@ -555,7 +581,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s53" aria-label="Slide 53">
       <figure>
-        <img src="img/053.jpg" width="720" height="540" loading="lazy" alt="Disclosing Ned — * Carol privately discloses Not-Ned — Anonymous Message Broadcasting">
+        <div class="pic"><img src="img/053.jpg" width="720" height="540" loading="lazy" alt="Disclosing Ned — * Carol privately discloses Not-Ned — Anonymous Message Broadcasting"></div>
         <figcaption><span class="num">53</span> Disclosing Ned</figcaption>
       </figure>
       <div class="notes">
@@ -567,7 +593,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s54" aria-label="Slide 54">
       <figure>
-        <img src="img/054.jpg" width="720" height="540" loading="lazy" alt="Disclosing Ned — * Carol privately discloses Not-Ned — Eliminating Shared Coin Flips">
+        <div class="pic"><img src="img/054.jpg" width="720" height="540" loading="lazy" alt="Disclosing Ned — * Carol privately discloses Not-Ned — Eliminating Shared Coin Flips"></div>
         <figcaption><span class="num">54</span> Disclosing Ned</figcaption>
       </figure>
       <div class="notes">
@@ -579,7 +605,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s55" aria-label="Slide 55">
       <figure>
-        <img src="img/055.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Carol privately discloses she paid — “Yes...”/”No…” = (2+(6/2))/(4+(6/2)) = 5/7 &gt; 1/2">
+        <div class="pic"><img src="img/055.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Carol privately discloses she paid — “Yes...”/”No…” = (2+(6/2))/(4+(6/2)) = 5/7 &gt; 1/2"></div>
         <figcaption><span class="num">55</span> Statistical Message Broadcasting Carol privately discloses she paid</figcaption>
       </figure>
       <div class="notes">
@@ -592,7 +618,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s56" aria-label="Slide 56">
       <figure>
-        <img src="img/056.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Everyone privately discloses not paying — “Yes…” / “No…” = (6/2) / (6+(6/2)) = 3/9 &lt; 1/2">
+        <div class="pic"><img src="img/056.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Everyone privately discloses not paying — “Yes…” / “No…” = (6/2) / (6+(6/2)) = 3/9 &lt; 1/2"></div>
         <figcaption><span class="num">56</span> Statistical Message Broadcasting Everyone privately discloses not paying</figcaption>
       </figure>
       <div class="notes">
@@ -602,7 +628,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s57" aria-label="Slide 57">
       <figure>
-        <img src="img/057.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Carol discloses, Alice lies — “Yes...”/”No…” = (4+(6/2))/(2+(6/2)) = 7/5 &gt; 1">
+        <div class="pic"><img src="img/057.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Carol discloses, Alice lies — “Yes...”/”No…” = (4+(6/2))/(2+(6/2)) = 7/5 &gt; 1"></div>
         <figcaption><span class="num">57</span> Statistical Message Broadcasting Carol discloses, Alice lies</figcaption>
       </figure>
       <div class="notes">
@@ -612,7 +638,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s58" aria-label="Slide 58">
       <figure>
-        <img src="img/058.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Routing">
+        <div class="pic"><img src="img/058.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Routing"></div>
         <figcaption><span class="num">58</span> Statistical Message Routing</figcaption>
       </figure>
       <div class="notes">
@@ -622,7 +648,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s59" aria-label="Slide 59">
       <figure>
-        <img src="img/059.jpg" width="720" height="540" loading="lazy" alt="Hashed Message Routing">
+        <div class="pic"><img src="img/059.jpg" width="720" height="540" loading="lazy" alt="Hashed Message Routing"></div>
         <figcaption><span class="num">59</span> Hashed Message Routing</figcaption>
       </figure>
       <div class="notes">
@@ -632,7 +658,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s60" aria-label="Slide 60">
       <figure>
-        <img src="img/060.jpg" width="720" height="540" loading="lazy" alt="Beacon Hashed Message Routing">
+        <div class="pic"><img src="img/060.jpg" width="720" height="540" loading="lazy" alt="Beacon Hashed Message Routing"></div>
         <figcaption><span class="num">60</span> Beacon Hashed Message Routing</figcaption>
       </figure>
       <div class="notes">
@@ -642,7 +668,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s61" aria-label="Slide 61">
       <figure>
-        <img src="img/061.jpg" width="720" height="540" loading="lazy" alt="Dining Idiot-Savants — paper napkin protocol">
+        <div class="pic"><img src="img/061.jpg" width="720" height="540" loading="lazy" alt="Dining Idiot-Savants — paper napkin protocol"></div>
         <figcaption><span class="num">61</span> Dining Idiot-Savants</figcaption>
       </figure>
       <div class="notes">
@@ -655,7 +681,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s62" aria-label="Slide 62">
       <figure>
-        <img src="img/062.jpg" width="720" height="540" loading="lazy" alt="Preference Spin — chosen plain text attack">
+        <div class="pic"><img src="img/062.jpg" width="720" height="540" loading="lazy" alt="Preference Spin — chosen plain text attack"></div>
         <figcaption><span class="num">62</span> Preference Spin</figcaption>
       </figure>
       <div class="notes">
@@ -666,7 +692,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s63" aria-label="Slide 63">
       <figure>
-        <img src="img/063.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation">
+        <div class="pic"><img src="img/063.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation"></div>
         <figcaption><span class="num">63</span> Preference Propagation</figcaption>
       </figure>
       <div class="notes">
@@ -675,7 +701,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s64" aria-label="Slide 64">
       <figure>
-        <img src="img/064.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation — Input Cycle Chooses “Theirs”">
+        <div class="pic"><img src="img/064.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation — Input Cycle Chooses “Theirs”"></div>
         <figcaption><span class="num">64</span> Preference Propagation</figcaption>
       </figure>
       <div class="notes">
@@ -684,7 +710,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s65" aria-label="Slide 65">
       <figure>
-        <img src="img/065.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation — Output Cycle Routes “Mine” and “Theirs”">
+        <div class="pic"><img src="img/065.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation — Output Cycle Routes “Mine” and “Theirs”"></div>
         <figcaption><span class="num">65</span> Preference Propagation</figcaption>
       </figure>
       <div class="notes">
@@ -693,7 +719,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s66" aria-label="Slide 66">
       <figure>
-        <img src="img/066.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Propagation">
+        <div class="pic"><img src="img/066.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Propagation"></div>
         <figcaption><span class="num">66</span> Tetrahedral Propagation</figcaption>
       </figure>
       <div class="notes">
@@ -704,7 +730,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s67" aria-label="Slide 67">
       <figure>
-        <img src="img/067.jpg" width="720" height="540" loading="lazy" alt="Public Key Blinding">
+        <div class="pic"><img src="img/067.jpg" width="720" height="540" loading="lazy" alt="Public Key Blinding"></div>
         <figcaption><span class="num">67</span> Public Key Blinding</figcaption>
       </figure>
       <div class="notes">
@@ -713,7 +739,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s68" aria-label="Slide 68">
       <figure>
-        <img src="img/068.jpg" width="720" height="540" loading="lazy" alt="Secret Sharing Beacons">
+        <div class="pic"><img src="img/068.jpg" width="720" height="540" loading="lazy" alt="Secret Sharing Beacons"></div>
         <figcaption><span class="num">68</span> Secret Sharing Beacons</figcaption>
       </figure>
       <div class="notes">
@@ -723,7 +749,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s69" aria-label="Slide 69">
       <figure>
-        <img src="img/069.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets">
+        <div class="pic"><img src="img/069.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets"></div>
         <figcaption><span class="num">69</span> 3-token Secrets</figcaption>
       </figure>
       <div class="notes">
@@ -734,7 +760,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s70" aria-label="Slide 70">
       <figure>
-        <img src="img/070.jpg" width="720" height="540" loading="lazy" alt="Sparse 3-token Secrets">
+        <div class="pic"><img src="img/070.jpg" width="720" height="540" loading="lazy" alt="Sparse 3-token Secrets"></div>
         <figcaption><span class="num">70</span> Sparse 3-token Secrets</figcaption>
       </figure>
       <div class="notes">
@@ -743,7 +769,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s71" aria-label="Slide 71">
       <figure>
-        <img src="img/071.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets">
+        <div class="pic"><img src="img/071.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets"></div>
         <figcaption><span class="num">71</span> 3-token Secrets</figcaption>
       </figure>
       <div class="notes">
@@ -751,7 +777,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s72" aria-label="Slide 72">
       <figure>
-        <img src="img/072.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets">
+        <div class="pic"><img src="img/072.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets"></div>
         <figcaption><span class="num">72</span> 3-token Secrets</figcaption>
       </figure>
       <div class="notes">
@@ -759,7 +785,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s73" aria-label="Slide 73">
       <figure>
-        <img src="img/073.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets">
+        <div class="pic"><img src="img/073.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets"></div>
         <figcaption><span class="num">73</span> 3-token Secrets</figcaption>
       </figure>
       <div class="notes">
@@ -767,7 +793,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s74" aria-label="Slide 74">
       <figure>
-        <img src="img/074.jpg" width="720" height="540" loading="lazy" alt="Intermediate Secrets">
+        <div class="pic"><img src="img/074.jpg" width="720" height="540" loading="lazy" alt="Intermediate Secrets"></div>
         <figcaption><span class="num">74</span> Intermediate Secrets</figcaption>
       </figure>
       <div class="notes">
@@ -775,7 +801,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s75" aria-label="Slide 75">
       <figure>
-        <img src="img/075.jpg" width="720" height="540" loading="lazy" alt="N-Layer Secret Sharing Lattices">
+        <div class="pic"><img src="img/075.jpg" width="720" height="540" loading="lazy" alt="N-Layer Secret Sharing Lattices"></div>
         <figcaption><span class="num">75</span> N-Layer Secret Sharing Lattices</figcaption>
       </figure>
       <div class="notes">
@@ -784,7 +810,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s76" aria-label="Slide 76">
       <figure>
-        <img src="img/076.jpg" width="720" height="540" loading="lazy" alt="Share Propagation">
+        <div class="pic"><img src="img/076.jpg" width="720" height="540" loading="lazy" alt="Share Propagation"></div>
         <figcaption><span class="num">76</span> Share Propagation</figcaption>
       </figure>
       <div class="notes">
@@ -793,7 +819,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s77" aria-label="Slide 77">
       <figure>
-        <img src="img/077.jpg" width="720" height="540" loading="lazy" alt="Hybrid Propagation">
+        <div class="pic"><img src="img/077.jpg" width="720" height="540" loading="lazy" alt="Hybrid Propagation"></div>
         <figcaption><span class="num">77</span> Hybrid Propagation</figcaption>
       </figure>
       <div class="notes">
@@ -803,7 +829,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s78" aria-label="Slide 78">
       <figure>
-        <img src="img/078.jpg" width="720" height="540" loading="lazy" alt="Huffman Tree">
+        <div class="pic"><img src="img/078.jpg" width="720" height="540" loading="lazy" alt="Huffman Tree"></div>
         <figcaption><span class="num">78</span> Huffman Tree</figcaption>
       </figure>
       <div class="notes">
@@ -812,7 +838,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s79" aria-label="Slide 79">
       <figure>
-        <img src="img/079.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree">
+        <div class="pic"><img src="img/079.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree"></div>
         <figcaption><span class="num">79</span> Predictive Encoding Tree</figcaption>
       </figure>
       <div class="notes">
@@ -821,7 +847,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s80" aria-label="Slide 80">
       <figure>
-        <img src="img/080.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree">
+        <div class="pic"><img src="img/080.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree"></div>
         <figcaption><span class="num">80</span> Predictive Encoding Tree</figcaption>
       </figure>
       <div class="notes">
@@ -830,7 +856,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s81" aria-label="Slide 81">
       <figure>
-        <img src="img/081.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree">
+        <div class="pic"><img src="img/081.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree"></div>
         <figcaption><span class="num">81</span> Predictive Encoding Tree</figcaption>
       </figure>
       <div class="notes">
@@ -840,7 +866,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s82" aria-label="Slide 82">
       <figure>
-        <img src="img/082.jpg" width="720" height="540" loading="lazy" alt="Tree Encoded Interests">
+        <div class="pic"><img src="img/082.jpg" width="720" height="540" loading="lazy" alt="Tree Encoded Interests"></div>
         <figcaption><span class="num">82</span> Tree Encoded Interests</figcaption>
       </figure>
       <div class="notes">
@@ -850,7 +876,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s83" aria-label="Slide 83">
       <figure>
-        <img src="img/083.jpg" width="720" height="540" loading="lazy" alt="Interest Obfuscation Thresholds">
+        <div class="pic"><img src="img/083.jpg" width="720" height="540" loading="lazy" alt="Interest Obfuscation Thresholds"></div>
         <figcaption><span class="num">83</span> Interest Obfuscation Thresholds</figcaption>
       </figure>
       <div class="notes">
@@ -860,7 +886,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s84" aria-label="Slide 84">
       <figure>
-        <img src="img/084.jpg" width="720" height="540" loading="lazy" alt="Sparse Homophonic Tree — Populated from Beacon">
+        <div class="pic"><img src="img/084.jpg" width="720" height="540" loading="lazy" alt="Sparse Homophonic Tree — Populated from Beacon"></div>
         <figcaption><span class="num">84</span> Sparse Homophonic Tree</figcaption>
       </figure>
       <div class="notes">
@@ -870,7 +896,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s85" aria-label="Slide 85">
       <figure>
-        <img src="img/085.jpg" width="720" height="540" loading="lazy" alt="Tree Comparison — Mine — Theirs">
+        <div class="pic"><img src="img/085.jpg" width="720" height="540" loading="lazy" alt="Tree Comparison — Mine — Theirs"></div>
         <figcaption><span class="num">85</span> Tree Comparison</figcaption>
       </figure>
       <div class="notes">
@@ -879,7 +905,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s86" aria-label="Slide 86">
       <figure>
-        <img src="img/086.jpg" width="720" height="540" loading="lazy" alt="Pruned Tree">
+        <div class="pic"><img src="img/086.jpg" width="720" height="540" loading="lazy" alt="Pruned Tree"></div>
         <figcaption><span class="num">86</span> Pruned Tree</figcaption>
       </figure>
       <div class="notes">
@@ -888,7 +914,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s87" aria-label="Slide 87">
       <figure>
-        <img src="img/087.jpg" width="720" height="540" loading="lazy" alt="Complexity MinMax">
+        <div class="pic"><img src="img/087.jpg" width="720" height="540" loading="lazy" alt="Complexity MinMax"></div>
         <figcaption><span class="num">87</span> Complexity MinMax</figcaption>
       </figure>
       <div class="notes">
@@ -898,7 +924,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s88" aria-label="Slide 88">
       <figure>
-        <img src="img/088.jpg" width="720" height="540" loading="lazy" alt="As a Standard Node Value">
+        <div class="pic"><img src="img/088.jpg" width="720" height="540" loading="lazy" alt="As a Standard Node Value"></div>
         <figcaption><span class="num">88</span> As a Standard Node Value</figcaption>
       </figure>
       <div class="notes">
@@ -907,7 +933,7 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s89" aria-label="Slide 89">
       <figure>
-        <img src="img/089.jpg" width="720" height="540" loading="lazy" alt="Propagating through a Tetrahedral Lattice">
+        <div class="pic"><img src="img/089.jpg" width="720" height="540" loading="lazy" alt="Propagating through a Tetrahedral Lattice"></div>
         <figcaption><span class="num">89</span> Propagating through a Tetrahedral Lattice</figcaption>
       </figure>
       <div class="notes">
@@ -916,67 +942,102 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     </section>
     <section class="anon-slide" id="s90" aria-label="Slide 90">
       <figure>
-        <img src="img/090.jpg" width="720" height="540" loading="lazy" alt="Anonymous Collaboration — Warren Stringer">
+        <div class="pic"><img src="img/090.jpg" width="720" height="540" loading="lazy" alt="Anonymous Collaboration — Warren Stringer"></div>
         <figcaption><span class="num">90</span> Anonymous Collaboration</figcaption>
       </figure>
       <div class="notes">
       </div>
     </section>
 </main>
-<div class="playbar" role="group" aria-label="Slides" hidden>
-  <button type="button" class="pb-btn" data-pb="prev" aria-label="Previous slide">
+<nav class="bar" aria-label="Slides">
+  <button type="button" class="bar-btn" data-bar="prev" aria-label="Previous slide">
     <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 5L7.5 10L12.5 15"/></svg>
   </button>
-  <input type="range" class="pb-range" min="1" max="90" step="1" value="1" aria-label="Slide">
-  <button type="button" class="pb-btn" data-pb="next" aria-label="Next slide">
+  <div class="strip"></div>
+  <button type="button" class="bar-btn" data-bar="next" aria-label="Next slide">
     <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 5L12.5 10L7.5 15"/></svg>
   </button>
-  <span class="pb-count"><span data-pb-current>1</span> / <span data-pb-total>90</span></span>
-</div>
+</nav>
 <script>
-// Player: one slide shown; playbar (prev, slider, next) under its picture; arrow keys; hash sync.
+// Player: one slide; disclosure shows/hides notes; strip browses, tap selects; swipe up/down on the picture; keys; hash sync.
 (() => {
   const slides = Array.from(document.querySelectorAll('section.anon-slide'));
   if (!slides.length) return;
-  document.documentElement.classList.add('js');
-  const bar = document.querySelector('.playbar');
-  const range = bar.querySelector('.pb-range');
-  const prev = bar.querySelector('[data-pb="prev"]');
-  const next = bar.querySelector('[data-pb="next"]');
-  const cur = bar.querySelector('[data-pb-current]');
+  const root = document.documentElement;
+  root.classList.add('js');
   const n = slides.length;
-  range.max = String(n);
-  bar.querySelector('[data-pb-total]').textContent = String(n);
-  bar.hidden = false;
-  const preload = (i) => { const img = slides[i] && slides[i].querySelector('img'); if (img) img.loading = 'eager'; };
+  const strip = document.querySelector('.strip');
+  const prev = document.querySelector('[data-bar="prev"]');
+  const next = document.querySelector('[data-bar="next"]');
+  const KEY = 'anon-notes-off';
+  try { if (localStorage.getItem(KEY) === '1') root.classList.add('notes-off'); } catch (e) {}
+  const disc = document.createElement('button');
+  disc.type = 'button';
+  disc.className = 'disc';
+  disc.innerHTML = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5"/></svg>';
+  const syncDisc = () => {
+    const off = root.classList.contains('notes-off');
+    disc.setAttribute('aria-expanded', String(!off));
+    disc.setAttribute('aria-label', off ? 'Show notes' : 'Hide notes');
+  };
+  disc.addEventListener('click', () => {
+    const off = root.classList.toggle('notes-off');
+    try { localStorage.setItem(KEY, off ? '1' : '0'); } catch (e) {}
+    syncDisc();
+  });
+  syncDisc();
+  const thumbs = slides.map((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'thumb';
+    b.setAttribute('aria-label', 'Slide ' + (i + 1));
+    const src = s.querySelector('.pic img').getAttribute('src').replace('img/', 'img/t/');
+    b.innerHTML = '<img src="' + src + '" width="64" height="48" alt="" loading="lazy" decoding="async">';
+    b.addEventListener('click', () => show(i));
+    strip.append(b);
+    return b;
+  });
+  const center = (i, smooth) => {
+    const t = thumbs[i];
+    strip.scrollTo({ left: t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2, behavior: smooth ? 'smooth' : 'auto' });
+  };
   let current = -1;
-  const show = (i) => {
+  const show = (i, smooth = true) => {
     i = Math.min(n - 1, Math.max(0, i));
     if (i === current) return;
-    if (current >= 0) slides[current].hidden = true;
+    if (current >= 0) { slides[current].hidden = true; thumbs[current].removeAttribute('aria-current'); }
     current = i;
     const s = slides[i];
     s.hidden = false;
     const fig = s.querySelector('figure');
-    fig.insertBefore(bar, fig.querySelector('figcaption'));
+    fig.insertBefore(disc, fig.querySelector('figcaption'));
     const notes = s.querySelector('.notes');
     if (notes) notes.scrollTop = 0;
-    preload(i + 1); preload(i - 1);
-    range.value = String(i + 1);
-    range.style.setProperty('--p', (n > 1 ? (i / (n - 1)) * 100 : 0) + '%');
-    cur.textContent = String(i + 1);
+    thumbs[i].setAttribute('aria-current', 'true');
+    center(i, smooth);
     prev.disabled = i === 0;
     next.disabled = i === n - 1;
     const hash = '#' + s.id;
     if (location.hash !== hash) history.replaceState(null, '', hash);
   };
-  slides.forEach((s) => { s.hidden = true; });
-  range.addEventListener('input', () => show(Number(range.value) - 1));
+  slides.forEach((s) => {
+    s.hidden = true;
+    const pic = s.querySelector('.pic');
+    let x0 = 0, y0 = 0, id = null;
+    pic.addEventListener('pointerdown', (e) => { id = e.pointerId; x0 = e.clientX; y0 = e.clientY; });
+    pic.addEventListener('pointerup', (e) => {
+      if (e.pointerId !== id) return;
+      id = null;
+      const dx = e.clientX - x0, dy = e.clientY - y0;
+      if (Math.abs(dy) < 40 || Math.abs(dy) < Math.abs(dx)) return;
+      show(current + (dy < 0 ? 1 : -1));
+    });
+    pic.addEventListener('pointercancel', () => { id = null; });
+  });
   prev.addEventListener('click', () => show(current - 1));
   next.addEventListener('click', () => show(current + 1));
   document.addEventListener('keydown', (e) => {
     if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
-    if (e.target === range) return;
     const k = e.key;
     if (k === 'ArrowLeft' || k === 'PageUp') show(current - 1);
     else if (k === 'ArrowRight' || k === 'PageDown') show(current + 1);
@@ -986,7 +1047,8 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
     e.preventDefault();
   });
   addEventListener('hashchange', () => { const i = slides.findIndex((s) => '#' + s.id === location.hash); if (i >= 0) show(i); });
-  show(Math.max(0, slides.findIndex((s) => '#' + s.id === location.hash)));
+  addEventListener('resize', () => center(current, false));
+  show(Math.max(0, slides.findIndex((s) => '#' + s.id === location.hash)), false);
 })();
 </script>
 </body>
