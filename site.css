@@ -150,6 +150,7 @@ figure.diagram svg {
 .svg-fill-ink2 { fill: var(--ink-2); }
 .svg-spoke line { stroke: var(--ring); stroke-width: 1.5; }
 .svg-node circle { fill: var(--paper-2); stroke: var(--line); stroke-width: 1.5; }
+.svg-node circle.svg-node-why { stroke-dasharray: 1.5 4; stroke-linecap: round; }
 .svg-chip { fill: var(--paper); stroke: var(--line); }
 .svg-edge path { fill: none; stroke: currentColor; stroke-opacity: .45; stroke-width: 1.5; stroke-linejoin: round; }
 .svg-arrow line { stroke: var(--c-studio); stroke-width: 2.5; stroke-linecap: round; }
@@ -212,7 +213,6 @@ tbody th { font-weight: 600; }
 @media (min-width: 980px) {
   .slide.cols .text { column-count: 2; column-gap: 56px; }
   .slide.cols .text > * { break-inside: avoid; }
-  .slide.cols .text > .col-break { break-before: column; }
 }
 
 /* Introducing HereCaster: the capture holds the place until the test-data demo renders over it */
@@ -241,6 +241,17 @@ ol.steps { padding-left: 1.4em; }
 ol.steps > li { margin-bottom: .8em; font-weight: 600; }
 ol.steps ul { padding-left: 1.1em; margin: .3em 0 0; font-weight: 400; }
 ol.steps ul li { margin-bottom: .2em; }
+
+/* Scan or Attend, One ride: two columns, picture over its text */
+.pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+.pair-col { min-width: 0; }
+.pair-col figure.diagram { margin-bottom: 20px; }
+.pair-col figure.diagram svg { width: 100%; height: auto; max-height: 46vh; }
+.pair-col p { max-width: 62ch; }
+@media (min-width: 760px) { .pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; } }
+/* The Almost Six Questions: the one query across the slide */
+#questions figure.query { grid-column: 1 / -1; }
+#questions .slide-inner figure.diagram:not(.query) svg { max-height: 34vh; }
 
 /* Thank you: QR to coincidence.org, dark on white in both themes so phones can scan it */
 #contact .slide-inner { justify-items: center; }
@@ -300,9 +311,9 @@ ol.steps ul li { margin-bottom: .2em; }
 }
 
 /* Diagrams redrawn from the original slides, and the shuttle ride */
-/* the ride figure fits the window under its text */
+/* the one query fits the window under the table and ring */
 @media (min-width: 900px) {
-  #ride figure.diagram svg { max-height: max(300px, calc(100svh - 460px)); }
+  #questions figure.query svg { max-height: 22vh; }
 }
 /* Bibliography */
 .refs { margin: 0; padding-left: 1.6em; font-size: 16px; line-height: 1.45; }
@@ -319,7 +330,7 @@ ol.steps ul li { margin-bottom: .2em; }
 .premise-list li { margin: 0; line-height: 1.4; }
 .premise-lead { margin: 0 0 .1em; font-weight: 600; }
 .premise-sub { margin: -.2em 0 .3em; font-size: clamp(22px, 2vw, 28px); font-weight: 600; line-height: 1.2; }
-#premise figure.diagram svg, #questions figure.diagram svg { max-width: 440px; max-height: 56vh; margin: 0 auto; }
+#premise figure.diagram svg, #questions figure.diagram:not(.query) svg { max-width: 440px; max-height: 56vh; margin: 0 auto; }
 /* the illustration keeps the right column down to tablet width */
 @media (min-width: 600px) {
   #premise .slide-inner, #questions .slide-inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; }
@@ -394,9 +405,13 @@ ol.steps ul li { margin-bottom: .2em; }
   .demo-frame { display: none; }
   .demo-box.live .zfold { visibility: visible; }
   figure.diagram svg { max-height: 60vh; }
+  .pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+  #questions .slide-inner figure.diagram:not(.query) svg { max-height: 300px; }
+  #questions figure.query svg { max-height: 200px; }
+  #questions .slide-inner { break-inside: avoid; }
+  #questions figure.query { break-before: avoid; }
   .slide.cols .text { column-count: 2; column-gap: 32px; }
   .slide.cols .text > * { break-inside: avoid; }
-  .slide.cols .text > .col-break { break-before: column; }
   /* a dish stays whole; one that does not fit under its text starts a page */
   [data-petri] { break-inside: avoid; }
   .slide.wide .petri-stage { max-width: none; }
