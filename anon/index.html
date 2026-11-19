@@ -41,9 +41,9 @@ html.js, .js body { height: 100%; overflow: hidden; }
   .js .anon-slide { grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
   .js.notes-off .anon-slide { grid-template-columns: minmax(0, 1fr); }
 }
-.js figure { display: flex; flex-direction: column; min-height: 0; }
-.js .pic { flex: 1; min-height: 0; container-type: size; display: grid; place-items: center; touch-action: none; user-select: none; -webkit-user-select: none; }
-.js .pic img { width: min(100cqw, 100cqh * 4 / 3); max-width: none; height: auto; -webkit-user-drag: none; }
+.js figure { container-type: size; display: flex; flex-direction: column; align-items: center; min-height: 0; }
+.js .pic { touch-action: none; user-select: none; -webkit-user-select: none; }
+.js .pic img { width: min(100cqw, (100cqh - 52px) * 4 / 3); max-width: none; height: auto; -webkit-user-drag: none; }
 .js figcaption { margin-top: 0; text-align: center; }
 .disc { display: block; margin: 2px auto 0; width: 44px; height: 24px; padding: 0; border: 0; background: transparent; color: var(--ink-2); cursor: pointer; }
 .disc svg { width: 18px; height: 18px; transition: transform .2s; }
@@ -68,7 +68,7 @@ html.js, .js body { height: 100%; overflow: hidden; }
   .js .anon-slide[hidden] { display: grid; }
   .js .anon-slide { grid-template-rows: auto; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; padding: 32px 0; border-top: 1px solid var(--line); break-inside: avoid; }
   .js .notes { display: block; overflow: visible; }
-  .js .pic { container-type: normal; }
+  .js figure { container-type: normal; }
   .js .pic img { width: 100%; }
   .js .bar, .disc { display: none; }
 }
@@ -77,11 +77,6 @@ html.js, .js body { height: 100%; overflow: hidden; }
 <body>
 <main>
   <p class="back"><a href="../">← coincidence.org</a></p>
-  <header>
-    <h1>Anonymous Collaboration</h1>
-    <p class="sub">How to share interests without a trusted 3rd party</p>
-    <p class="sub">Warren Stringer · RSA Data Security Conference, 1998</p>
-  </header>
     <section class="anon-slide" id="s1" aria-label="Slide 1">
       <figure>
         <div class="pic"><img src="img/001.jpg" width="720" height="540" loading="eager" alt="Anonymous Collaboration — Warren Stringer"></div>
