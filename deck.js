@@ -5,34 +5,70 @@ const totalEl = document.querySelector('[data-deck-total]');
 const prevBtn = document.querySelector('[data-deck="prev"]');
 const nextBtn = document.querySelector('[data-deck="next"]');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+// Portrait windows turn each column of a split slide into its own page: 3a, 3b.
+const portrait = window.matchMedia('screen and (max-aspect-ratio: 799/1000)');
 
-let current = Math.max(0, slides.findIndex((s) => '#' + s.id === location.hash));
+let pages = [];
+function buildPages() {
+  pages = [];
+  slides.forEach((s, i) => {
+    const cols = s.classList.contains('split') && portrait.matches ? Array.from(s.querySelectorAll('.pair-col')) : [];
+    if (cols.length < 2) { pages.push({ el: s, label: String(i + 1), hash: '#' + s.id }); return; }
+    cols.forEach((c, k) => {
+      const letter = String.fromCharCode(97 + k);
+      pages.push({ el: c, label: (i + 1) + letter, hash: '#' + s.id + (k ? '-' + letter : '') });
+    });
+  });
+}
+buildPages();
+
+const pageOfHash = (h) => {
+  let i = pages.findIndex((p) => p.hash === h);
+  // #today-b in a landscape window lands on #today
+  if (i < 0 && h) i = pages.findIndex((p) => h.startsWith(p.hash + '-'));
+  return i;
+};
+
+let current = Math.max(0, pageOfHash(location.hash));
 
 function show(index) {
   current = index;
-  if (currentEl) currentEl.textContent = String(index + 1);
+  if (currentEl) currentEl.textContent = pages[index].label;
   if (prevBtn) prevBtn.disabled = index === 0;
-  if (nextBtn) nextBtn.disabled = index === slides.length - 1;
-  const hash = '#' + slides[index].id;
+  if (nextBtn) nextBtn.disabled = index === pages.length - 1;
+  const hash = pages[index].hash;
   if (location.hash !== hash) history.replaceState(null, '', hash);
 }
 
 function go(index) {
-  const target = Math.min(slides.length - 1, Math.max(0, index));
-  slides[target].scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+  const target = Math.min(pages.length - 1, Math.max(0, index));
+  pages[target].el.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
   show(target);
 }
 
-// Slide crossing the middle of the viewport is the current one.
+// Page crossing the middle of the viewport is the current one.
 const observer = new IntersectionObserver((entries) => {
   for (const entry of entries) {
-    if (entry.isIntersecting) show(slides.indexOf(entry.target));
+    if (!entry.isIntersecting) continue;
+    const i = pages.findIndex((p) => p.el === entry.target);
+    if (i >= 0) show(i);
   }
 }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
-slides.forEach((s) => observer.observe(s));
+function observePages() {
+  observer.disconnect();
+  pages.forEach((p) => observer.observe(p.el));
+}
+observePages();
+
+portrait.addEventListener('change', () => {
+  const slide = slides.find((s) => s === pages[current].el || s.contains(pages[current].el));
+  buildPages();
+  observePages();
+  show(Math.max(0, pages.findIndex((p) => p.el === slide || slide.contains(p.el))));
+});
 
 if (totalEl) totalEl.textContent = String(slides.length);
-if (slides.length) show(current);
+if (pages.length) show(current);
 
 prevBtn?.addEventListener('click', () => go(current - 1));
 nextBtn?.addEventListener('click', () => go(current + 1));
@@ -96,17 +132,17 @@ async function mountAll() {
 }
 
 // Hash link: re-land once dishes, load and fonts have set slide heights.
-const landing = location.hash && slides.some((s) => '#' + s.id === location.hash) ? current : -1;
+const landing = location.hash && pageOfHash(location.hash) >= 0 ? current : -1;
 
 async function start() {
   await mountAll();
   if (landing < 0) return;
   if (document.readyState !== 'complete') await new Promise((r) => addEventListener('load', r, { once: true }));
   await document.fonts.ready;
-  const land = () => slides[landing].scrollIntoView({ behavior: 'instant', block: 'start' });
+  const land = () => pages[landing].el.scrollIntoView({ behavior: 'instant', block: 'start' });
   requestAnimationFrame(land);
   // Lazy images load once the slide is in view; land again after them.
-  await Promise.all(Array.from(slides[landing].querySelectorAll('img'), (i) => i.decode().catch(() => {})));
+  await Promise.all(Array.from(pages[landing].el.querySelectorAll('img'), (i) => i.decode().catch(() => {})));
   if (current === landing) requestAnimationFrame(land);
 }
 

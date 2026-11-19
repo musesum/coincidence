@@ -87,13 +87,13 @@
     </figure>
   </div>
 </section>
-<section class="slide solo" id="today" aria-labelledby="h-today">
+<section class="slide solo split" id="today" aria-labelledby="h-today">
   <div class="slide-inner">
-    <header class="slide-head">
-      <h2 id="h-today">Scan or Attend</h2>
-    </header>
     <div class="pair">
       <div class="pair-col">
+        <header class="slide-head">
+          <h2 id="h-today">Scan or Attend</h2>
+        </header>
         <figure class="diagram">
           <svg viewBox="0 0 316 340" role="img" aria-labelledby="t-today-scan">
             <title id="t-today-scan">A person scans a code on a stand; a photo of that code works from anywhere.</title>
@@ -130,7 +130,9 @@
             </g>
           </svg>
         </figure>
-        <p>Today, for each event, someone puts up a QR code, you take out your phone, take a picture, and claim an NFT. Over and over and over again. Or maybe, you were offline,  or the presenter moved to the next screen. Oh well.</p>
+        <div class="pair-text">
+          <p>Today, for each event, someone puts up a QR code, you take out your phone, take a picture, and claim an NFT. Over and over and over again. Or maybe, you were offline,  or the presenter moved to the next screen. Oh well.</p>
+        </div>
       </div>
       <div class="pair-col">
         <figure class="diagram">
@@ -164,18 +166,20 @@
             </g>
           </svg>
         </figure>
-        <p>Instead, you opt-in to a trusted community. After that, simply show up. It could be for a day, a week, or a whole year. You choose when and where to appear. And your phone does the rest. Frictionless.</p>
+        <div class="pair-text">
+          <p>Instead, you opt-in to a trusted community. After that, simply show up. It could be for a day, a week, or a whole year. You choose when and where to appear. And your phone does the rest. Frictionless.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
-<section class="slide solo" id="ride" aria-labelledby="h-ride">
+<section class="slide solo split" id="ride" aria-labelledby="h-ride">
   <div class="slide-inner">
-    <header class="slide-head">
-      <h2 id="h-ride">One ride = one token</h2>
-    </header>
     <div class="pair">
       <div class="pair-col">
+        <header class="slide-head">
+          <h2 id="h-ride">One ride = one token</h2>
+        </header>
         <figure class="diagram">
           <svg viewBox="0 0 316 340" role="img" aria-labelledby="t-ride-scan">
             <title id="t-ride-scan">A person scans a code on a stand; a photo of that code works from anywhere.</title>
@@ -212,8 +216,10 @@
             </g>
           </svg>
         </figure>
-        <p>Imagine taking a shuttle from co-work to your apartment. Right now, you take out your phone, launch an app, and hope for your QR code to appear. You point your phone at the driver's scanning app. Wait for the app to recognize you and then sit down.</p>
-        <p>Or maybe there is no internet in the garage. So, you hope for the offline-code. Oh, but now the app wants to you to log in.</p>
+        <div class="pair-text">
+          <p>Imagine taking a shuttle from co-work to your apartment. Right now, you take out your phone, launch an app, and hope for your QR code to appear. You point your phone at the driver's scanning app. Wait for the app to recognize you and then sit down.</p>
+          <p>Or maybe there is no internet in the garage. So, you hope for the offline-code. Oh, but now the app wants to you to log in.</p>
+        </div>
       </div>
       <div class="pair-col">
         <figure class="diagram">
@@ -247,8 +253,10 @@
             </g>
           </svg>
         </figure>
-        <p>Or you have HereCaster running in the background. You walk into the shuttle and sit down. The driver's app broadcasts a handle, your phone responds.</p>
-        <p>No Internet? No problem! The protocol is broadcast over Bluetooth, or other short range alternatives. Later, the tokens are consolidated, when back online.</p>
+        <div class="pair-text">
+          <p>Or you have HereCaster running in the background. You walk into the shuttle and sit down. The driver's app broadcasts a handle, your phone responds.</p>
+          <p>No Internet? No problem! The protocol is broadcast over Bluetooth, or other short range alternatives. Later, the tokens are consolidated, when back online.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -607,7 +615,7 @@
 <section class="slide wide cols" id="johnson" aria-labelledby="h-johnson">
   <div class="slide-inner">
     <header class="slide-head">
-      <h2 id="h-johnson">How different can two logs be and still be one room?</h2>
+      <h2 id="h-johnson">Two Phones,<br class="br-portrait"> Different Logs</h2>
     </header>
     <div class="text">
       <p>Each phone logs the handles it heard in an epoch. Two phones in one room hold nearly the same log. Treat your log of s handles as a room record with t repair symbols.</p>
@@ -626,7 +634,7 @@
 <section class="slide wide" id="threat" aria-labelledby="h-threat">
   <div class="slide-inner">
     <header class="slide-head">
-      <h2 id="h-threat">What an attacker brings</h2>
+      <h2 id="h-threat">Threat Model</h2>
     </header>
     <div class="text">
       <p>An attack is a mix of keys, radios, accounts, relays, people and time. Each route is shown by what it needs and what limits it. Pick a route.</p>
@@ -634,53 +642,6 @@
     <div class="figure">
       <div data-petri data-initial='{"where":"room"}' data-controls="threat,where"></div>
     </div>
-  </div>
-</section>
-<section class="slide" id="web" aria-labelledby="h-web">
-  <div class="slide-inner">
-    <header class="slide-head">
-      <h2 id="h-web">Trust as a web of prior interactions</h2>
-    </header>
-    <div class="text">
-      <p>Keep the order of meetings, not only the map. The same three people, met in a different order, support different conclusions.</p>
-      <p>Trust should grow from histories that were corroborated separately. More devices in one hand add nothing. Friends who travel together remain separate people.</p>
-      <p>Each question gets one of three answers: supported, contradicted or unknown. There is no single trust score.</p>
-    </div>
-    <figure class="diagram">
-      <svg viewBox="0 0 640 300" role="img" aria-labelledby="t-web">
-        <title id="t-web">Two rows of A, B and C. When A meets B and then B meets C, what A passed on reaches C. When B meets C and then A meets B, it stops at B.</title>
-        <defs>
-          <marker id="arr-web" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path class="svg-fill-studio" d="M0 0L10 5L0 10Z"/>
-          </marker>
-        </defs>
-        <g class="svg-text-2">
-          <text x="40" y="34">A meets B, then B meets C</text>
-          <text x="40" y="184">B meets C, then A meets B</text>
-        </g>
-        <g class="svg-spoke">
-          <line x1="100" y1="80" x2="500" y2="80"/>
-          <line x1="100" y1="226" x2="500" y2="226"/>
-        </g>
-        <g class="svg-arrow">
-          <line x1="100" y1="124" x2="490" y2="124" marker-end="url(#arr-web)"/>
-          <line x1="100" y1="270" x2="292" y2="270" marker-end="url(#arr-web)"/>
-        </g>
-        <g class="svg-node">
-          <circle cx="100" cy="80" r="20"/><circle cx="300" cy="80" r="20"/><circle cx="500" cy="80" r="20"/>
-          <circle cx="100" cy="226" r="20"/><circle cx="300" cy="226" r="20"/><circle cx="500" cy="226" r="20"/>
-        </g>
-        <g class="svg-text" text-anchor="middle">
-          <text x="100" y="85">A</text><text x="300" y="85">B</text><text x="500" y="85">C</text>
-          <text x="100" y="231">A</text><text x="300" y="231">B</text><text x="500" y="231">C</text>
-        </g>
-        <g class="svg-text">
-          <text x="512" y="129">reaches C</text>
-          <text x="314" y="275">does not reach C</text>
-        </g>
-      </svg>
-      <figcaption>Same map, different order.</figcaption>
-    </figure>
   </div>
 </section>
 <section class="slide solo" id="sources" aria-labelledby="h-sources">

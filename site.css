@@ -243,13 +243,55 @@ ol.steps > li { margin-bottom: .8em; font-weight: 600; }
 ol.steps ul { padding-left: 1.1em; margin: .3em 0 0; font-weight: 400; }
 ol.steps ul li { margin-bottom: .2em; }
 
-/* Scan or Attend, One ride: two columns, picture over its text */
-.pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+/* Pages 3 and 4: picture over text in each column; the picture takes the height the text leaves */
 .pair-col { min-width: 0; }
-.pair-col figure.diagram { margin-bottom: 20px; }
-.pair-col figure.diagram svg { width: 100%; height: auto; max-height: 46vh; }
-.pair-col p { max-width: 62ch; }
-@media (min-width: 760px) { .pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; } }
+.pair-text p { max-width: 62ch; }
+.split figure.diagram { position: relative; min-height: 0; }
+.split figure.diagram svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.split h2 { font-size: clamp(22px, min(4.2vw, 7vh), 56px); }
+/* landscape and squarish: one page, columns side by side */
+@media screen and (min-aspect-ratio: 4/5) {
+  .slide.split { height: 100vh; height: 100svh; min-height: 0; padding-top: clamp(12px, 4vh, 48px); padding-bottom: clamp(64px, 9vh, 96px); }
+  .split .slide-inner { display: block; height: 100%; container-type: inline-size; }
+  .split .pair {
+    --pair-gap: clamp(24px, 4vw, 48px);
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    /* the picture row grows to the drawing's own height (316 x 340), no further; spare height centers the page */
+    grid-template-rows: auto minmax(0, calc((100cqw - var(--pair-gap)) / 2 * 340 / 316)) auto;
+    align-content: center;
+    column-gap: var(--pair-gap);
+    row-gap: clamp(8px, 2vh, 20px);
+  }
+  .split .pair-col { display: contents; }
+  .split .slide-head { grid-row: 1; grid-column: 1 / -1; }
+  .split .slide-head h2 { margin: 0; }
+  .split .pair-col > figure.diagram { grid-row: 2; }
+  .split .pair-col > .pair-text { grid-row: 3; font-size: clamp(13px, 2.6vh, 1em); }
+  .split .pair-col:first-child > figure.diagram, .split .pair-col:first-child > .pair-text { grid-column: 1; }
+  .split .pair-col:last-child > * { grid-column: 2; }
+  .split .pair-text p:last-child { margin-bottom: 0; }
+}
+/* portrait: each column is its own page, 3a 3b 4a 4b */
+@media screen and (max-aspect-ratio: 799/1000) {
+  .slide.split { display: block; min-height: 0; padding: 0; scroll-snap-align: none; }
+  .split .slide-inner, .split .pair { display: block; }
+  .split .pair-col {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 24px var(--gutter) 80px;
+    scroll-snap-align: start;
+  }
+  .split .pair-col + .pair-col { border-top: 1px solid var(--line); }
+  .split .slide-head h2 { margin: 0; }
+  .split .pair-col > figure.diagram { flex: 1 1 0; min-height: 140px; max-height: 52vh; }
+  .split .pair-text p:last-child { margin-bottom: 0; }
+}
 /* The Almost Six Questions: the one query across the slide */
 #questions figure.query { grid-column: 1 / -1; }
 #questions .slide-inner figure.diagram:not(.query) svg { max-height: 34vh; }
@@ -406,7 +448,13 @@ ol.steps ul li { margin-bottom: .2em; }
   .demo-frame { display: none; }
   .demo-box.live .zfold { visibility: visible; }
   figure.diagram svg { max-height: 60vh; }
-  .pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+  .split .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; }
+  .split .pair-col { display: contents; }
+  .split .slide-head { grid-row: 1; grid-column: 1 / -1; }
+  .split .pair-col > figure.diagram { grid-row: 2; height: 300px; margin-bottom: 16px; }
+  .split .pair-col > .pair-text { grid-row: 3; }
+  .split .pair-col:first-child > figure.diagram, .split .pair-col:first-child > .pair-text { grid-column: 1; }
+  .split .pair-col:last-child > * { grid-column: 2; }
   #questions .slide-inner figure.diagram:not(.query) svg { max-height: 300px; }
   #questions figure.query svg { max-height: 200px; }
   #questions .slide-inner { break-inside: avoid; }
@@ -426,9 +474,22 @@ ol.steps ul li { margin-bottom: .2em; }
 /* Pages 2-5: wider side margins on wide screens */
 @media (min-width: 980px) {
   #premise .slide-inner, #today .slide-inner, #ride .slide-inner, #questions .slide-inner { padding-inline: clamp(0px, 10vw - 48px, 120px); }
-  /* page 4 text wraps longer in the narrower columns; its pictures give up the height */
-  #ride .pair-col figure.diagram svg { max-height: 34vh; }
 }
 /* Page 5: the table ends at its longest row */
 #questions .table-wrap table { width: auto; }
 #questions .table-wrap td { padding-right: 24px; }
+/* Page 14 title breaks before "Different Logs" in portrait windows */
+br.br-portrait { display: none; }
+@media screen and (orientation: portrait) { br.br-portrait { display: inline; } }
+/* Page 8 Deployment: one page; two columns of stages in landscape and squarish windows, smaller type in short windows */
+#staging { padding-top: clamp(16px, 4vh, 64px); padding-bottom: clamp(64px, 9vh, 96px); }
+#staging .slide-inner { gap: clamp(12px, 3vh, 32px); }
+#staging h2 { margin: 0; }
+#staging .text { font-size: clamp(12px, 2.1vh, 1em); }
+#staging ol.steps { margin: 0; }
+@media screen and (min-aspect-ratio: 4/5) and (min-width: 600px) {
+  #staging .text { width: min(100%, 1000px); }
+  #staging ol.steps { column-count: 2; column-gap: 56px; max-width: none; }
+  #staging ol.steps > li { break-inside: avoid; }
+}
+@media screen and (max-height: 500px) { #staging .text { line-height: 1.3; } #staging ol.steps > li { margin-bottom: .4em; } #staging ol.steps ul li { margin-bottom: 0; } }
