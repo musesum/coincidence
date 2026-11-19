@@ -236,6 +236,7 @@ tbody th { font-weight: 600; }
 ul.plain { padding-left: 1.1em; }
 ul.plain li { margin-bottom: .6em; }
 ul.plain strong { font-weight: 600; }
+#applies ul.plain { font-size: clamp(22px, 2vw, 28px); }
 /* Staging: numbered stages, bulleted steps */
 ol.steps { padding-left: 1.4em; }
 ol.steps > li { margin-bottom: .8em; font-weight: 600; }
