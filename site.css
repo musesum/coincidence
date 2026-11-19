@@ -212,6 +212,7 @@ tbody th { font-weight: 600; }
 @media (min-width: 980px) {
   .slide.cols .text { column-count: 2; column-gap: 56px; }
   .slide.cols .text > * { break-inside: avoid; }
+  .slide.cols .text > .col-break { break-before: column; }
 }
 
 /* Introducing HereCaster: the capture holds the place until the test-data demo renders over it */
@@ -402,6 +403,7 @@ ol.steps ul li { margin-bottom: .2em; }
   figure.diagram svg { max-height: 60vh; }
   .slide.cols .text { column-count: 2; column-gap: 32px; }
   .slide.cols .text > * { break-inside: avoid; }
+  .slide.cols .text > .col-break { break-before: column; }
   /* a dish stays whole; one that does not fit under its text starts a page */
   [data-petri] { break-inside: avoid; }
   .slide.wide .petri-stage { max-width: none; }

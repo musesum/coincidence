@@ -90,11 +90,11 @@
 <section class="slide" id="today" aria-labelledby="h-today">
   <div class="slide-inner">
     <header class="slide-head">
-      <h2 id="h-today">Scan or Opt-in?</h2>
+      <h2 id="h-today">Scan or Attend</h2>
     </header>
     <div class="text">
       <p>Today, for each event, someone puts up a QR code, you take out your phone, take a picture, and claim an NFT. Over and over and over again. Or maybe, you were offline,  or the presenter moved to the next screen. Oh well.</p>
-      <p>Instead, you opt-in to a community you trust, and over the course of the next few days, or weeks, you simply show up. You can be online or offline, it doesn't matter. Your phone does the rest. Frictionless.</p>
+      <p>Instead, you opt-in to a trusted community. After that, simply show up. It could be for a day, a week, or a whole year. You choose when and where to appear. And your phone does the rest. Frictionless.</p>
     </div>
     <figure class="diagram">
       <svg viewBox="0 0 640 340" role="img" aria-labelledby="t-today">
@@ -156,60 +156,16 @@
     </figure>
   </div>
 </section>
-<section class="slide" id="questions" aria-labelledby="h-questions">
-  <div class="slide-inner">
-    <header class="slide-head">
-      <h2 id="h-questions">The six interrogatives</h2>
-    </header>
-    <div class="text">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th scope="col">Interrogative</th><th scope="col">Decomposition</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Who</th><td>singleton id of person place or thing</td></tr>
-            <tr><th scope="row">What</th><td>type of transaction, range, probability</td></tr>
-            <tr><th scope="row">When</th><td>time, duration, range, precision</td></tr>
-            <tr><th scope="row">Where</th><td>GPS, velocity, range, title</td></tr>
-            <tr><th scope="row">How</th><td>Smart contract</td></tr>
-            <tr><th scope="row">Why</th><td>Optional Intent</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <figure class="diagram">
-      <svg viewBox="0 0 420 450" role="img" aria-labelledby="t-six">
-        <title id="t-six">Six nodes on a ring, labelled who, what, when, where, how and why, each joined to one centre dot labelled one event. Below: one token in provenance chain.</title>
-        <circle class="svg-ring" cx="210" cy="210" r="150"/>
-        <g class="svg-spoke">
-          <line x1="210" y1="210" x2="210" y2="60"/><line x1="210" y1="210" x2="340" y2="135"/>
-          <line x1="210" y1="210" x2="340" y2="285"/><line x1="210" y1="210" x2="210" y2="360"/>
-          <line x1="210" y1="210" x2="80" y2="285"/><line x1="210" y1="210" x2="80" y2="135"/>
-        </g>
-        <g class="svg-node">
-          <circle cx="210" cy="60" r="32"/><circle cx="340" cy="135" r="32"/><circle cx="340" cy="285" r="32"/>
-          <circle cx="210" cy="360" r="32"/><circle cx="80" cy="285" r="32"/><circle cx="80" cy="135" r="32"/>
-        </g>
-        <g class="svg-text" text-anchor="middle">
-          <text x="210" y="65">Who</text><text x="340" y="140">What</text><text x="340" y="290">When</text>
-          <text x="210" y="365">Where</text><text x="80" y="290">How</text><text x="80" y="140">Why</text>
-        </g>
-        <circle class="svg-fill-seed" cx="210" cy="210" r="9"/>
-        <rect class="svg-chip" x="166" y="226" width="88" height="24" rx="12"/>
-        <text class="svg-text" x="210" y="243" text-anchor="middle">one event</text>
-        <text class="svg-text" x="210" y="436" text-anchor="middle">one token in provenance chain</text>
-      </svg>
-    </figure>
-  </div>
-</section>
 <section class="slide wide cols" id="ride" aria-labelledby="h-ride">
   <div class="slide-inner">
     <header class="slide-head">
-      <h2 id="h-ride">One ride, six silent questions</h2>
+      <h2 id="h-ride">One ride = one token</h2>
     </header>
     <div class="text">
-      <p>Consider a shuttle ride: Ayan arrives at 14:00, and Mira rides with him from pickup A to an apartment at address B. We label this trip T14 and its shuttle S1. A current member credential, yesterday's driver record and today's timestamp could all be authentic while describing different rides.</p>
-      <p>The question joins who, what, when, where, how, and optional why. HereCaster connects records to one event and discloses enough for a verifier to check that connection. Why can be implicit: the apartment address suggests that Mira intends to go to the apartment.</p>
-      <p class="small">A proposed trial. The trip labels and the eligibility rule are illustrative.</p>
+      <p>Imagine taking a shuttle from co-work to your apartment. Right now, you take out your phone, launch an app, and hope for your QR code to appear. You point your phone at the driver's scanning app. Wait for the app to recognize you and then sit down.</p>
+      <p>Or maybe there is no internet in the garage. So, you hope for the offline-code. Oh, but now the app wants to you to log in.</p>
+      <p class="col-break">Or you have HereCaster running in the background. You walk into the shuttle and sit down. The driver's app broadcasts a handle, your phone responds.</p>
+      <p>No Internet? No problem! The protocol is broadcast over Bluetooth, or other short range alternatives. Later, the tokens are consolidated, when back online.</p>
     </div>
     <figure class="diagram">
       <svg viewBox="0 0 1357 348" role="img" aria-labelledby="t-ride">
@@ -269,6 +225,51 @@
         </g>
         <line class="svg-ride-arrow-why" x1="1118" y1="192" x2="1323" y2="192"/>
         <line class="svg-ride-arrow-why" x1="1220" y1="263" x2="1220" y2="197" marker-end="url(#arr-ride-seed)"/>
+      </svg>
+    </figure>
+  </div>
+</section>
+<section class="slide" id="questions" aria-labelledby="h-questions">
+  <div class="slide-inner">
+    <header class="slide-head">
+      <h2 id="h-questions">The six interrogatives</h2>
+    </header>
+    <div class="text">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Interrogative</th><th scope="col">Decomposition</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Who</th><td>singleton id of person place or thing</td></tr>
+            <tr><th scope="row">What</th><td>type of transaction, range, probability</td></tr>
+            <tr><th scope="row">When</th><td>time, duration, range, precision</td></tr>
+            <tr><th scope="row">Where</th><td>GPS, velocity, range, title</td></tr>
+            <tr><th scope="row">How</th><td>Smart contract</td></tr>
+            <tr><th scope="row">Why</th><td>Optional Intent</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 420 450" role="img" aria-labelledby="t-six">
+        <title id="t-six">Six nodes on a ring, labelled who, what, when, where, how and why, each joined to one centre dot labelled one event. Below: one token in provenance chain.</title>
+        <circle class="svg-ring" cx="210" cy="210" r="150"/>
+        <g class="svg-spoke">
+          <line x1="210" y1="210" x2="210" y2="60"/><line x1="210" y1="210" x2="340" y2="135"/>
+          <line x1="210" y1="210" x2="340" y2="285"/><line x1="210" y1="210" x2="210" y2="360"/>
+          <line x1="210" y1="210" x2="80" y2="285"/><line x1="210" y1="210" x2="80" y2="135"/>
+        </g>
+        <g class="svg-node">
+          <circle cx="210" cy="60" r="32"/><circle cx="340" cy="135" r="32"/><circle cx="340" cy="285" r="32"/>
+          <circle cx="210" cy="360" r="32"/><circle cx="80" cy="285" r="32"/><circle cx="80" cy="135" r="32"/>
+        </g>
+        <g class="svg-text" text-anchor="middle">
+          <text x="210" y="65">Who</text><text x="340" y="140">What</text><text x="340" y="290">When</text>
+          <text x="210" y="365">Where</text><text x="80" y="290">How</text><text x="80" y="140">Why</text>
+        </g>
+        <circle class="svg-fill-seed" cx="210" cy="210" r="9"/>
+        <rect class="svg-chip" x="166" y="226" width="88" height="24" rx="12"/>
+        <text class="svg-text" x="210" y="243" text-anchor="middle">one event</text>
+        <text class="svg-text" x="210" y="436" text-anchor="middle">one token in provenance chain</text>
       </svg>
     </figure>
   </div>
