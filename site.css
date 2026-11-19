@@ -418,3 +418,6 @@ ol.steps ul li { margin-bottom: .2em; }
   .refs { column-count: 2; column-gap: 32px; font-size: 10.5pt; }
   .refs li { break-inside: avoid; }
 }
+
+/* Staging and Deployment: list block centered, text left aligned */
+#applies .text, #staging .text { justify-self: center; width: fit-content; max-width: 100%; text-align: left; }
