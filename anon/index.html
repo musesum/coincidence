@@ -987,7 +987,7 @@ html.js, .js body { height: 100%; overflow: hidden; }
     b.className = 'thumb';
     b.setAttribute('aria-label', 'Slide ' + (i + 1));
     const src = s.querySelector('.pic img').getAttribute('src').replace('img/', 'img/t/');
-    b.innerHTML = '<img src="' + src + '" width="64" height="48" alt="" loading="lazy" decoding="async">';
+    b.innerHTML = '<img src="' + src + '" width="64" height="48" alt="" decoding="async" fetchpriority="low">';
     b.addEventListener('click', () => show(i));
     strip.append(b);
     return b;
