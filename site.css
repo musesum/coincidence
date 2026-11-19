@@ -310,7 +310,7 @@ ol.steps ul li { margin-bottom: .2em; }
 .deck-nav {
   position: fixed;
   right: var(--gutter);
-  bottom: var(--gutter);
+  bottom: calc(var(--gutter) / 2);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -493,3 +493,43 @@ br.br-portrait { display: none; }
   #staging ol.steps > li { break-inside: avoid; }
 }
 @media screen and (max-height: 500px) { #staging .text { line-height: 1.3; } #staging ol.steps > li { margin-bottom: .4em; } #staging ol.steps ul li { margin-bottom: 0; } }
+/* Pages 2, 5, 6: page 4's margins; one page in landscape and squarish windows */
+@media (min-width: 980px) { #here .slide-inner { padding-inline: clamp(0px, 10vw - 48px, 120px); } }
+@media screen and (min-aspect-ratio: 4/5) {
+  #premise, #questions, #here { padding-top: clamp(12px, 4vh, 48px); padding-bottom: clamp(64px, 9vh, 96px); }
+  /* Page 6: the demo takes the height under the title and stays above the navigator */
+  #here { height: 100vh; height: 100svh; min-height: 0; }
+  #here .slide-inner { height: 100%; grid-template-rows: auto minmax(0, 1fr); gap: clamp(8px, 2vh, 20px); align-items: stretch; }
+  #here h2 { margin: 0; font-size: clamp(22px, min(4.2vw, 7vh), 56px); }
+  #here .demo-box { min-height: 0; height: 100%; grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr); }
+  #here .demo-frame { height: 100%; }
+  #here .zfold { height: 100%; width: auto; max-width: 100%; max-height: none; object-fit: contain; }
+}
+/* Pages 2 and 5: type follows the window height */
+@media screen and (min-aspect-ratio: 4/5) {
+  #premise h1, #questions h2 { font-size: clamp(20px, min(4.2vw, 7vh), 56px); }
+  #premise .slide-inner, #questions .slide-inner { row-gap: clamp(8px, 3vh, 32px); }
+  #premise .text { font-size: clamp(11px, 2.25vh, 1em); }
+  #premise .premise-sub { font-size: clamp(14px, min(2vw, 3.1vh), 28px); }
+  #questions table { font-size: clamp(11px, 1.9vh, 16px); }
+  #questions th, #questions td { padding-top: clamp(3px, 1.1vh, 10px); padding-bottom: clamp(3px, 1.1vh, 10px); }
+}
+/* Pages 2 and 5 in short windows: smaller type, page 2's lists in two columns */
+@media screen and (min-aspect-ratio: 4/5) and (max-height: 560px) {
+  #premise .slide-inner, #questions .slide-inner { gap: 8px 24px; }
+  #premise h1, #questions h2 { margin: 0; font-size: clamp(20px, 7vh, 34px); }
+  #premise .text { font-size: clamp(11px, 3vh, 16px); line-height: 1.3; column-count: 2; column-gap: 24px; }
+  #premise .premise-sub { margin: 0 0 .2em; font-size: 1.2em; }
+  #premise .premise-list li { line-height: 1.3; }
+  #premise .text .small { font-size: .85em; margin: 0; }
+  #questions table { font-size: clamp(11px, 3vh, 16px); }
+  #questions th, #questions td { padding-top: 3px; padding-bottom: 3px; }
+  #questions .table-wrap { margin: 0; }
+  #questions .slide-inner figure.diagram:not(.query) svg { max-height: 40vh; }
+  #questions figure.query svg { max-height: 20vh; }
+}
+/* Pages 14, 15: dish at 60% */
+#johnson .petri-stage, #threat .petri-stage { width: 60%; justify-self: center; }
+@media (min-width: 900px) {
+  #johnson .petri-stage, #threat .petri-stage { width: 100%; max-width: calc(.6 * min(720px, max(380px, calc(100svh - 340px)))); }
+}

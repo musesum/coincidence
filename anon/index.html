@@ -273,7 +273,7 @@ html.js, .js body { height: 100%; overflow: hidden; }
         <p>The end result is the same with less opportunity for other colors to cheat in the middle of the game. There still is the problem with who chooses the disclosure --one that is partially solved by replacing the glasses with the masks.</p>
         <p>But we’re still faced with the fact that there are recognizable clusters here. If there is a distinction that <em>red</em> is the  acceptable color then not being included in that group may be an unwanted disclosure. Another ploy is to fake being red and find out who reveals their self. These types of clustering attacks are reduced when each player can set a threshold before taking off the mask.</p>
         <p>How do we prevent cheaters from removing more than one wrapping? This is where a referee comes in--yes, this is trusted 3rd party, but one that has no knowledge of what colors go where. So, the trusted 3rd party becomes a beacon that merely broadcasts when it’s OK unwrap.</p>
-        <p>(From a cryptographer’s viewpoint, there is where the analogy begins to breakdown, because an attacker can always keep a copy to the ball to collect unwrapping tokens. There are two mitigating factors : first the attacker doesn’t know how many times the ball has been unwrapped before it was thrown to him. Second, the attacker can be prevented from recognizing that color without first <em>being</em> that color. Further details are giving  in the section on Homophonic Encoding trees.</p>
+        <p>(From a cryptographer’s viewpoint, there is where the analogy begins to breakdown, because an attacker can always keep a copy to the ball to collect unwrapping tokens. There are two mitigating factors : first the attacker doesn’t know how many times the ball has been unwrapped before it was thrown to him. Second, the attacker can be prevented from recognizing that color without first <em>being</em> that color. Further details are giving  in the section on Homomorphic Encoding trees.</p>
       </div>
     </section>
     <section class="anon-slide" id="s22" aria-label="Slide 22">
@@ -681,7 +681,7 @@ html.js, .js body { height: 100%; overflow: hidden; }
       </figure>
       <div class="notes">
         <p>With only two interests: “I paid” and “I didn’t pay”  and knowledge of each player’s routing criteria, it’s easy to infer what direction their preferences flow. For example, if Alice routes her preferences to Bob iff it is less than what’s in her cache, and No is valued less than Yes, then Bob can compare messages sent by Alice with messages sent by Carol to determine which one paid. With more interests and less predictable methods for routing, Bob’s job becomes harder.</p>
-        <p>(The best defense from a chosen plain text attack is to make the plain text so context sensitive that the attacker needs to <em>become</em> very similar to the attackee. More one that in the section on Homophonic trees.)</p>
+        <p>(The best defense from a chosen plain text attack is to make the plain text so context sensitive that the attacker needs to <em>become</em> very similar to the attackee. More one that in the section on Homomorphic trees.)</p>
         <p>Given that we’re dealing with a much larger set of interests, lets see how to scale secure interest propagation to a larger group.</p>
       </div>
     </section>
@@ -881,8 +881,8 @@ html.js, .js body { height: 100%; overflow: hidden; }
     </section>
     <section class="anon-slide" id="s84" aria-label="Slide 84">
       <figure>
-        <div class="pic"><img src="img/084.jpg" width="720" height="540" loading="lazy" alt="Sparse Homophonic Tree — Populated from Beacon"></div>
-        <figcaption><span class="num">84</span> Sparse Homophonic Tree</figcaption>
+        <div class="pic"><img src="img/084.jpg" width="720" height="540" loading="lazy" alt="Sparse Homomorphic Tree — Populated from Beacon"></div>
+        <figcaption><span class="num">84</span> Sparse Homomorphic Tree</figcaption>
       </figure>
       <div class="notes">
         <p>deciphered by a varying number of shares of a pooled secret. As you progress up the tree, the number of shares needed to decipher that branch increases. This allows more of the tree to be revealed over time.</p>
@@ -1012,6 +1012,14 @@ html.js, .js body { height: 100%; overflow: hidden; }
     settle = setTimeout(() => { auto = false; }, 150);
     if (!auto) show(nearest(), false, false);
   }, { passive: true });
+  // the shown slide and its neighbours load and decode ahead, so a turn shows no blank frame
+  const warm = (k) => {
+    const img = slides[k] && slides[k].querySelector('.pic img');
+    if (!img || img.dataset.warm) return;
+    img.dataset.warm = '1';
+    img.loading = 'eager';
+    if (img.decode) img.decode().catch(() => {});
+  };
   let current = -1;
   const show = (i, smooth = true, follow = true) => {
     i = Math.min(n - 1, Math.max(0, i));
@@ -1020,6 +1028,7 @@ html.js, .js body { height: 100%; overflow: hidden; }
     current = i;
     const s = slides[i];
     s.hidden = false;
+    [i, i + 1, i - 1, i + 2].forEach(warm);
     const fig = s.querySelector('figure');
     fig.insertBefore(disc, fig.querySelector('figcaption'));
     const notes = s.querySelector('.notes');
