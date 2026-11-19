@@ -48,7 +48,7 @@ html.js, .js body { height: 100%; overflow: hidden; }
 .disc { display: block; margin: 2px auto 0; width: 44px; height: 24px; padding: 0; border: 0; background: transparent; color: var(--ink-2); cursor: pointer; }
 .disc svg { width: 18px; height: 18px; transition: transform .2s; }
 .disc path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.notes-off .disc svg { transform: rotate(-90deg); }
+.notes-off .disc svg { transform: rotate(180deg); }
 .js .notes { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-right: 8px; }
 .js .notes p { margin-inline: auto; }
 .js .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: flex; align-items: center; gap: 4px; padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--paper-2); }
@@ -954,7 +954,7 @@ html.js, .js body { height: 100%; overflow: hidden; }
   </button>
 </nav>
 <script>
-// Player: one slide; disclosure shows/hides notes; strip browses, tap selects; swipe up/down on the picture; keys; hash sync.
+// Player: one slide; disclosure shows/hides notes; strip scroll and tap select; swipe up/down on the picture; keys; hash sync.
 (() => {
   const slides = Array.from(document.querySelectorAll('section.anon-slide'));
   if (!slides.length) return;
@@ -992,12 +992,28 @@ html.js, .js body { height: 100%; overflow: hidden; }
     strip.append(b);
     return b;
   });
+  // auto: scroll from center(); strip scrolls by hand select the thumb nearest the middle
+  let auto = false, settle = 0;
   const center = (i, smooth) => {
     const t = thumbs[i];
-    strip.scrollTo({ left: t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2, behavior: smooth ? 'smooth' : 'auto' });
+    const left = t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2;
+    if (Math.abs(left - strip.scrollLeft) < 1) return;
+    auto = true;
+    strip.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
   };
+  const nearest = () => {
+    const mid = strip.scrollLeft + strip.clientWidth / 2;
+    let best = 0, d = Infinity;
+    thumbs.forEach((t, i) => { const e = Math.abs(t.offsetLeft + t.offsetWidth / 2 - mid); if (e < d) { d = e; best = i; } });
+    return best;
+  };
+  strip.addEventListener('scroll', () => {
+    clearTimeout(settle);
+    settle = setTimeout(() => { auto = false; }, 150);
+    if (!auto) show(nearest(), false, false);
+  }, { passive: true });
   let current = -1;
-  const show = (i, smooth = true) => {
+  const show = (i, smooth = true, follow = true) => {
     i = Math.min(n - 1, Math.max(0, i));
     if (i === current) return;
     if (current >= 0) { slides[current].hidden = true; thumbs[current].removeAttribute('aria-current'); }
@@ -1009,7 +1025,7 @@ html.js, .js body { height: 100%; overflow: hidden; }
     const notes = s.querySelector('.notes');
     if (notes) notes.scrollTop = 0;
     thumbs[i].setAttribute('aria-current', 'true');
-    center(i, smooth);
+    if (follow) center(i, smooth);
     prev.disabled = i === 0;
     next.disabled = i === n - 1;
     const hash = '#' + s.id;
