@@ -528,8 +528,8 @@ br.br-portrait { display: none; }
   #questions .slide-inner figure.diagram:not(.query) svg { max-height: 40vh; }
   #questions figure.query svg { max-height: 20vh; }
 }
-/* Pages 14, 15: dish at 60% */
-#johnson .petri-stage, #threat .petri-stage { width: 60%; justify-self: center; }
+/* Pages 13, 14, 15: dish at 60% */
+#petri .petri-stage, #johnson .petri-stage, #threat .petri-stage { width: 60%; justify-self: center; }
 @media (min-width: 900px) {
-  #johnson .petri-stage, #threat .petri-stage { width: 100%; max-width: calc(.6 * min(720px, max(380px, calc(100svh - 340px)))); }
+  #petri .petri-stage, #johnson .petri-stage, #threat .petri-stage { width: 100%; max-width: calc(.6 * min(720px, max(380px, calc(100svh - 340px)))); }
 }
