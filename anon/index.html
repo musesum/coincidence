@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anonymous Collaboration</title>
+<meta name="description" content="Anonymous Collaboration: how to share interests without a trusted 3rd party. Warren Stringer, RSA Data Security Conference, 1998. Slides and speaker notes.">
+<link rel="icon" href="data:,">
+<style>
+:root { --paper:#ffffff; --paper-2:#f4f4f6; --ink:#1d1d1f; --ink-2:#5b5b63; --line:#dcdce2; --gold:#f5c518; --font:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper:#0f1115; --paper-2:#181b21; --ink:#f2f2f5; --ink-2:#a3a3ad; --line:#2b2f37; } }
+:root[data-theme="dark"] { --paper:#0f1115; --paper-2:#181b21; --ink:#f2f2f5; --ink-2:#a3a3ad; --line:#2b2f37; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--paper); color:var(--ink); font:clamp(17px, 12px + .5vw, 19px)/1.55 var(--font); -webkit-text-size-adjust:100%; }
+main { max-width: 1180px; margin: 0 auto; padding: 48px 16px 96px; }
+.back { font-size: 15px; }
+.back a, .notes a { color: var(--gold); text-decoration: none; }
+header { text-align: center; margin: 32px 0 56px; }
+h1 { font-size: clamp(32px, 4.4vw, 56px); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 .3em; }
+.sub { margin: 0; color: var(--ink-2); }
+.anon-slide { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 32px 0; border-top: 1px solid var(--line); }
+figure { margin: 0; }
+figure img { display: block; width: 100%; max-width: 720px; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #fff; }
+figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-2); }
+.num { display: inline-block; min-width: 2.2em; font-variant-numeric: tabular-nums; }
+.notes p { margin: 0 0 .8em; max-width: 62ch; }
+@media (min-width: 980px) { .anon-slide { grid-template-columns: minmax(0, 720px) minmax(0, 1fr); gap: 40px; align-items: start; } }
+@media print { .anon-slide { break-inside: avoid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .back { display: none; } }
+</style>
+</head>
+<body>
+<main>
+  <p class="back"><a href="../">← coincidence.org</a></p>
+  <header>
+    <h1>Anonymous Collaboration</h1>
+    <p class="sub">How to share interests without a trusted 3rd party</p>
+    <p class="sub">Warren Stringer · RSA Data Security Conference, 1998</p>
+  </header>
+    <section class="anon-slide" id="s1" aria-label="Slide 1">
+      <figure>
+        <img src="img/001.jpg" width="720" height="540" loading="eager" alt="Anonymous Collaboration — Warren Stringer">
+        <figcaption><span class="num">1</span> Anonymous Collaboration</figcaption>
+      </figure>
+      <div class="notes">
+        <p>This talk explores how to share interests while preserving privacy. Solving this problem enables new forms of collaboration and enhances old ones.</p>
+        <p>There are two approaches to this issue: one from a cryptographer’s vantage point and the other from a software designer’s view. One is dealing with the distribution of entropy, the other the manifestation of Human goals and ideals.</p>
+        <p>This presentation lies somewhere in-between the two. The focus is on a set of tools and techniques that can be implemented on today’s platforms. Much of the cryptography that plugs into this structure is over 10 years old. Many of the applications that benefits from this structure have already been built. Of course the potential of privately sharing interests is huge. It is easy to see how new forms of collaboration will arise from this technology.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s2" aria-label="Slide 2">
+      <figure>
+        <img src="img/002.jpg" width="720" height="540" loading="eager" alt="Dodge Ball">
+        <figcaption><span class="num">2</span> Dodge Ball</figcaption>
+      </figure>
+      <div class="notes">
+        <p>First Lets start off with an analogy from a children's game called dodge ball. Here, two teams are split into two sides of an indoor court. A number of soft rubber balls are thrown back and forth between sides. (In the figure, the gray dots represent people, not balls).</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s3" aria-label="Slide 3">
+      <figure>
+        <img src="img/003.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball">
+        <figcaption><span class="num">3</span> Dodge Ball</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Here, a person on the left, throws a ball to the person on the right. If the person on the right doesn’t catch the ball ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s4" aria-label="Slide 4">
+      <figure>
+        <img src="img/004.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball">
+        <figcaption><span class="num">4</span> Dodge Ball</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Then she leaves the game. However, if the person on the right catches the ball ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s5" aria-label="Slide 5">
+      <figure>
+        <img src="img/005.jpg" width="720" height="540" loading="lazy" alt="Dodge Ball">
+        <figcaption><span class="num">5</span> Dodge Ball</figcaption>
+      </figure>
+      <div class="notes">
+        <p>The the one throwing the ball leaves the game. After a while most everyone has left the game. The team with the last remaining players wins. Now, let’s change the rules a bit so that no one leaves the game.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s6" aria-label="Slide 6">
+      <figure>
+        <img src="img/006.jpg" width="720" height="540" loading="lazy" alt="Catch Ball">
+        <figcaption><span class="num">6</span> Catch Ball</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Here, everyone is expected to catch the ball. Instead of someone leaving the game, the person who catches the ball moves laterally---in the direction that the ball came from. So, when one player throws the ball to another player--she catches it, figures out what direction it came from...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s7" aria-label="Slide 7">
+      <figure>
+        <img src="img/007.jpg" width="720" height="540" loading="lazy" alt="Catch Ball">
+        <figcaption><span class="num">7</span> Catch Ball</figcaption>
+      </figure>
+      <div class="notes">
+        <p>And moves to her left to be more in line with where the ball is coming from. (She didn’t move closer to the center to prevent crowding).</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s8" aria-label="Slide 8">
+      <figure>
+        <img src="img/008.jpg" width="720" height="540" loading="lazy" alt="Our Ball">
+        <figcaption><span class="num">8</span> Our Ball</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Now lets change the rules again! Each team has players wearing different colored jerseys. Each player throws a ball <em>only</em> to a person wearing the same colored jersey on the other side.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s9" aria-label="Slide 9">
+      <figure>
+        <img src="img/009.jpg" width="720" height="540" loading="lazy" alt="n-th Generation Motion">
+        <figcaption><span class="num">9</span> n-th Generation Motion</figcaption>
+      </figure>
+      <div class="notes">
+        <p>After many throws and many movements, all the players begin to move. After so many moves, the arrows show the sum of their motions.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s10" aria-label="Slide 10">
+      <figure>
+        <img src="img/010.jpg" width="720" height="540" loading="lazy" alt="Game End Order">
+        <figcaption><span class="num">10</span> Game End Order</figcaption>
+      </figure>
+      <div class="notes">
+        <p>So the players of each team end up sorted by jersey color.</p>
+        <p>This is a crude example of how to publicly sort individual interests without using a third party--no referees are needed for this game.</p>
+        <p>So how do you add privacy? Well, one technique is to put up an opaque curtain at the center line that is too tall to see over, but still low enough to throw balls over. For this game, the players will have to throw a colored ball that matches their jersey color. No longer are the balls thrown directly to each player, since they’re no longer in view. So,  everyone helps out by catching the ball and then tossing it the nearest team member.</p>
+        <p>The <em>Team</em> then becomes the trusted group, where all the members know each other’s color. So how do we play a game without trusted groups--or at least where the trusted group consists of <em>only</em> members of the same color.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s11" aria-label="Slide 11">
+      <figure>
+        <img src="img/011.jpg" width="720" height="540" loading="lazy" alt="Petri Dish">
+        <figcaption><span class="num">11</span> Petri Dish</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Well, for starters, let’s get rid of the concept of 2 teams--it’s now every one out for der self! Here, the playing field may resemble that of a petri dish. To make the game more interesting, each player wears a pair of goggles that makes them legally blind. They can still catch balls, but they don’t know who threw them. All each player can make out is a general blur of the players that are in their immediate area.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s12" aria-label="Slide 12">
+      <figure>
+        <img src="img/012.jpg" width="720" height="540" loading="lazy" alt="Indirect Attraction">
+        <figcaption><span class="num">12</span> Indirect Attraction</figcaption>
+      </figure>
+      <div class="notes">
+        <p>So here, the left-most red player throws a red ball to blue who by chance throws it to middle red player. Middle red sees that the ball matches her color and moves closer to where the ball originated from. Blue can make middle-reds job easier by telling her where the ball came from. Middle-red could encourage left-red to move closer by throwing the ball back to Blue, who by sheer luck throws the ball back to left-red.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s13" aria-label="Slide 13">
+      <figure>
+        <img src="img/013.jpg" width="720" height="540" loading="lazy" alt="Indirect Reposition">
+        <figcaption><span class="num">13</span> Indirect Reposition</figcaption>
+      </figure>
+      <div class="notes">
+        <p>The result is that both reds move close enough to each other to throw the ball directly, next time. Of course, everyone is playing at once...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s14" aria-label="Slide 14">
+      <figure>
+        <img src="img/014.jpg" width="720" height="540" loading="lazy" alt="n-th move sum vectors">
+        <figcaption><span class="num">14</span> n-th move sum vectors</figcaption>
+      </figure>
+      <div class="notes">
+        <p>So after many throws back and forth by everyone, the sum value of the motions lead them to move into ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s15" aria-label="Slide 15">
+      <figure>
+        <img src="img/015.jpg" width="720" height="540" loading="lazy" alt="Game End">
+        <figcaption><span class="num">15</span> Game End</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Clusters of their own color. At this point, everyone can take off their goggles to see who else matches their color.</p>
+        <p>But what if you don’t want others in your group to know who you are? And what prevents cheaters from taking the goggles off?</p>
+        <p>To find out how, lets move back to the beginning of the game ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s16" aria-label="Slide 16">
+      <figure>
+        <img src="img/016.jpg" width="720" height="540" loading="lazy" alt="Public Petri">
+        <figcaption><span class="num">16</span> Public Petri</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Now, everybody takes off their colored jerseys and done gray ones instead ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s17" aria-label="Slide 17">
+      <figure>
+        <img src="img/017.jpg" width="720" height="540" loading="lazy" alt="Private Petri">
+        <figcaption><span class="num">17</span> Private Petri</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Only you know what color that you represent. To prevent the person that you’re throwing the ball to know what color you are, you gift wrap it.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s18" aria-label="Slide 18">
+      <figure>
+        <img src="img/018.jpg" width="720" height="540" loading="lazy" alt="Blinded Message">
+        <figcaption><span class="num">18</span> Blinded Message</figcaption>
+      </figure>
+      <div class="notes">
+        <p>When you throw the ball to someone else, she unwraps it, once. Of course, if you only wrap it once, then she’ll know what color you are. So, you wrap it many times.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s19" aria-label="Slide 19">
+      <figure>
+        <img src="img/019.jpg" width="720" height="540" loading="lazy" alt="Unblinded Match">
+        <figcaption><span class="num">19</span> Unblinded Match</figcaption>
+      </figure>
+      <div class="notes">
+        <p>When she throws the ball to the next person, he unwraps it once, as well. If you wrapped it only twice, he’ll see that the color matches his and use the previous player’s hints about where it came from to move closer to the source.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s20" aria-label="Slide 20">
+      <figure>
+        <img src="img/020.jpg" width="720" height="540" loading="lazy" alt="n-th step unblinded matches">
+        <figcaption><span class="num">20</span> n-th step unblinded matches</figcaption>
+      </figure>
+      <div class="notes">
+        <p>You may wrap the ball many times. In this case, wrapping the ball four times still allows it to be recognized by the other red players while blinding it to the three players who are in between.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s21" aria-label="Slide 21">
+      <figure>
+        <img src="img/021.jpg" width="720" height="540" loading="lazy" alt="Game End — Attacks include: Small number of interests Not red is considered bad Can interest from cluster size">
+        <figcaption><span class="num">21</span> Game End</figcaption>
+      </figure>
+      <div class="notes">
+        <p>The end result is the same with less opportunity for other colors to cheat in the middle of the game. There still is the problem with who chooses the disclosure --one that is partially solved by replacing the glasses with the masks.</p>
+        <p>But we’re still faced with the fact that there are recognizable clusters here. If there is a distinction that <em>red</em> is the  acceptable color then not being included in that group may be an unwanted disclosure. Another ploy is to fake being red and find out who reveals their self. These types of clustering attacks are reduced when each player can set a threshold before taking off the mask.</p>
+        <p>How do we prevent cheaters from removing more than one wrapping? This is where a referee comes in--yes, this is trusted 3rd party, but one that has no knowledge of what colors go where. So, the trusted 3rd party becomes a beacon that merely broadcasts when it’s OK unwrap.</p>
+        <p>(From a cryptographer’s viewpoint, there is where the analogy begins to breakdown, because an attacker can always keep a copy to the ball to collect unwrapping tokens. There are two mitigating factors : first the attacker doesn’t know how many times the ball has been unwrapped before it was thrown to him. Second, the attacker can be prevented from recognizing that color without first <em>being</em> that color. Further details are giving  in the section on Homophonic Encoding trees.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s22" aria-label="Slide 22">
+      <figure>
+        <img src="img/022.jpg" width="720" height="540" loading="lazy" alt="Petri Net Propagation">
+        <figcaption><span class="num">22</span> Petri Net Propagation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>So how does this game map to loosely connected computers on a network? To explain, we need to abstract the model further--so it’s time to move the playing field from the Petri dish to a Petri net. Here the players move from node to node based on some very basic rules: Move one way if my value is greater than someone else's, move another way if my value is less than someone else's. Value, here, represents an arbitrary number assigned to an interest. So, for our example, red is assigned a lower value than blue--(perhaps for the arbitrary reason that engineers prefer blue lasers over red lasers)</p>
+        <p>In the picture, the left-white node is accepting the minimum of two values while the right-white node is accepting the maximum of two values. So...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s23" aria-label="Slide 23">
+      <figure>
+        <img src="img/023.jpg" width="720" height="540" loading="lazy" alt="MinMax Result — Coloring convention lighter color is previous generation">
+        <figcaption><span class="num">23</span> MinMax Result</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Red moves to the left “min” node and blue move the the right “Max” node--while the position that they used to occupy begins to fade away.</p>
+        <p>This is fine for two interests, but…</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s24" aria-label="Slide 24">
+      <figure>
+        <img src="img/024.jpg" width="720" height="540" loading="lazy" alt="Adding Green">
+        <figcaption><span class="num">24</span> Adding Green</figcaption>
+      </figure>
+      <div class="notes">
+        <p>When you add a third color, green, to the mix--and lets say that green’s value is greater than blue but less than red ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s25" aria-label="Slide 25">
+      <figure>
+        <img src="img/025.jpg" width="720" height="540" loading="lazy" alt="Adding another MinMax">
+        <figcaption><span class="num">25</span> Adding another MinMax</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Then the first generation finds red and green moving left and blue moving right. Notice that’s its OK for blue to spit--multiple personalities are allowed here.</p>
+        <p>To further sort out Min and Max we can add two more nodes to take the result ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s26" aria-label="Slide 26">
+      <figure>
+        <img src="img/026.jpg" width="720" height="540" loading="lazy" alt="Final Result Looses Green">
+        <figcaption><span class="num">26</span> Final Result Looses Green</figcaption>
+      </figure>
+      <div class="notes">
+        <p>With red being the Min and blue being the Max, just as in the previously shown two color sort. But what happened to green? Well one is that we can recycle the middle node ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s27" aria-label="Slide 27">
+      <figure>
+        <img src="img/027.jpg" width="720" height="540" loading="lazy" alt="Center Node Ambiguity">
+        <figcaption><span class="num">27</span> Center Node Ambiguity</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Where red and green are coming in from the left and blue is coming in from the right. To keep the same MinMax convention, the Max of two values are taken in from the left and the min of two values are taken in from the right. So now we have two candidates, green and blue, competing for the same node. What’s a node to do?</p>
+        <p>Well one could take a vote and blue would win. But what happens is that after many generations, initial majorities begins to dominate and ambiguity of spit personalities rules. So voting doesn’t work.</p>
+        <p>The best solution is to consider the past...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s28" aria-label="Slide 28">
+      <figure>
+        <img src="img/028.jpg" width="720" height="540" loading="lazy" alt="Recalling Previous Generation">
+        <figcaption><span class="num">28</span> Recalling Previous Generation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Recall, in the previous generation, that red and green moved left and blue move right. This general angle of motion ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s29" aria-label="Slide 29">
+      <figure>
+        <img src="img/029.jpg" width="720" height="540" loading="lazy" alt="Encoded as Spin (preserving direction)">
+        <figcaption><span class="num">29</span> Encoded as Spin (preserving direction)</figcaption>
+      </figure>
+      <div class="notes">
+        <p>…can be passed along to the next node--let’s call it spin. This is somewhat akin to our multi-player ball game, where the intermediate player calls out where the ball came from.</p>
+        <p>So, this spin is used in the next generation ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s30" aria-label="Slide 30">
+      <figure>
+        <img src="img/030.jpg" width="720" height="540" loading="lazy" alt="Spin Inhibited MinMax">
+        <figcaption><span class="num">30</span> Spin Inhibited MinMax</figcaption>
+      </figure>
+      <div class="notes">
+        <p>to determine which are the best candidates to occupy a node. The best candidates are the ones which are moving towards a node. The worst are the ones moving away. In this case, both blues are moving away, so green wins ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s31" aria-label="Slide 31">
+      <figure>
+        <img src="img/031.jpg" width="720" height="540" loading="lazy" alt="Spin favors Green — min — max">
+        <figcaption><span class="num">31</span> Spin favors Green</figcaption>
+      </figure>
+      <div class="notes">
+        <p>And occupies the coveted center node.</p>
+        <p>So far we’ve seen three colors sorted in two dimensions, by recycling a center node. Well, I cheated. The recycled node is actually at a different depth. In fact all the nodes are ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s32" aria-label="Slide 32">
+      <figure>
+        <img src="img/032.jpg" width="720" height="540" loading="lazy" alt="Mapped to a Tetrahedron">
+        <figcaption><span class="num">32</span> Mapped to a Tetrahedron</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Are at different levels of a tetrahedron. Progressing from one step to the next involves a node moving from one layer to the next in a tetrahedral lattice.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s33" aria-label="Slide 33">
+      <figure>
+        <img src="img/033.jpg" width="720" height="540" loading="lazy" alt="Scaled to Many Nodes">
+        <figcaption><span class="num">33</span> Scaled to Many Nodes</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Which can scale to more interests propagating through...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s34" aria-label="Slide 34">
+      <figure>
+        <img src="img/034.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Lattice">
+        <figcaption><span class="num">34</span> Tetrahedral Lattice</figcaption>
+      </figure>
+      <div class="notes">
+        <p>a tetrahedra lattice without lateral connections.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s35" aria-label="Slide 35">
+      <figure>
+        <img src="img/035.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 1">
+        <figcaption><span class="num">35</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Let’s quickly step through one more example in two dimensions. Here is an unsorted list of colors. (A sorted order would be ROYGBV from the visible color spectrum.)</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s36" aria-label="Slide 36">
+      <figure>
+        <img src="img/036.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 1 MinMax">
+        <figcaption><span class="num">36</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>As it progresses down the tetrahedral lattice, the min values move left and the Max vales move right</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s37" aria-label="Slide 37">
+      <figure>
+        <img src="img/037.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 2">
+        <figcaption><span class="num">37</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Producing at layer two columns of five rows...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s38" aria-label="Slide 38">
+      <figure>
+        <img src="img/038.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 2 MinMax">
+        <figcaption><span class="num">38</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>and as it progress to the next layer ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s39" aria-label="Slide 39">
+      <figure>
+        <img src="img/039.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 3">
+        <figcaption><span class="num">39</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>producing 3 columns by 4 rows ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s40" aria-label="Slide 40">
+      <figure>
+        <img src="img/040.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 3 MinMax">
+        <figcaption><span class="num">40</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>and progressing further ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s41" aria-label="Slide 41">
+      <figure>
+        <img src="img/041.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 4">
+        <figcaption><span class="num">41</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>4 columns by three rows ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s42" aria-label="Slide 42">
+      <figure>
+        <img src="img/042.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 4 MinMax">
+        <figcaption><span class="num">42</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s43" aria-label="Slide 43">
+      <figure>
+        <img src="img/043.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 5">
+        <figcaption><span class="num">43</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>5 by 2</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s44" aria-label="Slide 44">
+      <figure>
+        <img src="img/044.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 5 MinMax">
+        <figcaption><span class="num">44</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>and finally ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s45" aria-label="Slide 45">
+      <figure>
+        <img src="img/045.jpg" width="720" height="540" loading="lazy" alt="Tetra-Sort — Layer 6">
+        <figcaption><span class="num">45</span> Tetra-Sort</figcaption>
+      </figure>
+      <div class="notes">
+        <p>A single row or sorted colors. Sorted purely by negotiating with its peers--no referees needed. No trusted 3rd party required.</p>
+        <p>&lt;pause&gt;</p>
+        <p>...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s46" aria-label="Slide 46">
+      <figure>
+        <img src="img/046.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Propagation">
+        <figcaption><span class="num">46</span> Tetrahedral Propagation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>In review of the steps, notice how we start out with a single 2-d column and then squash it down into a single 2-d row, sorting the colors in the process.</p>
+        <p>To look at this process mapped onto a tetrahedron yields the figure in the lower left--with the final sorted list hidden from view.</p>
+        <p>Fortunately, the tetrahedron’s <em>depth</em> and the the sorting algorithm's <em>time</em> are two dimensions that easily collapse into one! So this sort can be easily implemented in a 2-D cellular automaton, that looks very similar to the top arrangement, where each cell is looking at it’s four corner neighbors in which to calculate its next state. So cheating is allowed--the hack of recycling nodes, showed in our 3-color example, can become the general rule.</p>
+        <p>Notice that as a stand-alone sort algorithm, this technique is not very efficient--being a somewhat n-squared sort. Some efficiency is regained back, since the structure remains static--as opposed to say, quicksort where the space-state shifts for each recursion. With a static structure many lists can be sorted at the same time. So, with a 1000 players, sorting a 100 interests should yield (very) roughly the same computation time. Another advantage over n-log-n sorts is that this method doesn’t require a trusted third party to dispatch recursions, nor time costly reconnections to new nodes.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s47" aria-label="Slide 47">
+      <figure>
+        <img src="img/047.jpg" width="720" height="540" loading="lazy" alt="Fractal Subsets">
+        <figcaption><span class="num">47</span> Fractal Subsets</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Another advantage is that (under ideal conditions) many subsets of a list can be sorted in a tetrahedron at the same time. (Non-ideal conditions involve interference with other nodes which involves more redundancy.) So, for this example, three nodes in layer1 yields 3 sorted nodes in layer3, two nodes in layer3 yields two sorted nodes in layer4.</p>
+        <p>Now how do a lot of computers on the net connect and behave like a tetrahedron? ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s48" aria-label="Slide 48">
+      <figure>
+        <img src="img/048.jpg" width="720" height="540" loading="lazy" alt="Petri Pool">
+        <figcaption><span class="num">48</span> Petri Pool</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Lets recall our petri dish playing field. Here everybody can listen to everybody else on--for instance--a chat channel (though previous teammates could be asked outside of a pool.</p>
+        <p>So, one player ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s49" aria-label="Slide 49">
+      <figure>
+        <img src="img/049.jpg" width="720" height="540" loading="lazy" alt="Petri Pool">
+        <figcaption><span class="num">49</span> Petri Pool</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Chooses 4 other players and asks them to form a 5-some.</p>
+        <p>If they agree ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s50" aria-label="Slide 50">
+      <figure>
+        <img src="img/050.jpg" width="720" height="540" loading="lazy" alt="Assigning Tetrahedral Positions from Pool — 1st Node — 2nd Node — 3rd Node — 4th Node">
+        <figcaption><span class="num">50</span> Assigning Tetrahedral Positions from Pool</figcaption>
+      </figure>
+      <div class="notes">
+        <p>One node is established and four others are removed from red’s pool. This protocol continues until the red player has reached a certain threshold of nodes. (This protocol can turn into a game in its own right. If red asks too many times, the other players may get suspicious and refuse. ) Meanwhile the other players in the pool are forming 5-somas as well, with the end result as a sparsely connected cellular array.</p>
+        <p>(with the somewhat fractal nature of sorting interests through a tetrahedron, this informal connection will suffice--particularly under if the requirements are less constrained: where an interest may drop out of one session, but won’t drop all for all sessions. )</p>
+        <p>To eliminate loops, red eliminates other players that’ve asked red to participate, as well.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s51" aria-label="Slide 51">
+      <figure>
+        <img src="img/051.jpg" width="720" height="540" loading="lazy" alt="Output — Input — A Single Node’s Input and Output">
+        <figcaption><span class="num">51</span> Output</figcaption>
+      </figure>
+      <div class="notes">
+        <p>How a sparsely connected cellular array emerges as a correct tetrahedral lattice is best left for another talk. Instead ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s52" aria-label="Slide 52">
+      <figure>
+        <img src="img/052.jpg" width="720" height="540" loading="lazy" alt="Dining Cryptographers">
+        <figcaption><span class="num">52</span> Dining Cryptographers</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Lets get back to cryptography.</p>
+        <p>Now that we have a way for interests to self organize into to same proximity. How does an individual broadcast her interests to a group while preserving her privacy? A classic example provided by David Chaum is the Dining Cryptographers problem.</p>
+        <p>Three cryptographers are dining a restaurant and the waiter announces that someone has paid for the meal: either one of them or Ned, from the NSA. Well all three want to know if it was someone from their group that paid, or if it was Ned.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s53" aria-label="Slide 53">
+      <figure>
+        <img src="img/053.jpg" width="720" height="540" loading="lazy" alt="Disclosing Ned — * Carol privately discloses Not-Ned — Anonymous Message Broadcasting">
+        <figcaption><span class="num">53</span> Disclosing Ned</figcaption>
+      </figure>
+      <div class="notes">
+        <p>So Alice and Bob flips a coin behind a menu so that Carol can’t see the results. Likewise Bob and Carol flips a coin that Alice can’t see. And Carol and Alice flip a coin that Bob can’t see. In essence we have three secure channels between Alice, Bob, and Carol. The rule is that if you hadn’t paid for the meal, then you call out matched if the two coins that you see are both head or are both tail--otherwise you call out unmatched. If you did pay, then say the opposite of what you see.</p>
+        <p>Regardless of how the coins come out, if an odd number of people called matched, then Ned paid. If an even number of people called matched, then someone in the group paid--but the others don’t know who.</p>
+        <p>So here is way to broadcast interests to a group, with a 3rd party arbitrating the results.</p>
+        <p>Unfortunately, Alice or Bob can cheat by declaring the opposite of what they see, thus throwing suspicion back onto Ned. Will Carol, who knows that see paid speak up? How serious is this meal, anyway.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s54" aria-label="Slide 54">
+      <figure>
+        <img src="img/054.jpg" width="720" height="540" loading="lazy" alt="Disclosing Ned — * Carol privately discloses Not-Ned — Eliminating Shared Coin Flips">
+        <figcaption><span class="num">54</span> Disclosing Ned</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Before modifying this protocol to eliminated cheaters, lets first make it a bit more efficient--in fact a bit per channel is all that’s needed.</p>
+        <p>Strangely enough, flipping a coin in real life is much simpler than ephemeral version. Usually a secure coin flip requires an operation on prime numbers. In this case, we don’t need a secure coin flip. Instead we rely upon the three secure channels.</p>
+        <p>Here, Alice presents a random bit that only she and Bob sees and Bob presents a random bit that only he and Alice sees. Both Alice and Bob can independently add up these two bits to produce a number that is either even or odd. This maps onto a coin flip as being heads or tails. After tossing some bits towards Carol, the protocol can proceed, as before--by calling out matched or unmatched evens or odds.</p>
+        <p>So how do we find out if someone cheated? ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s55" aria-label="Slide 55">
+      <figure>
+        <img src="img/055.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Carol privately discloses she paid — “Yes...”/”No…” = (2+(6/2))/(4+(6/2)) = 5/7 &gt; 1/2">
+        <figcaption><span class="num">55</span> Statistical Message Broadcasting Carol privately discloses she paid</figcaption>
+      </figure>
+      <div class="notes">
+        <p>By adding dice and a lot of patience.</p>
+        <p>This protocol takes many rounds. For each round, each player randomly chooses one of three messages to give: either disclose the truth about their paying or not, forward what the previous player said on the previous round, or choose a random yes or no.</p>
+        <p>So, in this case, Carol randomly chooses between telling Alice what she knows, forwarding what she got from Bob, on the previous round, or saying a random yes or no. Alice neither knows Who the message comes from nor whether it means anything. But she marks down the answer anyway on a list. The same thing happens between everyone else.</p>
+        <p>(Since the first round doesn’t have a “previous player said” it would be safer to make that message random as well--in fact, after a few rounds, the random component can be dropped in favor of recycling older messages).</p>
+        <p>After so many rounds the game is called to halt and everyone tallies up their answers. If someone in the group paid, then the proportion of Yes’s to No’s should approach 5/7...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s56" aria-label="Slide 56">
+      <figure>
+        <img src="img/056.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Everyone privately discloses not paying — “Yes…” / “No…” = (6/2) / (6+(6/2)) = 3/9 &lt; 1/2">
+        <figcaption><span class="num">56</span> Statistical Message Broadcasting Everyone privately discloses not paying</figcaption>
+      </figure>
+      <div class="notes">
+        <p>If nobody paid then the proportion should be 3/9.</p>
+        <p>Moreover ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s57" aria-label="Slide 57">
+      <figure>
+        <img src="img/057.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Broadcasting Carol discloses, Alice lies — “Yes...”/”No…” = (4+(6/2))/(2+(6/2)) = 7/5 &gt; 1">
+        <figcaption><span class="num">57</span> Statistical Message Broadcasting Carol discloses, Alice lies</figcaption>
+      </figure>
+      <div class="notes">
+        <p>If someone tries to cheat, they produce a proportion that discloses that cheating took place (though not <em>who</em> was the cheating)</p>
+        <p>So now we have a way of broadcasting values publicly that is verified privately.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s58" aria-label="Slide 58">
+      <figure>
+        <img src="img/058.jpg" width="720" height="540" loading="lazy" alt="Statistical Message Routing">
+        <figcaption><span class="num">58</span> Statistical Message Routing</figcaption>
+      </figure>
+      <div class="notes">
+        <p>The next step is to generalize the broadcast of yes or no to an preset question to the routing of a broad set of interests. In this case, each node decides whether to send information that it owns, or obtained from someone else. So it acts as both a source of its own interests and a cache for other’s interests. The initial random component can be eliminated by filling its cache with random interests.</p>
+        <p>Now, making a separate decision for two other players can be reduced to a routing decision ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s59" aria-label="Slide 59">
+      <figure>
+        <img src="img/059.jpg" width="720" height="540" loading="lazy" alt="Hashed Message Routing">
+        <figcaption><span class="num">59</span> Hashed Message Routing</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Moreover, the routing decision can take into account the difference between an interest that it owns and an interest that is contained within its cache.</p>
+        <p>For Carol, if the value of the cached interest is greater than her interest (value meaning arbitrary number assigned to that interest) then she sends the cached interest (“Theirs”) to Alice and her interest (“Mine”) to Bob. If the value is less than her interest then she sends Mine to Alice and Theirs to Bob.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s60" aria-label="Slide 60">
+      <figure>
+        <img src="img/060.jpg" width="720" height="540" loading="lazy" alt="Beacon Hashed Message Routing">
+        <figcaption><span class="num">60</span> Beacon Hashed Message Routing</figcaption>
+      </figure>
+      <div class="notes">
+        <p>To prevent Alice or Bob from inferring her interests, Carol can apply a keyed one way function, or MAC, to her decision process. Alice and Bob also apply the same key to their decision making process.</p>
+        <p>When it’s desirable to synchronize the decision process amongst all the players, then the key can be supplied by a shared Beacon.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s61" aria-label="Slide 61">
+      <figure>
+        <img src="img/061.jpg" width="720" height="540" loading="lazy" alt="Dining Idiot-Savants — paper napkin protocol">
+        <figcaption><span class="num">61</span> Dining Idiot-Savants</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Getting back to the restaurant.</p>
+        <p>Alice, Bob, &amp; Carol decide to determine if Ned paid by throwing dice and by passing out pieces of napkins with Yes or No written on them.</p>
+        <p>Before the first throw, each player writes Yes or No at random on a dozen or so pieces of napkin and puts the pieces in a cache pile.</p>
+        <p>For each round, each player writes whether they paid or not on a new piece of napkin. After each throw of the dice, the player calculates who gets a bit of napkin with their answer on it and who gets a bit a napkin from the cache pile. The two bits of napkin zie gets from the other two players gets tossed into the cache pile.</p>
+        <p>After so many rounds (enough to make the random answers statistically insignificant) the game ends and each player can tally up their own bits of napkin to determine is someone in their group paid.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s62" aria-label="Slide 62">
+      <figure>
+        <img src="img/062.jpg" width="720" height="540" loading="lazy" alt="Preference Spin — chosen plain text attack">
+        <figcaption><span class="num">62</span> Preference Spin</figcaption>
+      </figure>
+      <div class="notes">
+        <p>With only two interests: “I paid” and “I didn’t pay”  and knowledge of each player’s routing criteria, it’s easy to infer what direction their preferences flow. For example, if Alice routes her preferences to Bob iff it is less than what’s in her cache, and No is valued less than Yes, then Bob can compare messages sent by Alice with messages sent by Carol to determine which one paid. With more interests and less predictable methods for routing, Bob’s job becomes harder.</p>
+        <p>(The best defense from a chosen plain text attack is to make the plain text so context sensitive that the attacker needs to <em>become</em> very similar to the attackee. More one that in the section on Homophonic trees.)</p>
+        <p>Given that we’re dealing with a much larger set of interests, lets see how to scale secure interest propagation to a larger group.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s63" aria-label="Slide 63">
+      <figure>
+        <img src="img/063.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation">
+        <figcaption><span class="num">63</span> Preference Propagation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Instead of continuously sending messages to each other, Alice Bob and Carol can exchange messages with other players ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s64" aria-label="Slide 64">
+      <figure>
+        <img src="img/064.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation — Input Cycle Chooses “Theirs”">
+        <figcaption><span class="num">64</span> Preference Propagation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>When receiving messages, each player performs a standard MinMax comparison--as shown in a Tetra sort</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s65" aria-label="Slide 65">
+      <figure>
+        <img src="img/065.jpg" width="720" height="540" loading="lazy" alt="Preference Propagation — Output Cycle Routes “Mine” and “Theirs”">
+        <figcaption><span class="num">65</span> Preference Propagation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>When sending a message, each player compares their message “m” (mine) with a cached message “t” (theirs) to determine whether their interests are output on the left side or the right side.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s66" aria-label="Slide 66">
+      <figure>
+        <img src="img/066.jpg" width="720" height="540" loading="lazy" alt="Tetrahedral Propagation">
+        <figcaption><span class="num">66</span> Tetrahedral Propagation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Thus self interest is interleaved with group interests to produce a distribution of preferences that still aggregate over several rounds.</p>
+        <p>Now that we have a way to aggregate interests, how does a player set personal disclosure thresholds? As it turns out, disclosure thresholds and arbitrary value assignments enhance each other.</p>
+        <p>Let’s take a look at thresholds first ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s67" aria-label="Slide 67">
+      <figure>
+        <img src="img/067.jpg" width="720" height="540" loading="lazy" alt="Public Key Blinding">
+        <figcaption><span class="num">67</span> Public Key Blinding</figcaption>
+      </figure>
+      <div class="notes">
+        <p>A simple threshold to set is to encrypt a message with n private keys, at time ti, and then broadcast the public keys at time intervals of ti+1 thru ti+n. If another player is available for that period, she collects enough keys to decipher the message ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s68" aria-label="Slide 68">
+      <figure>
+        <img src="img/068.jpg" width="720" height="540" loading="lazy" alt="Secret Sharing Beacons">
+        <figcaption><span class="num">68</span> Secret Sharing Beacons</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Here, asymmetric keys are replaced with shares in a secret--distributed over time. Another player can decipher red after collecting enough shares. The actual number of shares needed can be determined by the originator of the message.</p>
+        <p>Now, considering that Red only wants another Red to recognize the message as Red, nothing prevents them from changing what value “Red” represents over time. So, at designated time intervals, all Reds can change their internal value of “Red”, making this particular interest a moving target--and enabling a beacon to be shared by all colors.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s69" aria-label="Slide 69">
+      <figure>
+        <img src="img/069.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets">
+        <figcaption><span class="num">69</span> 3-token Secrets</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Another consequence of allowing an internal value of an interest to shift in time is that it allows the originator to set time frame for disclosing an interest.</p>
+        <p>In this example, the originator of the message allows three shares of a secret to unblind their interest. Since the internal value of “Red” can shift over time, an attacker is prevented from collecting tokens at sparse intervals--say at ti+1, ti+3, ti+5</p>
+        <p>Conversely ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s70" aria-label="Slide 70">
+      <figure>
+        <img src="img/070.jpg" width="720" height="540" loading="lazy" alt="Sparse 3-token Secrets">
+        <figcaption><span class="num">70</span> Sparse 3-token Secrets</figcaption>
+      </figure>
+      <div class="notes">
+        <p>The originator can require that sparsely distributed shares reveal’s their message</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s71" aria-label="Slide 71">
+      <figure>
+        <img src="img/071.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets">
+        <figcaption><span class="num">71</span> 3-token Secrets</figcaption>
+      </figure>
+      <div class="notes">
+      </div>
+    </section>
+    <section class="anon-slide" id="s72" aria-label="Slide 72">
+      <figure>
+        <img src="img/072.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets">
+        <figcaption><span class="num">72</span> 3-token Secrets</figcaption>
+      </figure>
+      <div class="notes">
+      </div>
+    </section>
+    <section class="anon-slide" id="s73" aria-label="Slide 73">
+      <figure>
+        <img src="img/073.jpg" width="720" height="540" loading="lazy" alt="3-token Secrets">
+        <figcaption><span class="num">73</span> 3-token Secrets</figcaption>
+      </figure>
+      <div class="notes">
+      </div>
+    </section>
+    <section class="anon-slide" id="s74" aria-label="Slide 74">
+      <figure>
+        <img src="img/074.jpg" width="720" height="540" loading="lazy" alt="Intermediate Secrets">
+        <figcaption><span class="num">74</span> Intermediate Secrets</figcaption>
+      </figure>
+      <div class="notes">
+      </div>
+    </section>
+    <section class="anon-slide" id="s75" aria-label="Slide 75">
+      <figure>
+        <img src="img/075.jpg" width="720" height="540" loading="lazy" alt="N-Layer Secret Sharing Lattices">
+        <figcaption><span class="num">75</span> N-Layer Secret Sharing Lattices</figcaption>
+      </figure>
+      <div class="notes">
+        <p>With all the possible share distributions mapping onto a lattice that in context of a local session, maps conveniently ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s76" aria-label="Slide 76">
+      <figure>
+        <img src="img/076.jpg" width="720" height="540" loading="lazy" alt="Share Propagation">
+        <figcaption><span class="num">76</span> Share Propagation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Along the face of a tetrahedral lattice that can coexist with ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s77" aria-label="Slide 77">
+      <figure>
+        <img src="img/077.jpg" width="720" height="540" loading="lazy" alt="Hybrid Propagation">
+        <figcaption><span class="num">77</span> Hybrid Propagation</figcaption>
+      </figure>
+      <div class="notes">
+        <p>…propagation of interests.</p>
+        <p>Now back to value assignment to interests and how they may related to disclosure thresholds ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s78" aria-label="Slide 78">
+      <figure>
+        <img src="img/078.jpg" width="720" height="540" loading="lazy" alt="Huffman Tree">
+        <figcaption><span class="num">78</span> Huffman Tree</figcaption>
+      </figure>
+      <div class="notes">
+        <p>One way to represent the content of a set of interests is to encode it into a tree. The simplest is to encode the ASCII letters into a Huffman tree. The most popular letters, such as “e”, “a”, and “o” find their selves at the lower end of the tree, and thus require few bits to encode.</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s79" aria-label="Slide 79">
+      <figure>
+        <img src="img/079.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree">
+        <figcaption><span class="num">79</span> Predictive Encoding Tree</figcaption>
+      </figure>
+      <div class="notes">
+        <p>An extension of Huffman trees is to used a pattern recognizer to combine several ASCII letters into a single symbol, such as “hello”. So, a predictive encoding tree may grow over time with the upper most branches formed from the aggregation of branches that occured before (in time, not physically).</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s80" aria-label="Slide 80">
+      <figure>
+        <img src="img/080.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree">
+        <figcaption><span class="num">80</span> Predictive Encoding Tree</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Lets abstract this tree into layers of</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s81" aria-label="Slide 81">
+      <figure>
+        <img src="img/081.jpg" width="720" height="540" loading="lazy" alt="Predictive Encoding Tree">
+        <figcaption><span class="num">81</span> Predictive Encoding Tree</figcaption>
+      </figure>
+      <div class="notes">
+        <p>order of magnitude. So at one layer, we have the letter “o” which may occur quite often, and the next layer is the word “hello” which occurs less frequently (and also contains the letter “o”)</p>
+        <p>The that we can add another layer ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s82" aria-label="Slide 82">
+      <figure>
+        <img src="img/082.jpg" width="720" height="540" loading="lazy" alt="Tree Encoded Interests">
+        <figcaption><span class="num">82</span> Tree Encoded Interests</figcaption>
+      </figure>
+      <div class="notes">
+        <p>The is even less frequent--say a the lyrics from a popular Beatles song. Here is where we move into the realm of individual interests. These interests may be privately held, though may consists of pieces that are public knowledge.</p>
+        <p>To abstract this notion ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s83" aria-label="Slide 83">
+      <figure>
+        <img src="img/083.jpg" width="720" height="540" loading="lazy" alt="Interest Obfuscation Thresholds">
+        <figcaption><span class="num">83</span> Interest Obfuscation Thresholds</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Let’s symbolize the degree of privacy as the degree of redness. As you progress up the tree, the degree of redness also progresses. The degree of ease of progressing up the tree can be determined by the owner of the tree by enciphering individual branches.</p>
+        <p>Moreover, each enciphered branch may  be ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s84" aria-label="Slide 84">
+      <figure>
+        <img src="img/084.jpg" width="720" height="540" loading="lazy" alt="Sparse Homophonic Tree — Populated from Beacon">
+        <figcaption><span class="num">84</span> Sparse Homophonic Tree</figcaption>
+      </figure>
+      <div class="notes">
+        <p>deciphered by a varying number of shares of a pooled secret. As you progress up the tree, the number of shares needed to decipher that branch increases. This allows more of the tree to be revealed over time.</p>
+        <p>So this tree serves as partially blinded message that is propagated...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s85" aria-label="Slide 85">
+      <figure>
+        <img src="img/085.jpg" width="720" height="540" loading="lazy" alt="Tree Comparison — Mine — Theirs">
+        <figcaption><span class="num">85</span> Tree Comparison</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Whenever a player receives a tree, she compares that tree with her own and ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s86" aria-label="Slide 86">
+      <figure>
+        <img src="img/086.jpg" width="720" height="540" loading="lazy" alt="Pruned Tree">
+        <figcaption><span class="num">86</span> Pruned Tree</figcaption>
+      </figure>
+      <div class="notes">
+        <p>…prunes the branches that don’t match. The resulting tree then ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s87" aria-label="Slide 87">
+      <figure>
+        <img src="img/087.jpg" width="720" height="540" loading="lazy" alt="Complexity MinMax">
+        <figcaption><span class="num">87</span> Complexity MinMax</figcaption>
+      </figure>
+      <div class="notes">
+        <p>Forms a value that can be compared and sent along as nodes following a MinMax convention.</p>
+        <p>Which conveniently map ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s88" aria-label="Slide 88">
+      <figure>
+        <img src="img/088.jpg" width="720" height="540" loading="lazy" alt="As a Standard Node Value">
+        <figcaption><span class="num">88</span> As a Standard Node Value</figcaption>
+      </figure>
+      <div class="notes">
+        <p>To colored nodes ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s89" aria-label="Slide 89">
+      <figure>
+        <img src="img/089.jpg" width="720" height="540" loading="lazy" alt="Propagating through a Tetrahedral Lattice">
+        <figcaption><span class="num">89</span> Propagating through a Tetrahedral Lattice</figcaption>
+      </figure>
+      <div class="notes">
+        <p>on a tetrahedral lattice ...</p>
+      </div>
+    </section>
+    <section class="anon-slide" id="s90" aria-label="Slide 90">
+      <figure>
+        <img src="img/090.jpg" width="720" height="540" loading="lazy" alt="Anonymous Collaboration — Warren Stringer">
+        <figcaption><span class="num">90</span> Anonymous Collaboration</figcaption>
+      </figure>
+      <div class="notes">
+      </div>
+    </section>
+</main>
+</body>
+</html>

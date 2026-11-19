@@ -309,6 +309,7 @@ ol.steps ul li { margin-bottom: .2em; }
 .refs li { margin-bottom: .5em; padding-left: .2em; }
 .text > .refs { max-width: none; }
 .refs a { color: var(--c-studio); text-underline-offset: .15em; overflow-wrap: anywhere; }
+.refs a.star-link { color: #f5c518; text-decoration: none; font-weight: 700; padding-inline: .2em; }
 @media (min-width: 980px) {
   .refs { column-count: 2; column-gap: 48px; }
   .refs li { break-inside: avoid; }
