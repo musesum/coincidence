@@ -21,7 +21,7 @@
   font-size: 15px;
   line-height: 1.45;
 }
-@media (prefers-color-scheme: dark) {
+@media screen {
   .petri {
     --pc-ink: var(--ink, #f5f5f7);
     --pc-ink-2: var(--ink-2, #a1a1a6);

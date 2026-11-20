@@ -14,10 +14,11 @@
   --c-threat: #a43a41;
   --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --gutter: 16px;
-  color-scheme: light dark;
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Always dark on screens; print stays light */
+@media screen {
   :root {
     --paper: #0f1115;
     --paper-2: #171a21;
