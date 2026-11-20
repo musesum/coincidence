@@ -167,16 +167,47 @@ for (const box of document.querySelectorAll('[data-demo]')) {
   frame.addEventListener('load', () => watchTouches(frame));
 }
 
-// Page 6: the title card shows on arrival, then fades once the demo is live.
+// Page 6: the title card shows on arrival with the demo's loading bar; it fades once loading passes 90% (shown at least 1.2 s).
 const here = document.getElementById('here');
 if (here) {
-  let reveal = 0;
+  const title = here.querySelector('.slide-head h2');
+  const bar = document.createElement('span');
+  bar.className = 'here-bar';
+  bar.setAttribute('aria-hidden', 'true');
+  bar.append(document.createElement('i'));
+  title?.append(bar);
+  // Demo progress 0..1 from its #status bar; 1 once its graph has drawn and the status is clear.
+  const progress = () => {
+    let doc;
+    try { doc = here.querySelector('.demo-frame')?.contentDocument; } catch { return 1; }
+    if (!doc) return 0;
+    const status = doc.getElementById('status');
+    const fill = status?.querySelector('.bar i');
+    if (fill) return (parseFloat(fill.style.width) || 0) / 100;
+    if (status?.textContent.trim()) return 0;
+    return doc.querySelector('svg circle, canvas') ? 1 : 0;
+  };
+  let tick = 0;
+  let shown = 0;
+  let seen = 0;
+  // The demo's own status line hides while the card shows its bar.
+  const demoStatus = (hide) => {
+    try { const s = here.querySelector('.demo-frame')?.contentDocument?.getElementById('status'); if (s) s.style.visibility = hide ? 'hidden' : ''; } catch {}
+  };
+  const step = () => {
+    demoStatus(true);
+    seen = Math.max(seen, progress());
+    bar.firstChild.style.width = `${Math.round(seen * 100)}%`;
+    const waited = performance.now() - shown;
+    if ((seen > 0.9 && waited >= 1200) || waited > 20000) { here.classList.add('revealed'); demoStatus(false); return; }
+    tick = setTimeout(step, 150);
+  };
   new IntersectionObserver(([e]) => {
-    clearTimeout(reveal);
+    clearTimeout(tick);
     if (!e.isIntersecting) { here.classList.remove('revealed'); return; }
-    const box = here.querySelector('.demo-box');
-    const wait = () => { reveal = setTimeout(() => (box && !box.classList.contains('live') ? wait() : here.classList.add('revealed')), 1500); };
-    wait();
+    shown = performance.now();
+    seen = 0;
+    step();
   }, { threshold: 0.6 }).observe(here);
 }
 

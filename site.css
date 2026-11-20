@@ -635,3 +635,7 @@ br.br-portrait { display: none; }
 html.touching { scroll-snap-type: none; }
 @media screen and (min-aspect-ratio: 16/9) { #petri .petri-controls .petri-btn { padding: 0 9px; font-size: 13px; } }
 #petri .petri-field { flex: none; }
+/* Page 6: loading bar under the title */
+#here .slide-head h2 { position: relative; padding-bottom: 26px; }
+#here .here-bar { position: absolute; left: 28px; right: 28px; bottom: 12px; height: 4px; border-radius: 2px; background: rgba(245, 245, 247, .25); overflow: hidden; }
+#here .here-bar i { display: block; height: 100%; width: 0; background: #f5f5f7; transition: width .3s ease; }
