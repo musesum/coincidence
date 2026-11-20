@@ -56,7 +56,7 @@ body {
 /* Slides */
 .slide {
   min-height: 100vh;
-  min-height: 100svh; min-height: 100dvh;
+  min-height: 100svh; min-height: 100lvh;
   scroll-snap-align: start;
   display: flex;
   align-items: center;
@@ -251,7 +251,7 @@ ol.steps ul li { margin-bottom: .2em; }
 .split h2 { font-size: clamp(22px, min(4.2vw, 7vh), 56px); }
 /* landscape and squarish: one page, columns side by side */
 @media screen and (min-aspect-ratio: 4/5) {
-  .slide.split { height: 100vh; height: 100svh; height: 100dvh; min-height: 0; padding-top: clamp(12px, 4vh, 48px); padding-bottom: clamp(64px, 9vh, 96px); }
+  .slide.split { height: 100vh; height: 100svh; height: 100lvh; min-height: 0; padding-top: clamp(12px, 4vh, 48px); padding-bottom: clamp(64px, 9vh, 96px); }
   .split .slide-inner { display: block; height: 100%; container-type: inline-size; }
   .split .pair {
     --pair-gap: clamp(24px, 4vw, 48px);
@@ -279,7 +279,7 @@ ol.steps ul li { margin-bottom: .2em; }
   .split .slide-inner, .split .pair { display: block; }
   .split .pair-col {
     min-height: 100vh;
-    min-height: 100svh; min-height: 100dvh;
+    min-height: 100svh; min-height: 100lvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -498,7 +498,7 @@ br.br-portrait { display: none; }
 @media screen and (min-aspect-ratio: 4/5) {
   #premise, #questions, #here { padding-top: clamp(12px, 4vh, 48px); padding-bottom: clamp(64px, 9vh, 96px); }
   /* Page 6: the demo takes the height under the title and stays above the navigator */
-  #here { height: 100vh; height: 100svh; height: 100dvh; min-height: 0; }
+  #here { height: 100vh; height: 100svh; height: 100lvh; min-height: 0; }
   #here .slide-inner { height: 100%; grid-template-rows: auto minmax(0, 1fr); gap: clamp(8px, 2vh, 20px); align-items: stretch; }
   #here h2 { margin: 0; font-size: clamp(22px, min(4.2vw, 7vh), 56px); }
   #here .demo-box { min-height: 0; height: 100%; grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr); }
@@ -558,7 +558,7 @@ br.br-portrait { display: none; }
 }
 /* Page 6: title card fades out over the full-page demo, every window shape */
 @media screen {
-  #here { position: relative; height: 100vh; height: 100svh; height: 100dvh; min-height: 0; padding: 0; }
+  #here { position: relative; height: 100vh; height: 100svh; height: 100lvh; min-height: 0; padding: 0; }
   #here .slide-inner { display: block; max-width: none; height: 100%; padding: 0; }
   #here .demo-box { height: 100%; }
   #here .demo-frame { height: 100%; border: 0; border-radius: 0; }
@@ -585,12 +585,12 @@ br.br-portrait { display: none; }
   }
   #connection h2, #time h2, #petri h2, #johnson h2, #threat h2 { margin: 0; font-size: clamp(20px, 7vh, 34px); }
   #connection .text, #time .text, #petri .text, #johnson .text, #threat .text { grid-column: 1; font-size: clamp(13px, 3.6vh, 1em); }
-  #connection figure.diagram, #time figure.diagram { grid-column: 2; grid-row: 2 / span 2; width: min(50vw, calc((100dvh - 56px - var(--nav-clear)) * 1.9)); }
-  #connection figure.diagram svg, #time figure.diagram svg { max-height: calc(100dvh - 56px - var(--nav-clear)); }
+  #connection figure.diagram, #time figure.diagram { grid-column: 2; grid-row: 2 / span 2; width: min(50vw, calc((100lvh - 56px - var(--nav-clear)) * 1.9)); }
+  #connection figure.diagram svg, #time figure.diagram svg { max-height: calc(100lvh - 56px - var(--nav-clear)); }
   #petri .figure, #johnson .figure, #threat .figure, #petri .petri, #johnson .petri, #threat .petri { display: contents; }
   #petri .petri-stage, #johnson .petri-stage, #threat .petri-stage {
     grid-column: 2; grid-row: 2 / span 5;
-    width: min(46vw, calc(100dvh - 56px - var(--nav-clear))); justify-self: end;
+    width: min(46vw, calc(100lvh - 56px - var(--nav-clear))); justify-self: end;
   }
   #petri .petri-controls, #petri .petri-panel, #petri .petri-legend,
   #johnson .petri-controls, #johnson .petri-panel, #johnson .petri-legend,
@@ -621,3 +621,17 @@ br.br-portrait { display: none; }
   .slide-head h1, .slide-head h2 { margin-top: 0; }
   #origin, #appendix { align-items: center; }
 }
+/* Page 14: headline on one line, little margin under it, Where and When on one line */
+#petri .slide-inner { row-gap: 8px; }
+#petri .slide-head h2 { margin-bottom: 0; white-space: nowrap; }
+@media (max-width: 600px) { #petri .slide-head h2 { font-size: min(30px, 6.6vw); } }
+#petri .petri-controls { flex-direction: row; flex-wrap: nowrap; align-items: flex-start; gap: 12px; }
+#petri .petri-seg { flex-wrap: nowrap; }
+@media (max-width: 600px) {
+  #petri .petri-controls { gap: 8px; }
+  #petri .petri-controls .petri-btn { padding: 0 clamp(3px, 1.3vw, 6px); font-size: clamp(11px, 3.2vw, 12.5px); }
+}
+/* Touch suspends scroll snapping */
+html.touching { scroll-snap-type: none; }
+@media screen and (min-aspect-ratio: 16/9) { #petri .petri-controls .petri-btn { padding: 0 9px; font-size: 13px; } }
+#petri .petri-field { flex: none; }

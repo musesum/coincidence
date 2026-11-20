@@ -205,3 +205,18 @@ function watchTouches(frame) {
 }
 
 start();
+
+// Touch suspends scroll snapping; it resumes 600 ms after the last touch ends and scrolling stops.
+const root = document.documentElement;
+let touchCount = 0;
+let snapBack = 0;
+const resumeSnap = () => {
+  clearTimeout(snapBack);
+  snapBack = setTimeout(() => { if (!touchCount) root.classList.remove('touching'); }, 600);
+};
+const touchOpts = { capture: true, passive: true };
+addEventListener('touchstart', (e) => { touchCount = e.touches.length; clearTimeout(snapBack); root.classList.add('touching'); }, touchOpts);
+const touchDone = (e) => { touchCount = e.touches.length; if (!touchCount) resumeSnap(); };
+addEventListener('touchend', touchDone, touchOpts);
+addEventListener('touchcancel', touchDone, touchOpts);
+addEventListener('scroll', () => { if (!touchCount && root.classList.contains('touching')) resumeSnap(); }, { passive: true });
