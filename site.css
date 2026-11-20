@@ -608,3 +608,5 @@ ol.steps ul li { margin-bottom: .2em; }
   #staging { padding-top: 24px; padding-bottom: var(--nav-clear); }
   #staging .text { font-size: clamp(12px, min(1.9vh, 4.3vw), 1em); }
 }
+/* Appendix subhead */
+.appendix-sub { margin: 0; font-size: clamp(18px, 2.2vw, 28px); color: var(--ink-2); }
