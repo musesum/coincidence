@@ -164,6 +164,45 @@ for (const box of document.querySelectorAll('[data-demo]')) {
   }, { once: true });
   frame.src = box.dataset.demo;
   box.append(frame);
+  frame.addEventListener('load', () => watchTouches(frame));
+}
+
+// Portrait page 6: the title card shows on arrival, then fades once the demo is live.
+const here = document.getElementById('here');
+if (here) {
+  let reveal = 0;
+  new IntersectionObserver(([e]) => {
+    clearTimeout(reveal);
+    if (!e.isIntersecting) { here.classList.remove('revealed'); return; }
+    const box = here.querySelector('.demo-box');
+    const wait = () => { reveal = setTimeout(() => (box && !box.classList.contains('live') ? wait() : here.classList.add('revealed')), 1500); };
+    wait();
+  }, { threshold: 0.6 }).observe(here);
+}
+
+// Portrait full-page demo: touches inside it fade the navigator out; it returns 2 s after the last touch ends.
+const nav = document.querySelector('.deck-nav');
+let navBack = 0;
+function watchTouches(frame) {
+  let doc;
+  try { doc = frame.contentDocument; } catch { return; }
+  if (!doc || !nav) return;
+  const away = () => {
+    if (!portrait.matches) return;
+    clearTimeout(navBack);
+    nav.classList.add('away');
+  };
+  const back = (e) => {
+    if (e.touches && e.touches.length) return;
+    clearTimeout(navBack);
+    navBack = setTimeout(() => nav.classList.remove('away'), 2000);
+  };
+  const opts = { capture: true, passive: true };
+  doc.addEventListener('touchstart', away, opts);
+  doc.addEventListener('touchend', back, opts);
+  doc.addEventListener('touchcancel', back, opts);
+  doc.addEventListener('mousedown', away, opts);
+  doc.addEventListener('mouseup', back, opts);
 }
 
 start();

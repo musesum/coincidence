@@ -56,7 +56,7 @@ body {
 /* Slides */
 .slide {
   min-height: 100vh;
-  min-height: 100svh;
+  min-height: 100svh; min-height: 100dvh;
   scroll-snap-align: start;
   display: flex;
   align-items: center;
@@ -251,7 +251,7 @@ ol.steps ul li { margin-bottom: .2em; }
 .split h2 { font-size: clamp(22px, min(4.2vw, 7vh), 56px); }
 /* landscape and squarish: one page, columns side by side */
 @media screen and (min-aspect-ratio: 4/5) {
-  .slide.split { height: 100vh; height: 100svh; min-height: 0; padding-top: clamp(12px, 4vh, 48px); padding-bottom: clamp(64px, 9vh, 96px); }
+  .slide.split { height: 100vh; height: 100svh; height: 100dvh; min-height: 0; padding-top: clamp(12px, 4vh, 48px); padding-bottom: clamp(64px, 9vh, 96px); }
   .split .slide-inner { display: block; height: 100%; container-type: inline-size; }
   .split .pair {
     --pair-gap: clamp(24px, 4vw, 48px);
@@ -279,7 +279,7 @@ ol.steps ul li { margin-bottom: .2em; }
   .split .slide-inner, .split .pair { display: block; }
   .split .pair-col {
     min-height: 100vh;
-    min-height: 100svh;
+    min-height: 100svh; min-height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -478,9 +478,6 @@ ol.steps ul li { margin-bottom: .2em; }
 /* Page 5: the table ends at its longest row */
 #questions .table-wrap table { width: auto; }
 #questions .table-wrap td { padding-right: 24px; }
-/* Page 14 title breaks before "Different Logs" in portrait windows */
-br.br-portrait { display: none; }
-@media screen and (orientation: portrait) { br.br-portrait { display: inline; } }
 /* Page 8 Deployment: one page; two columns of stages in landscape and squarish windows, smaller type in short windows */
 #staging { padding-top: clamp(16px, 4vh, 64px); padding-bottom: clamp(64px, 9vh, 96px); }
 #staging .slide-inner { gap: clamp(12px, 3vh, 32px); }
@@ -498,7 +495,7 @@ br.br-portrait { display: none; }
 @media screen and (min-aspect-ratio: 4/5) {
   #premise, #questions, #here { padding-top: clamp(12px, 4vh, 48px); padding-bottom: clamp(64px, 9vh, 96px); }
   /* Page 6: the demo takes the height under the title and stays above the navigator */
-  #here { height: 100vh; height: 100svh; min-height: 0; }
+  #here { height: 100vh; height: 100svh; height: 100dvh; min-height: 0; }
   #here .slide-inner { height: 100%; grid-template-rows: auto minmax(0, 1fr); gap: clamp(8px, 2vh, 20px); align-items: stretch; }
   #here h2 { margin: 0; font-size: clamp(22px, min(4.2vw, 7vh), 56px); }
   #here .demo-box { min-height: 0; height: 100%; grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr); }
@@ -532,4 +529,82 @@ br.br-portrait { display: none; }
 #petri .petri-stage, #johnson .petri-stage, #threat .petri-stage { width: 60%; justify-self: center; }
 @media (min-width: 900px) {
   #petri .petri-stage, #johnson .petri-stage, #threat .petri-stage { width: 100%; max-width: calc(.6 * min(720px, max(380px, calc(100svh - 340px)))); }
+}
+/* Navigator clears the home bar where the browser reports a bottom inset */
+:root { --nav-clear: calc(var(--gutter) / 2 + env(safe-area-inset-bottom, 0px) + 56px); }
+.deck-nav { bottom: calc(var(--gutter) / 2 + env(safe-area-inset-bottom, 0px)); transition: opacity .4s ease; }
+.deck-nav.away { opacity: 0; pointer-events: none; }
+@media screen and (min-aspect-ratio: 4/5) {
+  .slide.split, #premise, #questions, #here, #staging { padding-bottom: max(clamp(64px, 9vh, 96px), var(--nav-clear)); }
+}
+/* Portrait: pages 3, 4, 5 text ends just above the navigator */
+@media screen and (max-aspect-ratio: 799/1000) {
+  .split .pair-col { padding-bottom: var(--nav-clear); }
+  .split .pair-col > figure.diagram { max-height: none; }
+  #questions { padding-bottom: var(--nav-clear); }
+}
+/* Portrait, one column: page 2's illustration sits small in the upper left corner */
+@media screen and (max-aspect-ratio: 799/1000) and (max-width: 599px) {
+  #premise { padding-top: 24px; padding-bottom: var(--nav-clear); }
+  #premise .slide-inner { grid-template-columns: auto minmax(0, 1fr); gap: 16px; }
+  #premise figure.diagram { grid-row: 1; grid-column: 1; width: clamp(72px, 24vw, 120px); }
+  #premise .slide-head { grid-row: 1; grid-column: 2; text-align: left; }
+  #premise .slide-head h1 { margin: 0; font-size: clamp(26px, 7.5vw, 34px); }
+  #premise .text { grid-row: 2; grid-column: 1 / -1; font-size: clamp(11px, min(2.15vh, 4.2vw), 18px); }
+  #premise .premise-sub { font-size: 1.25em; }
+}
+/* Portrait page 6: title card fades out over the full-page demo */
+@media screen and (max-aspect-ratio: 799/1000) {
+  #here { position: relative; height: 100vh; height: 100svh; height: 100dvh; min-height: 0; padding: 0; }
+  #here .slide-inner { display: block; max-width: none; height: 100%; }
+  #here .demo-box { height: 100%; }
+  #here .demo-frame { height: 100%; border: 0; border-radius: 0; }
+  #here .zfold { max-height: 100%; border: 0; border-radius: 0; }
+  #here .slide-head { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; pointer-events: none; transition: opacity .6s ease; }
+  #here .slide-head h2 { margin: 0; padding: 18px 28px; border-radius: 18px; background: #3a3a3c; color: #f5f5f7; font-size: clamp(22px, 7vw, 32px); }
+  #here.revealed .slide-head { opacity: 0; }
+}
+/* Wide landscape (16:9 and wider): page 7 headline margins */
+@media screen and (min-aspect-ratio: 16/9) {
+  #applies { align-items: flex-start; padding-top: 12px; padding-bottom: var(--nav-clear); }
+  #applies .slide-inner { gap: clamp(8px, 3vh, 20px); }
+  #applies h2 { margin: 0; font-size: clamp(22px, 8vh, 40px); }
+  #applies ul.plain { margin: 0 0 .5em; font-size: clamp(15px, 5vh, 28px); }
+  #applies ul.plain li { margin-bottom: .4em; }
+}
+/* Wide landscape: pages 11-15 headline with little margin, figure right of the text */
+@media screen and (min-aspect-ratio: 16/9) {
+  #connection, #time, #petri, #johnson, #threat { align-items: flex-start; padding-top: 8px; padding-bottom: 16px; }
+  #connection .slide-inner, #time .slide-inner, #petri .slide-inner, #johnson .slide-inner, #threat .slide-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 8px 24px;
+  }
+  #connection h2, #time h2, #petri h2, #johnson h2, #threat h2 { margin: 0; font-size: clamp(20px, 7vh, 34px); }
+  #connection .text, #time .text, #petri .text, #johnson .text, #threat .text { grid-column: 1; font-size: clamp(13px, 3.6vh, 1em); }
+  #connection figure.diagram, #time figure.diagram { grid-column: 2; grid-row: 2 / span 2; width: min(50vw, calc((100dvh - 56px - var(--nav-clear)) * 1.9)); }
+  #connection figure.diagram svg, #time figure.diagram svg { max-height: calc(100dvh - 56px - var(--nav-clear)); }
+  #petri .figure, #johnson .figure, #threat .figure, #petri .petri, #johnson .petri, #threat .petri { display: contents; }
+  #petri .petri-stage, #johnson .petri-stage, #threat .petri-stage {
+    grid-column: 2; grid-row: 2 / span 5;
+    width: min(46vw, calc(100dvh - 56px - var(--nav-clear))); justify-self: end;
+  }
+  #petri .petri-controls, #petri .petri-panel, #petri .petri-legend,
+  #johnson .petri-controls, #johnson .petri-panel, #johnson .petri-legend,
+  #threat .petri-controls, #threat .petri-panel, #threat .petri-legend { grid-column: 1; }
+  #petri .text, #johnson .text, #threat .text { grid-row: 2; }
+  #petri .petri-controls, #johnson .petri-controls, #threat .petri-controls { grid-row: 3; }
+  #petri .petri-panel, #johnson .petri-panel, #threat .petri-panel { grid-row: 4; }
+  #petri .petri-legend, #johnson .petri-legend, #threat .petri-legend { grid-row: 5; }
+  #johnson .text { column-count: 1; }
+}
+/* Page 8 with five stages: one page in wide landscape and portrait */
+@media screen and (min-aspect-ratio: 16/9) {
+  #staging { padding-top: 8px; padding-bottom: var(--nav-clear); }
+  #staging h2 { font-size: clamp(22px, 8vh, 40px); }
+  #staging .slide-inner { gap: clamp(6px, 2.5vh, 24px); }
+}
+@media screen and (max-aspect-ratio: 799/1000) {
+  #staging { padding-top: 24px; padding-bottom: var(--nav-clear); }
+  #staging .text { font-size: clamp(12px, min(1.9vh, 4.3vw), 1em); }
 }
