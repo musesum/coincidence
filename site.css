@@ -613,3 +613,11 @@ br.br-portrait { display: none; }
 }
 /* Appendix subhead */
 .appendix-sub { margin: 0; font-size: clamp(18px, 2.2vw, 28px); color: var(--ink-2); }
+/* Top margins: every page starts 12px from the top; cover and Appendix stay centered */
+@media screen {
+  .slide, .slide.wide, .slide.split, #premise, #questions, #applies, #staging, #contact, #sources, #connection, #time, #petri, #johnson, #threat { padding-top: 12px; align-items: flex-start; }
+  .split .pair { align-content: start; }
+  .split .pair-col { padding-top: 12px; justify-content: flex-start; }
+  .slide-head h1, .slide-head h2 { margin-top: 0; }
+  #origin, #appendix { align-items: center; }
+}
