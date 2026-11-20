@@ -560,7 +560,9 @@ br.br-portrait { display: none; }
 @media screen {
   #here { position: relative; height: 100vh; height: 100svh; height: 100lvh; min-height: 0; padding: 0; }
   #here .slide-inner { display: block; max-width: none; height: 100%; padding: 0; }
-  #here .demo-box { height: 100%; }
+  /* demo ends above the navigator with Safari's toolbar showing, so its When and Where row stays in view */
+  #here { background: #0e0f14; }
+  #here .demo-box { height: 100%; height: calc(100svh - var(--nav-clear)); }
   #here .demo-frame { height: 100%; border: 0; border-radius: 0; }
   #here .zfold { max-height: 100%; border: 0; border-radius: 0; }
   #here .slide-head { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; pointer-events: none; transition: opacity .6s ease; }
