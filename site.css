@@ -476,6 +476,9 @@ ol.steps ul li { margin-bottom: .2em; }
   #premise .slide-inner, #today .slide-inner, #ride .slide-inner, #questions .slide-inner { padding-inline: clamp(0px, 10vw - 48px, 120px); }
 }
 /* Page 5: the table ends at its longest row */
+/* Page 15 title breaks before "Different Logs" in portrait windows */
+br.br-portrait { display: none; }
+@media screen and (orientation: portrait) { br.br-portrait { display: inline; } }
 #questions .table-wrap table { width: auto; }
 #questions .table-wrap td { padding-right: 24px; }
 /* Page 8 Deployment: one page; two columns of stages in landscape and squarish windows, smaller type in short windows */
