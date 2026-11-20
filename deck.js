@@ -167,7 +167,7 @@ for (const box of document.querySelectorAll('[data-demo]')) {
   frame.addEventListener('load', () => watchTouches(frame));
 }
 
-// Portrait page 6: the title card shows on arrival, then fades once the demo is live.
+// Page 6: the title card shows on arrival, then fades once the demo is live.
 const here = document.getElementById('here');
 if (here) {
   let reveal = 0;
@@ -180,7 +180,7 @@ if (here) {
   }, { threshold: 0.6 }).observe(here);
 }
 
-// Portrait full-page demo: touches inside it fade the navigator out; it returns 2 s after the last touch ends.
+// Full-page demo: touches inside it fade the navigator out; it returns 2 s after the last touch ends.
 const nav = document.querySelector('.deck-nav');
 let navBack = 0;
 function watchTouches(frame) {
@@ -188,7 +188,6 @@ function watchTouches(frame) {
   try { doc = frame.contentDocument; } catch { return; }
   if (!doc || !nav) return;
   const away = () => {
-    if (!portrait.matches) return;
     clearTimeout(navBack);
     nav.classList.add('away');
   };
